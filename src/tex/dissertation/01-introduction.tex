@@ -1,0 +1,75 @@
+%\documentclass[12pt]{article}
+
+%\usepackage{../Diss}
+%\doublespacing
+%\begin{document}
+
+%	\author{}
+%	\title{Introduction}
+%	\date{}
+%	\maketitle
+
+The beginnings of this project arose out of a seminar led by Professor Austen Clark on classic readings in the philosophy of perception. There I encountered a peculiar argument of W. H. F. Barnes \citeyear{Barnes:1944} which alleged that sense-data, if they exist, must disobey the Law of Excluded Middle. Barnes presumably did not endorse his argument's conclusion, instead offering it as an addition to the growing list of \emph{reductiones ad absurdum} against theories of sense-data. My interest in the argument, however, was not primarily in the question of its soundness, but in a desire to grasp its rather provocative conclusion.  
+
+Approaching this from the standpoint of philosophical logic, the question becomes how to make formal sense of sense-data having peculiar logical features. What might a minimal revision of logic look like that countenanced the failure of the Law of Excluded Middle (LEM), while preserving as much as possible of the classical inferences? 
+
+A natural way to express the the failure of LEM is as follows:
+
+\[\notProves{B}{A\vee\neg A}\]
+
+\noindent where $\vdash$ abbreviates logical consequence, and $\neg$ and $\vee$ are taken to express negation and disjunction, respectively. In this dissertation I formulate a three-valued logic that accommodates this failure, and expand on further desiderata unmet by other nearby systems on offer. 
+
+There is a range of various well-studied formal systems that have this feature (for discussion, see Chapter 2), and so further specifications are necessary to clarify the formal requirements of the desired system. In general, as above, the goal is a `minimal' revision to classical logic such that LEM fails. This failure, however, occurs not as a result of general semantic properties of linguistic items (e.g. sentences or propositions), but because of the indeterministic character of a particular kind of metaphysical entity. 
+
+I take this general characterization to provide two constraints on the desired logic. The first, corresponding to the goal of minimal revision, is that the system maintain in every respect the Law of Noncontradiction (LNC). This amounts to three things, foremost that the system admit no case in which both a sentence and its negation are true. Second, the system should maintain the related classical principle of \emph{Explosion}, or \emph{Ex Falso Quodlibet}:
+
+\[\proves{A\wedge\neg A}{B}\]
+
+\noindent That is, from a contradiction, anything follows. The final, and strongest, form of LNC I consider states that the negation of a contradiction is a tautology, or \emph{logical truth}:
+
+\[\proves{B}{\neg(A\wedge\neg A)}\]
+
+\noindent The logical revision, then, seeks at minimum to block the inference from the failure of LEM to the failure of LNC. The is the starting point for the system I develop here, called \GO\ (for `gappy objects').
+
+The interpretation of \GO\ allows one to accept Barnes's conclusion about sense-data without thereby accepting its dialectical force as an \emph{absurdum}. For the majority of philosophical debates, determining what makes something `absurd' in the sense required for a reductio is unproblematic. In classical logic, any `violation' of a logical truth entails a contradiction, and so it suffices to identify an absurdum with any logical contradiction. However, once the debate turns to the logical principles themselves, the criteria for absurdity are often the very source of disagreement. 
+
+Here I will take it for granted that extracting a contradiction provides a sufficient demonstration of absurdity, despite this not being universally accepted. The Law of Noncontradiction, however, is only one among several logical principles. The Law of Excluded Middle seems pre-theoretically to be an independent, though arguably related, principle. Aristotle, at least, apparently felt the need to state the two as separate, independently motivated, principles. My suggestion here is that in order to understand the proposition that sense-data disobey LEM in a substantive way, one must attempt to conceive of such a circumstance without thereby entertaining a contradiction.
+
+The second desideratum for the formal system corresponds to the idea that the failure of LEM is in some sense \emph{restricted}, such that it occurs only for a peculiar type of object. In this case, sense-data are the target, though from the perspective of the formal system it is inconsequential what kinds of objects one has in mind. It is this idea of a `restricted' failure of a logical principle that presents a bit of a puzzle. I will comment on this in later chapters, and so here I will make a few brief remarks.
+
+On the surface it seems natural to assert that a particular kind of object or property has distinctive logical characteristics. The property of transitivity, for instance, applies to certain properties (being a descendant, for example), and not to others, and it seems in principle unproblematic to attribute such a logical characteristic to some kinds of properties and objects, and not to others. On the other hand, one could distinguish these facts about particular objects or properties as a posteriori, or topic-specific truths which, though certainly `logical' in some sense, are not `purely' logical inasmuch as they cannot be deduced on the basis of form alone. One must have particular knowledge about what it is to be a descendant that justifies abstracting transitivity as one of its logical features. Logic, it is generally thought, is topic-neutral, and thus what one might call `logic proper' does not vary according to content, as it concerns everything there is. And since a principle of transitivity does not apply to \emph{all} properties, it is not a principle of logic proper in this sense. LEM, however, is (or was supposed to be) a law of logic proper, and so it seems that even a `restricted' failure would count as a total failure insofar as its application was thought to be topic-neutral and completely general.
+
+Yet there seems to be a significant pull in the other direction, particularly if one allows for the possibility that classical logic might benefit from an upgrade. In this context, any revision of logic, if countenanced, is to `fix' the logical system in order to accommodate unanticipated anomalies, since generally speaking the classical system is adequate. Mathematical proof, for instance, is in fine shape, and its deductive certainty remains unthreatened by revisions to solve truth-theoretic paradoxes; and the deviant behavior of sense-data, or some kind of peculiar object makes one's daily applications of, say, modus tollens no less valid. A minimal mutilation to logic, then, would do the minimum required to accommodate the anomaly, while leaving the rest intact.
+
+A tension results. One intuition suggests that deductive logic is topic-neutral and purely formal. Validity is truth-preserving in \emph{all} contexts, irrespective of the particular subject matter. Thus it seems impossible to `isolate' the failure of a logical principle, since a putative logical law, if really a law, must hold irrespective of content. A logical principle that is said to `hold' in only some contexts merely \emph{resembles} a logical law, in the same way that transitivity, as a above, resembles a law. 
+
+One suggestion to reconcile this is to adopt a logical pluralism which holds that different domains may require different logics. Mathematics may require classical logic, while the metaphysics of perception might require a logic without LEM, and the logic of a truth predicate may countenance the failure of Explosion. Which logic one's reasoning is subject to will depend on the subject matter about which one is reasoning. However, this attempt will fail to reconcile the perceived tension in one of two ways. Imagine that the different logics are linearly ordered from weakest to strongest, where a weaker consequence relation is a subset of a stronger one. If one holds that the weakest logic is `logic proper', since it subsumes the rest, then it is hard to see how reasoning conducted in any of the stronger logics ought to be considered deductive. (Alternatively, if they are not linearly ordered, once could consider the strongest logic that is weaker than all the rest to be logic proper.) For the inferences in the stronger logics are only `valid' under simplifying assumptions that are justified by relevant facts about the domain for which the stronger logic holds. This, however, is the primary characteristic of \emph{non}-deductive reasoning, that it can always be \emph{considered} deductive, once appropriate domain-specific premises are added.
+
+This version of pluralism, then, seems to collapse into monism in an important respect, since logic proper is really just the weakest logic.  If, on the other hand, a pluralist holds that there is no sense at all to be made of logic proper, and that the appropriate logic for a domain is wholly relative and independent of all others, then the revision of logic becomes far from minimal. For not only have classical principles of logic been revised, but the very nature of logic as wholly general has been abandoned. Topic-neutrality would have to be rejected outright, since logic would become by definition topic-specific.
+
+The interpretation I offer for the formal system developed here offers one possible way this tension might be reconciled. One feature that aids in this is the restriction of truth-value gaps on the basis of logical complexity. As this develops, it will be most naturally interpreted as underwriting some form of logical atomism. This is most evident in the condition that only atomic propositions as well as their negations admit of truth-value gaps. This does not result from a direct specification in the semantics, but rather from a rather simple and straightforward reading of the binary connectives. I will say briefly, then, what I intend by `logical atomism'.
+
+Considering only the works Russell and Wittgenstein, one can find a great number of theses, different collections of which have at some time or other been referred to as Logical Atomism. \cite{Bradley:92}, for instance, outlines fifteen distinct theses on which both Russell and Wittgenstein seem to agree. I will not rehearse them all here, but most important for present purposes is the following from Russell:
+
+\begin{quote}
+Particulars have this peculiarity, among the sort of objects that you have to take account of in an inventory of the world, that each of them stands alone and is completely self-subsistent. It has the sort of self-subsistence that used to belong to substance.\dots each particular that there is in the world does not depend upon any other particular. \citeyear[p.202]{Russell:18}
+\end{quote}
+
+\noindent As Russell gestures, this idea of the logical independence or distinctness of simple particulars compares to some degree with Aristotle's notion of substance. Armstrong also cites Hume for a similar idea as inspiration for his Combinatorialism, discussed in Chapter 3:
+
+\begin{quote}
+This principle draws its inspiration from Hume's principle that there are no necessary connections between distinct existences. Any two distinct existences may be found together, or found one without the other, in a single world. \citeyear[p. 20]{Armstrong:89}
+\end{quote}
+
+\noindent A related thesis of atomism is, of course, that the world consists of atoms of some sort or other. For Wittgenstein this is expressed primarily in terms of simple facts, and likewise for the most part for Russell. In Chapter 3 I adopt the vocabulary of facts for purposes of expounding combinatorialism in concert with the modal system. Generally, however, one can think of atomism apart from the particular ontology, as what facts consist in are simple particulars, which is perhaps more natural to think of as atoms. 
+
+I take these two theses, that there are genuine atoms, which are logically independent of each other, as a minimal version of logical atomism, and it is this conception that will underwrite the formal system. Notably absent from this, for present purposes, is the claim that this is totality of what the world consists in. I return to some of these issues in later chapters.
+
+\subsubsection*{Chapter summary}
+The first Chapter focuses on the `atoms' of perception, beginning with a defense against arguments from later C. D. Broad, and ending with Barnes's argument that sense-data disobey LEM. Chapter 2 develops the propositional system with remarks on formal features and their interpretation. The modal system in Chapter 3 examines D. M. Armstrong's atomist combinatorialism. Chapter 4 presents a tableaux proof system and its adequacy results. Chapter 5 concludes with a survey of some outstanding issues as well as areas for future research. This includes a discussion of an extended $4$-valued system and its application to `atomless' metaphysical views.
+
+
+ 
+%\bibliographystyle{chicago}
+%\bibliography{../Diss}
+%\end{document}

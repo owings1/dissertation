@@ -1,0 +1,34 @@
+%\documentclass[12pt,leqno,oldstylenums,openany]{book}
+\documentclass[12pt,leqno,openany]{book}
+\usepackage{./src/sty/Diss}
+\usepackage[explicit]{titlesec}
+\begin{document}
+\doublespace
+
+\frontmatter
+\input{./src/tex/dissertation/00-frontmatter}
+\mainmatter
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\input{./src/tex/dissertation/01-introduction}
+\chapter{Remarks on Sense Data}
+\input{./src/tex/dissertation/02-chapter1}
+\chapter{\GO: A Basic Picture}
+\input{./src/tex/dissertation/03-chapter2}
+\chapter{\GO\ Modal: A Combinatorial Approach}
+\input{./src/tex/dissertation/04-chapter3}
+\chapter{\GOModal\ Tableaux}
+\input{./src/tex/dissertation/05-chapter4}
+\chapter{Further Issues}
+\input{./src/tex/dissertation/06-chapter5}
+\chapter*{Appendix: Tableaux Examples}
+\addcontentsline{toc}{chapter}{Appendix: Tableaux Examples}
+\begin{singlespace}
+\input{./src/tex/dissertation/07-appendix}
+\end{singlespace}
+\bibliographystyle{chicago}
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{./src/bib/Diss}
+\end{document}

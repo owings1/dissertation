@@ -1,0 +1,649 @@
+%\documentclass[12pt]{article}
+
+%\usepackage{ ../Diss }
+%\doublespacing
+
+
+
+%\setcounter{section}{-1}
+
+
+%\begin{document}
+
+%	\title{Chapter 2 \\ 
+%				\ \\ 
+%				\GO: A Basic Picture}
+%	\date{}
+%	\author{}
+%	\maketitle
+
+	In this chapter I present the propositional system \GO, a three-valued \emph{gappy} logic that restricts the assignment of gaps to literals.\footnote{Literals are typically defined as atomic or negated atomic sentences. Here we also mean an atomic parameter preceded by any number of negation signs, such that $\neg\neg p$, $\neg\neg\neg p$, and so forth, are treated as literals.} The logic results from combining a familiar treatment of three-valued negation with a less-famliar treatment of conjunction and disjunction. The result has a natural interpretation as an \emph{atomistic} logic, i.e. one that assumes some form of Logical Atomism.
+	
+	\S 1 covers some brief background of many-valued logics. \S 2 gives an informal sketch of the basic \GO\ semantics. \S 3 highlights features of the formal system, and \S 4 covers the philosophical interpretation.
+
+	\section{Background}\label{background}
+	This section briefly reviews a few logical systems relevant to the current discussion. The reader quite familiar with many-valued logics may wish to skip ahead to \S 2.
+	
+	\subsection{Classical Logic}\label{classicalLogic}
+	Today's standard system of classical propositional logic (herein \CPL) comes from Frege and has been refined over decades by many others. The recognition of \CPL\ as the standard is a relatively recent development, however, as for centuries the standard was Aristotle's syllogistic logic, and there are good reasons for believing that it conflicts with \CPL\ in a few, yet significant ways.\footnote{See for instance \cite{Luk1957} and \cite{Corcoran1972}.} Other reasons abound for restricting (or expanding, depending on one's viewpoint) \CPL, and they are well-rehearsed in the recent literature, and so we will not survey them here.\footnote{For a useful survey, see \cite{Rescher1969} and \cite{Beall:2003}.}
+	
+	A familiar presentation of \CPL\ begins by recursively defining a set of sentence elements, which includes a base of atomic elements \set{p,q,r,\dots}\ as well as all possible combinations built in the usual way from a set of connectives \set{\neg,\wedge,\vee}, standing for negation, conjunction and disjunction, respectively.\footnote{For present purposes, we take both $\wedge$ and $\vee$ as primitive, disregarding redundancy.}
+ Logical consequence is then defined in terms of models, or valuation functions $\MCnu$ that assign each sentence a single value, $1$ or $0$. A conclusion $A$ is a logical consequence of premises $B_0,\dots,B_n$ iff for every valuation where each of $\Val{B_0}, \dots, \Val{B_n}$ is 1, it is also the case that $\Val{A} = 1$. Our valuations are restricted to those that accord with the following diagrams:
+\begin{singlespace}
+	\begin{longtable}{c c c }
+		\begin{tabular}{c | c}
+			$\neg$ 	&  			\\
+			\cline{1-2} 
+			$0$		& 	$1$ 	\\ 
+			$1$ 	& 	$0$ 	\\
+		\end{tabular} 
+		&
+		\begin{tabular}{c | c c }
+			$\wedge$ 	& $0$ & $1$	\\
+			\cline{1-3}
+			$0$			& $0$ & $0$ \\
+			$1$			& $0$ & $1$ \\
+		\end{tabular}
+		&
+		\begin{tabular}{c | c c }
+			$\vee$ 		& $0$ & $1$	\\
+			\cline{1-3}
+			$0$			& $0$ & $1$ \\
+			$1$			& $1$ & $1$ \\
+		\end{tabular}
+		
+	\end{longtable}
+\end{singlespace}
+\noindent Two additional connectives, the \emph{material conditional} $\supset$ and \emph{material equivalence} $\equiv$ are defined, where $A \supset B$ abbreviates $\neg A \vee B$, and $A \equiv B$ abbreviates $(A \supset B) \wedge (B \supset A)$.
+
+	\subsection{Many-valued logics}\label{manyValuedLogics}
+	
+	A many-valued logic, somewhat confusingly, is one that has more than two values. Here we consider systems that have exactly three values, \set{0,\oneHalf,1}.
+	
+	Expanding the set of values naturally requires modifications in other parts of the system. In some cases this includes modifying the definition of logical consequence. In \emph{paraconsistent} logics, which may countenance true contradictions $(A \wedge \neg A)$, the intermediate value functions as an additional way of being \emph{true}. A typical strategy for this is to define logical consequence in terms of a set \DesValues\ of \emph{designated} values, where an argument is valid iff every valuation that assigns each of the premises some value in \DesValues, also assigns the conclusion a value in \DesValues. Thus in \CPL, \DesValues=\set{1}, and in the Logic of Paradox \cite{Priest1979}, \LP, \DesValues=\set{\oneHalf,1}. In this system, the value $\oneHalf$ can be thought of as \emph{both} true and false, and a sentence receiving this value is said to be \emph{glutty}.
+	
+	The current discussion, on the other hand, focuses on systems that treat \oneHalf\ as in some sense \emph{neither} true nor false. A sentence receiving the value \oneHalf\ is said to be \emph{gappy}, the idea being that it falls within a gap between truth and falsity. Precisely what this amounts to depends on the particular philosophical issue for which the system is used. The label `indeterminate' is common, which in some cases means `unprovable', and in others something a bit more metaphysical. We return to these issues in \S 4. The upshot in any case is that, as in classical logic, \DesValues=\set{1}, and so our set of \emph{un}designated values is \set{0, \oneHalf}. As a result, for present purposes, we need not alter our \CPL\ definition of logical consequence. 
+	
+	It remains to say how the connectives behave with respect to this new value. Naturally, there are several different ways one might go, although some are no doubt more interesting than others. A review of all these ways is too large a task, but we will have a brief look at some systems of Kleene, \L ukasiewicz and Bochvar.
+	
+	\subsubsection{Kleene}\label{kleene}
+	
+	The \emph{Strong Kleene} system (herein \Kthree) treats the connectives in the following way:
+\begin{singlespace}	
+	\begin{longtable}{c c c}
+	 	\begin{tabular}{c | c}
+			$\neg$ 	&  			\\
+			\cline{1-2} 
+			$0$			& 	$1$ 		\\ 
+			$\oneHalf$	& 	$\oneHalf$	\\
+			$1$ 		& 	$0$ 		\\
+		\end{tabular} 
+		& 		
+		\begin{tabular}{c | c c c}
+			$\vee$ 		&	 $0$		& 	$\oneHalf$ 	& 	$1$ \\
+			\cline{1-4} 
+			$0$ 		& 	$0$ 		& 	$\oneHalf$ 	& 	$1$ \\
+			$\oneHalf$ 	& 	$\oneHalf$ 	& 	$\oneHalf$ 	& 	$1$ \\
+			$1$ 		& 	$1$ 		& 	$1$ 		& 	$1$ \\
+		\end{tabular}
+ 		& 
+		\begin{tabular}{c | c c c}
+			$\wedge$ 	& 	$0$ 	& 	$\oneHalf$ 	& 	$1$ \\
+			\cline{1-4} 
+			$0$ 		& 	$0$ 	& 	$0$ 		& 	$0$ \\
+			$\oneHalf$ 	& 	$0$ 	& 	$\oneHalf$ 	&	$\oneHalf$ \\
+			$1$ 		& 	$0$ 	& 	$\oneHalf$ 	&	$1$ \\
+		\end{tabular}
+		
+	\end{longtable}
+\end{singlespace}	
+	\noindent With respect to the classical values $1$ and $0$, the connectives preserve their treatment in \CPL. What of the value \oneHalf? Negation behaves similar to the intuitionistic mode. Intuitively, if a sentence is gappy, so too is its negation.
+	
+	The tables for $\wedge$ and $\vee$ also have somewhat intuitive readings. Here we can think of a conjunction as true just when both conjuncts are true, false when one or more conjuncts is false, and gappy in all other cases. Likewise, a disjunction is true just when one or more disjuncts is true, false when both disjuncts are false, and gappy in all other cases. (Incidentally, it is worth noting that \LP\ is the glutty dual of \Kthree, having the same readings of the connectives but treating \oneHalf\ as designated.)
+		
+	The \emph{Weak Kleene} system keeps $\neg$ the same (likewise for all systems discussed herein, including \GO), but treats the binary connectives differently:
+\begin{singlespace}	
+	\begin{longtable}{c c c}
+		\begin{tabular}{c | c c c}
+			$\vee$ & $0$ & $\oneHalf$ & $1$ \\
+			\cline{1-4} 
+			$0$ & $0$ & $\oneHalf$ & $1$ \\
+			$\oneHalf$ & $\oneHalf$ & $\oneHalf$ & $\oneHalf$ \\
+			$1$ & $1$ & $\oneHalf$ & $1$ \\
+		\end{tabular}
+		& 
+		\begin{tabular}{c | c c c}
+			$\wedge$ & $0$ & $\oneHalf$ & $1$ \\
+			\cline{1-4} 
+			$0$ & $0$ & $\oneHalf$ & $0$ \\
+			$\oneHalf$ & $\oneHalf$ & $\oneHalf$ & $\oneHalf$ \\
+			$1$ & $0$ & $\oneHalf$ & $1$ \\
+		\end{tabular}
+		
+	\end{longtable}
+\end{singlespace}	
+	\noindent With the interpretation of \oneHalf\ as \emph{meaningless}, the thought here is that any statement built from one or more meaningless statements is itself meaningless. (Or, as the saying goes, one bit of rat's dung spoils the soup.)
+	
+	Consider now the valuation that assigns each atomic element the value \oneHalf. In the Kleene systems, the tables show that this valuation must also assign the value \oneHalf\ to every sentence element whatsoever. As a result, though there are certainly valid arguments, there are no tautologies\textemdash or \emph{logical truths}\textemdash in these systems. Consequently, it is often remarked that the Kleene systems lack a genuine conditional, since \emph{Identity} (`if $A$ then $A$') and \emph{Equivalence} (`$A$ iff $A$') fail as logical truths, not only for $\supset$ and $\equiv$, but for any definable connective.
+	\subsubsection{\L ukasiewicz}\label{luk}
+		
+	The \L ukasiewicz three-valued system \Lthree\ preserves the tables for \Kthree, but has an additional connective \arrow\ intended as an adequate conditional, one for which identity and equivalence hold:\footnote{The \Lthree\ $\arrow$ connective is not definable in terms of $\neg$, $\wedge$ and $\vee$. However, \L ukasiewicz took the connectives $\neg$ and $\arrow$ as the only primitives, and defined $\wedge$ and $\vee$ from them.}
+\begin{singlespace}	
+	\begin{longtable}{c}
+		\begin{tabular}{c | c c c}
+			$\arrow$ 	&	$0$			&	$\oneHalf$	&	$1$ \\
+			\cline{1-4}
+			$0$			&	$1$			&	$1$			&	$1$ \\
+			$\oneHalf$	&	$\oneHalf$	&	$1$			&	$1$ \\
+			$1$			&	$0$			&	$\oneHalf$	&	$1$
+		\end{tabular}
+	\end{longtable}
+\end{singlespace}	
+\noindent Intuitively, if the consequent is at least as strong as the antecedent, a conditional is true (thinking of \oneHalf\ as ``in between'' true and false). Otherwise, the `value' of the conditional corresponds to the how much `stronger' the antecedent is than the consequent. 
+		
+	\subsubsection{Bochvar}\label{bochvar}
+	
+	Lastly, we consider the system of D. A. Bochvar \citeyear{Bochvar1937}. Bochvar's so-called `internal' system \Bthree\ is equivalent to Weak Kleene, while the full system \BthreeE\ includes an additional `assertion operator' \Assert\ with the following table:
+\begin{singlespace}	
+	\begin{longtable}{c}
+		\begin{tabular}{c | c}
+			$\Assert$ &  \\
+			\cline{1-2} 
+			$0$ 		& $0$ \\ 
+			$\oneHalf$  & $0$ \\
+			$1$ 		& $1$ \\
+		\end{tabular} 
+	\end{longtable}
+\end{singlespace}
+\noindent In turn, \BthreeE\ defines `external' versions of the binary connectives:
+\begin{singlespace}
+	\begin{quote}
+			$\BEneg A \Defined\ \neg\Assert A$ \\ 
+			$A\BEor B \Defined\ \Assert A\ \vee \Assert B$ \\
+			$A\BEand B \Defined\ \Assert A\ \wedge \Assert B$ 
+	\end{quote}
+\end{singlespace}	
+The \GO\ system developed here bears a close relation to \BthreeE, which we will explore in more detail in later sections. It is worth remarking, though, that these external connectives are in a clear sense fully \emph{classical}, and thus the \BthreeE\ logical consequence relation contains \CPL\ logical consequence as a fragment.
+
+	\section{\GO\ semantics}\label{semantics}
+
+	Common to these systems is the preservation of \CPL's treatment of the connectives with respect to the classical values. In fact, it is widely assumed that this is a requirement for any `acceptable' deviation from \CPL, insofar as one construes the values of the system as \emph{truth}-values. It is evident, however, that this requirement underdetermines the behavior of many-valued systems with respect to the intermediate value. 
+	
+	It is therefore natural to consider the connectives of each of the above systems as faithful expansions of their classical counterparts. Their philosophical legitimacy, so to speak, is sufficiently grounded in the pre-theoretical plausibility of the respective truth tables for each connective. This is perhaps most clear when a more or less precise reading is given to the intermediate value, although a precise reading is not in general necessary.
+
+Taking the standard treatment of three-valued negation, an intuitive reading of the \GO\ connectives also holds true for the \CPL\ connectives. A conjunction is true just when both conjuncts are true, otherwise it is false, and a disjunction is true just when at least one disjunct is true, and false otherwise. This reading gives the following tables:
+\begin{singlespace}
+	\begin{longtable}{c c c c c}
+ 		& & & & \\
+		\begin{tabular}{c | c}
+			$\neg$ &  \\
+			\cline{1-2} 
+			$0$ & $1$ \\ 
+			$\oneHalf$ & $\oneHalf$ \\
+			$1$ & $0$ \\
+		\end{tabular} 
+		& & 
+		\begin{tabular}{c | c c c}
+			$\wedge$ & $0$ & $\oneHalf$ & $1$ \\
+			\cline{1-4} 
+			$0$ & $0$ & $0$ & $0$ \\
+			$\oneHalf$ & $0$ & $0$ & $0$ \\
+			$1$ & $0$ & $0$ & $1$ \\
+		\end{tabular}
+		 		& & 
+		\begin{tabular}{c | c c c}
+			$\vee$ & $0$ & $\oneHalf$ & $1$ \\
+			\cline{1-4} 
+			$0$ & $0$ & $0$ & $1$ \\
+			$\oneHalf$ & $0$ & $0$ & $1$ \\
+			$1$ & $1$ & $1$ & $1$ \\
+		\end{tabular}
+	\end{longtable}
+\end{singlespace}	
+
+\noindent It is fitting that an intuitive reading of the connectives can easily be given, especially for an alternative logic with an eye toward a `conservative' deviation from \CPL. The system's main significance, however, comes from its characteristic features and their philosophical interpretation, which we review in \S 3 and \S 4, respectively.
+
+As above, logical consequence is defined in the usual way, where $A$ is a logical consequence of $B_1,\dots,B_n$ iff all valuations that assign each of $B_1,\dots,B_n$ value $1$ assign $A$ value $1$. 
+
+\bigskip
+
+\textbf{\emph{Notation.}} We write $\proves{B}{A}$ for `$A$ is a logical consequence of $B$' and $\notProves{B}{A}$ when $A$ is \emph{not} a consequence of $B$. Tautologies are either explicitly indicated as such, or written as a consequence of an arbitrary sentence, for example $\proves{B}{A\arrow A}$. 
+
+\subsection{Alternative semantics}\label{alternativeSemantics}
+
+A mathematically concise way to give the semantics, which will be useful for subsequent chapters, makes use of the following two arithmetic functions:
+
+\begin{quote} 
+		$g(x) = \Min{ x, 1 - x }$ \\
+		$c(x) = x - g(x)$ 
+\end{quote} 
+	
+\noindent Note that, with respect to the three values \set{0, \oneHalf, 1} the function $g$ returns $0$ for the classical values, which gives the latter function $c$ the following behavior:  
+
+\[c\left(x\right) = \begin{cases} 1 \mbox{ if } x=1 \\
+			0 \mbox{ otherwise.}
+		\end{cases}
+\]     
+
+\noindent One might call this a `classical cruncher,' since its output is always a classical value. For the connectives, our valuation function \MCnu\ behaves as follows:
+
+\begin{itemize}
+\item \emph{Negation.} $\Val{\neg A} = 1 - \Val{A}$
+
+\item \emph{Conjunction.} $\Val{A\wedge B} = \Min{c(\Val{A}), c(\Val{B})}$
+
+\item \emph{Disjunction.} $\Val{A\vee B} = \Max{c(\Val{A}), c(\Val{B})}$
+\end{itemize}
+
+\noindent This version of the semantics allows for convenient symmetry in giving the semantics of the modal connectives in Chapter 3. It is also useful for the discussion on expanding the set of values for \GO\ in Chapter 5. It is unnecessary, however, to see it as anything more than mathematical convenience, since the truth tables for the connectives invite independently plausible readings.
+
+\section{Logical features}\label{logicalFeatures}
+
+This section highlights some aspects of the \GO\ system. We return to the philosophical interpretation in \S 4. 
+
+\subsection{Characteristic Inferences}\label{inferences}
+
+One can see that any counterexamples in \GO\ to a \CPL\ validity will be valuations involving the value \oneHalf. Among these, of course, is the failure of LEM:
+
+\[ \notProves{B}{A \vee \neg A} \]
+
+\noindent A contrast between \GO\ and the other systems canvassed above is that counterexamples to this tautology assign $A \vee \neg A$ the value $0$ as opposed to $\oneHalf$. This generalizes to any failure of a classical tautology in \GO, since every \CPL\ tautology involves either $\vee$ or $\wedge$ (or connectives defined from these). Of course, this does not hold true of failures of \CPL\ \emph{validities} in general, for example:
+
+\[ \notProves{\neg (A \vee B)}{\neg A} \]
+
+\noindent For this fails exactly when the conclusion is gappy. This in turn shows that some classical DeMorgan inferences must also fail.
+
+\[ \notProves{\neg(A \vee B)}{\neg A \wedge \neg B} \]
+\[ \notProves{\neg(A \wedge B)}{\neg A \vee \neg B} \]
+
+\noindent But the other direction of the DeMorgan inferences do hold:
+
+\[ \proves{\neg A \vee \neg B}{\neg(A \wedge B)} \]
+\[ \proves{\neg A \wedge \neg B}{\neg(A \vee B)} \]
+
+	The failure of some DeMorgan inferences is precisely what is in order for a strong separation between LEM and LNC. We can see this independence in several ways. Most apparent is that a contradiction of the form $A \wedge \neg A$ never receives value $1$, and in light of the above, it uniformly assumes value $0$. A result is that the negation of a contradiction is a tautology.
+
+\[ \proves{B}{\neg(A \wedge \neg A)} \]
+
+\noindent Consequently \emph{Explosion}, or \emph{Ex Falso Quodlibet}, holds.
+
+\[ \proves{A \wedge \neg A}{B} \]
+
+\noindent The failure of one direction of DeMorgan, however, allows one to \emph{negate} a case of excluded middle without inferring a failure of LNC. Hence:
+
+\[ \notProves{\neg(A\vee\neg A)}{A\wedge\neg A} \]
+
+\noindent This occurs because valuations where $A$ is gappy must assign $A \vee \neg A$ value $0$, and hence the premise is satisfiable. 
+
+Thus we see that, in cases where $A$ is gappy, $\Val{A}\neq\Val{A \vee A}$. Similarly for the case of conjunction, since $\Val{A \vee A} = \Val{A \wedge A}$. We might be tempted to consider these inequalities a failure of an important substitution principle. Here, though, one must be somewhat careful. It is true that there are models where $A$ and $A \wedge A$ do not receive the same value. However, there is a sense in which each can be substituted for the other \emph{salva veritate}, since the result of any such substitution into a \emph{true} sentence will never be \emph{untrue}, and vice versa. Furthermore, the following principles hold:
+
+\[ \proves{A}{A \wedge A} \mbox{ and } \proves{A \wedge A}{A} \]
+\[ \proves{B}{A} \mbox{ iff } \proves{B}{A \wedge A} \]
+ 
+\noindent Hence $A$ and $A \wedge A$ can be substituted for each other \emph{salva validate}. Similarly for $A \vee A$ (mutatis mutandis).
+
+\subsubsection{Material connectives}\label{materialConnectives}
+
+\noindent We define the standard \emph{material} connectives:
+
+\begin{quote}
+ $ A \supset B \Defined \neg A \vee B $ \\
+ $ A \equiv B \Defined (A \supset B) \wedge (B \supset A) $
+\end{quote}
+
+\noindent These connectives behave according to the following tables:
+\begin{singlespace}
+\begin{longtable}{c c c}
+\begin{tabular}{c | c c c}
+$\supset$ & $0$ & $\oneHalf$ & $1$ \\
+\cline{1-4} 
+$0$ & $1$ & $1$ & $1$ \\
+$\oneHalf$ & $0$ & $0$ & $1$ \\
+$1$ & $0$ & $0$ & $1$ \\
+\end{tabular}
+ & & 
+\begin{tabular}{c | c c c}
+$\equiv$ & $0$ & $\oneHalf$ & $1$ \\
+\cline{1-4} 
+$0$ & $1$ & $0$ & $0$ \\
+$\oneHalf$ & $0$ & $0$ & $0$ \\
+$1$ & $0$ & $0$ & $1$ \\
+\end{tabular}
+\end{longtable}
+\end{singlespace}
+\noindent Many classical inferences hold for the material conditional, for instance:
+
+\bigskip
+
+\begin{tabular}{l l}
+ \emph{Modus Ponens}.  & 	$\proves{A, A\supset B}{B}$ \\
+ \emph{Modus Tollens}. & 	$\proves{\neg B, A \supset B}{\neg A} $ \\
+ \emph{Contraction}.		& 	$\proves{A\supset(A\supset B)}{A\supset B}$ \\
+ \emph{Contraposition}.& 	$\proves{A\supset B}{\neg B\supset\neg A}$
+\end{tabular}
+
+\bigskip
+
+\noindent We have neither \emph{Material Identity} nor \emph{Material Equivalence}.
+
+\[ \notProves{B}{A\supset A} \]
+\[ \notProves{B}{A\equiv A} \]
+
+\noindent This is no surprise, since $\supset$ merely abbreviates a disjunction. We define a more adequate conditional, where \emph{Identity} and \emph{Equivalence} hold, in \S\ref{conditional}.
+
+\subsubsection{`Restricted' classical inferences}\label{restrictedInferences}
+
+Note that, although LEM does not hold generally, we do have
+
+\[ \proves{C}{(A\vee B)\vee\neg(A\vee B)} \]
+
+\noindent of which the following is an instance:
+
+\[ \proves{B}{(A \vee A) \vee \neg(A \vee A)} \]
+
+\noindent The idea here is that, since determinacy arises at a certain level of complexity, one would expect classical `behavior' to emerge at some level. Indeed, this is given a general treatment in a later section, but it is useful to see the unabbreviate forms of some inferences. Note that the following also holds:
+
+\[ \proves{B}{\neg(A \vee A) \vee A} \]
+
+\noindent But not this:
+
+\[ \notProves{B}{(A \vee A) \vee \neg A} \]
+
+\noindent This occurs despite the validity of communtation, association, idempotence and distribution.
+
+With respect to the failures of DeMorgan, one can formulate the following restricted versions:
+
+\begin{quote}
+	$ \proves{\neg((A\vee B) \vee (C\vee D))}{\neg(A\vee B)\wedge\neg(C\vee D)} $\\
+	$ \proves{\neg((A\vee B) \wedge (C\vee D))}{\neg(A\vee B)\vee\neg(C\vee D)} $
+\end{quote}
+
+\noindent Equivalently, one can replace the first and third occurences of $\vee$ with $\wedge$ in each premise and conclusion above \emph{salva validate}.
+
+Material Identity and Equivalence have the following restricted forms:
+
+\bigskip
+
+\begin{tabular}{l l}
+ \emph{Restricted Identity}.  & 	$\proves{B}{(A\wedge A)\supset A}$ \\
+ \emph{Restricted Equivalence}. & 	$\proves{B}{(A \wedge A)\equiv (A \wedge A)}$ 
+\end{tabular}
+
+\bigskip
+
+\noindent These restricted versions of classical inferences illustrate the basis of the interpretation of \GO\ as distinctively \emph{atomistic}. We return to this in a \S\ref{atomism}. They also reflect the idea that determinacy, and thus classicality, result as a matter of form at a level of complexity, which is discussed in \S\ref{cplContainment}.
+
+\subsection{Expressibility}\label{expressibility}
+
+We have already seen a definable predicate for a strong notion of truth, or `determinate truth'.
+
+\[ \Ttrue A \Defined A \wedge A \]
+
+\noindent That is, when $A$ is false or gappy, $\Ttrue A$ is false. We get from this so-called \emph{Release} ($\proves{\Ttrue A}{A}$) and \emph{Capture} ($\proves{A}{\Ttrue}$).
+
+From this we can see that $\vee$ and $\wedge$ are interdefinable, along the following lines:
+
+\[ A \vee B \Defined \neg(\neg\Ttrue A \wedge \neg\Ttrue B) \]
+
+\noindent Furthermore, we can define a connective expressing a `gap' operator:
+
+\[ \Gap A \Defined \neg (A \vee \neg A) \]
+
+The expressibility of these operators shows that \GO\ is expressively complete with respect to the values \set{1,0}. That is, every operator represented by a truth table consisting of any combination of only classical values is expressible in \GO\ through a definable connective. This is not difficult to see, given that we have defined unary connectives whose respective operators evaluate to $1$ for each respective value, and in turn the operator for $\neg$ returns $0$ for $1$. We should not concern ourselves here with the technicalities of a rigorous proof of this, but an illustrative sketch for binary operators is perhaps helpful. For this, we can label the positions on a truth table for a binary connective as follows:
+\begin{singlespace}
+\bigskip
+\begin{longtable}{c}
+	\begin{tabular}{c | c c c}
+ 		& 				$0$ & 	$\oneHalf$ 	& $1$ \\
+		\cline{1-4} 
+		$0$ & 			$a$ & 	$b$ 		& $c$ \\
+		$\oneHalf$ & 	$d$ & 	$e$ 		& $f$ \\
+		$1$ & 			$g$ & 	$h$ 		& $i$ \\
+	\end{tabular}
+\end{longtable}
+\end{singlespace}
+
+\noindent Let \textsf{Table}$_X$ be the truth table (operator) with value $1$ at all positions in $X$, and $0$ everywhere else. In turn, we define the following array of connectives corresponding to each position on the truth table.
+
+\begin{singlespace}
+\begin{longtable}{|c | c | c|}
+	\cline{1-3}
+	&& \vspace*{-10pt}\\
+	\begin{tabular}{rlc}
+	
+		$A \Tpos_a B$ & \Defined & $\neg A \wedge \neg B$\\
+		$A \Tpos_d B$ & \Defined & $\Gap A \wedge \neg B$\\
+		$A \Tpos_g B$ & \Defined & $A \wedge \neg B$
+	\end{tabular}
+	&
+	\begin{tabular}{r l c}
+		$A \Tpos_b B$ & \Defined & $\neg A \wedge \Gap B$\\
+		$A \Tpos_e B$ & \Defined & $\Gap A \wedge \Gap B$\\
+		$A \Tpos_h B$ & \Defined & $A \wedge \Gap B$
+	\end{tabular}
+	&
+	\begin{tabular}{r l c}
+		$A \Tpos_c B$ & \Defined & $\neg A \wedge B$\\
+		$A \Tpos_f B$ & \Defined & $\Gap A \wedge B$\\
+		$A \Tpos_i B$ & \Defined & $A \wedge B$
+	\end{tabular} \\
+	\cline{1-3}
+\end{longtable}
+\end{singlespace}
+\noindent We can see that each connective $\Tpos_x$ expresses \textsf{Table}$_{\set{x}}$. Let $Y$ be the set of table positions $\set{a,\dots,i}$. Hence $\set{\textsf{Table}_X \st X \SubSet Y}$ is the set of all possible truth tables containing only $1$s and $0$s. We can express \textsf{Table}$_\Empty$ (the all-$0$ table) with $A\wedge \neg A$. Now if a sentence form $A$ expresses \textsf{Table}$_\alpha$ and $B$ expresses \textsf{Table}$_\beta$, then given the semantics of disjunction, $A \vee B$ expresses \textsf{Table}$_{\set{\alpha,\beta}}$. Hence by induction we can express every \textsf{Table}$_x$ such that $x \in Y$.
+
+\subsubsection{Conditional}\label{conditional}
+
+Given the above, it is easy to see that we can define a conditional connective $\arrow$ as follows.
+
+\begin{itemize}
+\item $A\arrow B \Defined (A\supset B)\vee(\Gap A \wedge \Gap B)$
+\item $A\biarrow B \Defined (A\arrow B)\wedge(B\arrow A)$
+\end{itemize}
+
+The connective $\arrow$ is defined in terms of a disjunction. The first disjunct is just the material conditional. The second disjunct makes use of our defined \emph{gap} operator, so that $\Gap A \wedge \Gap B$ is true just when both $A$ and $B$ are gappy. These connectives accord with the following tables:
+\begin{singlespace}
+\begin{longtable}{c c c}
+\begin{tabular}{c | c c c}
+$\arrow$ & $0$ & $\oneHalf$ & $1$ \\
+\cline{1-4} 
+$0$ & $1$ & $1$ & $1$ \\
+$\oneHalf$ & $0$ & $1$ & $1$ \\
+$1$ & $0$ & $0$ & $1$ \\
+\end{tabular}
+ & & 
+\begin{tabular}{c | c c c}
+$\biarrow$ & $0$ & $\oneHalf$ & $1$ \\
+\cline{1-4} 
+$0$ & $1$ & $0$ & $0$ \\
+$\oneHalf$ & $0$ & $1$ & $0$ \\
+$1$ & $0$ & $0$ & $1$ \\
+\end{tabular}
+\end{longtable}
+\end{singlespace}
+\noindent Thus, we have identity and equivalence:
+
+\[ \proves{B}{A\arrow A} \]
+\[ \proves{B}{A \biarrow B} \]
+
+\subsection{\CPL\ containment}\label{cplContainment}
+
+An important aspect of a non-classical system is its relation to \CPL. This is for various reasons. Primarily, there is often a trade-off between the greater expressive power of a many-valued system, and the stronger provability powers of \CPL. The desire to preserve the strong proof features of \CPL\ thus pushes one to search for ways to express some sort of `containment' of \CPL, albeit within obvious limits.
+
+One concept relevant here is that of an \emph{extension} of a system's consequence relation. Simply stated, a system $S'$ is an extension of $S$ iff the $S$ consequence relation is a subset of the $S'$ consequence relation; that is, iff anything valid in $S$ is valid in $S'$. In this sense, \CPL\ is an extension of all systems canvassed so far, \GO\ included. However, this relationship is quite weak, as it merely rules out the validity of anything not valid in \CPL, which holds, for example, of an \emph{empty} consequence relation.
+
+A further relationship between \CPL\ and many gappy systems is often expressed in noting that failures of classical inferences are preserved under an assumption of bivalence for the sentences at issue. Thus if we add to our premises that LEM holds for $B_1,\dots,B_n$, then every classical inference from these sentences obtains. For example:
+
+\[ \proves{A\vee\neg A}{A \equiv A} \]
+
+\noindent Once the appropriate premises are added, the logic essentially `collapses' into \CPL. This is certainly the case for \Kthree, \Lthree\ and \Bthree, and for \GO\ a similar principle also holds. Here, this principle requires that for every propositional parameter $p$ occurring in the premises, $p \vee \neg p$ is included in the premises. This condition is sufficient for \Kthree\ and the other systems, since it will guarantee classicality for complex sentences. In \GO, however, complex sentences are determinate even if their propositional parameters receive indeterminate values, and so it is insufficient merely to require that excluded middle for premises be added to guarantee classicality, since the premises might include complex sentences.
+
+The intuitive idea here is that, in most `domains' in which actual reasoning takes place, the assumption of bivalence is justified for the domain.\footnote{For a discussion, see \cite{Beall2006}} One might consider this, too, a rather weak \emph{logical} relationship, since it requires topic-specific information relevant to a particular subclass of sentences\textemdash information which is independent of logical form.
+
+In the present case, one can recognize a stronger `containment' of \CPL. More precisely, there is a translation schema that shows the \CPL\ consequence relation contained in \GO\ consequence. Define the following \GO\ connectives:
+
+\begin{quote}
+ $ A \ExtDisj B \Defined \Ttrue A \vee \Ttrue B $\\
+ $ A \ExtConj B \Defined \Ttrue A \wedge \Ttrue B$
+\end{quote}
+
+\noindent For each argument from sentences $B_1,\dots,B_n$ to $A$ there is an argument $B_1^*,\dots,B_n^*$ to $A^*$ which is the result of translating each occurence of $\wedge$ and $\vee$ in the former with $\ExtConj$ and $\ExtDisj$ respectively, such that:
+
+\[ A \mbox{ is a \CPL\ consequence of } B_1,\dots,B_n \mbox{ iff } \proves{B_1^*,\dots,B_n^*}{A^*} \]
+
+\noindent We see that the \CPL\ consequence relation is in a sense `contained' in \GO\ consequence. Indeed, the same holds for \BthreeE, since \GO\ is isomorphic to the fragment of \BthreeE\ containing only external connectives and $\neg$.
+
+However, the characteristic of \GO\ that determinacy arises as a matter of \emph{form} results in an additional sense in which \CPL\ is contained therein. This formal or \emph{syntactic} relationship can be given a precise characterization in the following way. Define a complexity function \Complexity\ as follows, where $\varodot$ is the main connective of a sentence $A$ (\Empty\ if $A$ is atomic), and $A_n$ is the $n$th operand of $A$:
+\begin{singlespace}
+\[ \Cpx{A} = \begin{cases}
+						0 \mbox{ if } \varodot = \Empty\\
+						\Cpx{A_1} \mbox{ if } \varodot = \neg\\
+						1+\Cpx{A_1}+\dots+\Cpx{A_n} \mbox{ otherwise }
+						\end{cases}
+						\]
+\end{singlespace}
+\ \\
+\noindent We immediately see that if $\Cpx{A} > 0$, then $\Val{A} \in \set{0,1}$, and hence:
+
+\[ \proves{B}{A\vee \neg A} \]
+
+\noindent And if $\Cpx{A}+\Cpx{B}>1$
+
+\[ \proves{\neg (A \vee B)}{\neg A \wedge \neg B} \]
+\[ \proves{\neg (A \wedge B)}{\neg A \vee \neg B} \]
+
+\noindent More generally, all classical inferences hold for sentences $A$ where $\Cpx{A}>0$. 
+
+
+\subsection{Another way to \GO?}\label{post}
+It is interesting to consider what other systems might be said to restrict indeterminacy on the the basis of form. A somewhat similar phenomenon might be seen, for instance, in the systems of Emil Post \citeyear{Post1921}, where $\vee$ is defined familiarly as:
+
+\[\Val{A \vee B} = \Max{\Val{A},\Val{B}} \]
+
+\noindent Conjunction in turn is defined in a standard way:
+
+\[A\wedge B \Defined \neg(\neg A \vee \neg B) \]
+
+\noindent Negation, however, behaves along less standard lines, which in turn gives $\wedge$ a peculiar behavior. Post's 3-valued system \Pthree\ has the following tables:
+\begin{singlespace}
+\begin{longtable}{c c c}
+		\begin{tabular}{c | c}
+			$\neg$ &  \\
+			\cline{1-2} 
+			$0$ & $1$ \\ 
+			$\oneHalf$ & $0$ \\
+			$1$ & $\oneHalf$ \\
+		\end{tabular} 
+		&
+		\begin{tabular}{c | c c c}
+			$\vee$ & 			$0$ & 				$\oneHalf$ & 	$1$ \\
+			\cline{1-4} 
+			$0$ & 				$0$ 			 & 	$\oneHalf$ & 	$1$ \\
+			$\oneHalf$ & 	$\oneHalf$ &	$\oneHalf$ & 	$1$ \\
+			$1$ & 				$1$ 			 & 	$1$ 			 & 	$1$ \\
+		\end{tabular}
+		&
+		\begin{tabular}{c | c c c}
+			$\wedge$ & 		$0$ & 				$\oneHalf$ & 	$1$ \\
+			\cline{1-4} 
+			$0$ & 				$\oneHalf$ & 	$\oneHalf$ & 	$\oneHalf$ \\
+			$\oneHalf$ & 	$\oneHalf$ &	$1$ 			 & 	$0$ \\
+			$1$ & 				$\oneHalf$ & 	$0$ 			 & 	$0$ \\
+		\end{tabular}
+\end{longtable}
+\end{singlespace}
+\noindent The characteristic mode of negation in Post's systems in effect \emph{shifts} the values. This is seen more clearly when we consider $\neg$ in the 4-valued version \Pfour:
+\begin{singlespace}
+\begin{longtable}{c}
+		\begin{tabular}{c | c}
+			$\neg$ &  \\
+			\cline{1-2} 
+			$0$ 					& $1$ \\ 
+			$\oneThird$ 	& $0$ \\
+			$\twoThirds$ 	& $\oneThird$ \\
+			$1$ 					& $\twoThirds$ \\
+		\end{tabular} 
+\end{longtable}
+\end{singlespace}
+\noindent We will return to discuss 4-valued systems in Chapter 5. For present purposes, we need only consider \Pthree. Note that double-negation fails in both directions:
+
+\begin{quote}
+	$\notProves{A}{\neg\neg A}$\\
+	$\notProves{\neg\neg A}{A}$
+\end{quote}
+
+\noindent Consequently, while $A\vee\neg A$ is clearly not a tautology, one can see that the following \emph{is} a tautology:
+
+\[ (A \vee \neg A) \vee \neg\neg A \]
+
+\noindent One might consider this a `restricted' form of LEM, in comparison to the \GO's restricted version of LEM above. Besides the obvious differences in their respective consequence relations, it is helpful to see two general ways in which \Pthree\ contrasts with \GO. First, the restricted version of LEM occurs in \Pthree\ as a result of the `rotational' mode of $\neg$, whereas restricted versions of classical inferences occur as the result of the behavior of the binary connectives. 
+
+Perhaps more interestingly, one might, in concert with our interpretation of \GO, consider determinacy arising in \Pthree\ as a matter of \emph{form}. However, in \Pthree\ there does not occur the same logical separation between literals and non-literals. Post did not offer such an interpretation, though it may be useful to consider at least parts of his system in this context.
+
+
+
+	\section{Interpretation}\label{interpretation}
+
+We have already noted in the previous chapter some motivation for a system that preserves the Law of Noncontradiction (LNC) in all of its formulations, while allowing for restricted failures of the Law of Excluded Middle (LEM). Here we briefly expand on the philosophical interpretation of some particular features of the \GO\ system. Chapter 5 will return to some of the issues raised in this section in greater detail. At present we concern ourselves with outlining the general features of a philosophical theory that would favor this logic. 
+
+Such a theory might accept the failure of the LEM, but hold that this failure can only occur for atomics sentences, or a certain subclass of them. Such a failure, however, would not affect a qualified form of all classical inferences.  
+
+
+
+
+\subsection{Indeterminacy}\label{indeterminacy}
+
+A challenge of making clear an interpretation of a gappy system like the one proposed is to give a perspicuous interpretation of the intermediate value. One can avoid some philosophical headaches by shifting focus to \emph{applications} of the system by demonstrating the system's usefulness to particular philophical questions. This often involves a shift from a notion of \emph{alethic} indeterminacy, or \emph{truth}-value gaps, to a notion of \emph{epistemic} indeterminacy, or gaps in our knowledge. In some cases, this shift occurs as a sleight-of-hand, but the resulting applications are no less applicable, and the philosophical terrain no more forgiving.
+
+\subsubsection{Epistemic Indeterminacy}\label{epistemicIndeterminacy}
+
+Thus we first consider how, in general, one might construe a notion of epistemic indeterminacy, insofar as many-valued systems could apply to it. Most notably for present purposes is the application of many-valued systems to areas of science. Many such applications are well-known, and their development deserves more attention than we can give here.\footnote{For a cross-disciplinary persepective, see \cite{Weingartner2004}.} 
+
+The broad idea of a science \emph{requiring} a many-valued logic, can be characterized as the failure in principle of necessary conditions for the dispatchment of some classical inferences. Thus a domain is rightly said to require a logic weaker than \CPL\ when it is in principle impossible, at least in some cases, for the objects in the domain to admit of determinate measurement with respect to a basic property or quantity of the operative scientific theory.
+	
+In such cases, the interpretation of a logical system views the semantic values as something other than truth values, as the inquiry to which the system is applied precludes determinate knowledge (viz. measurability) of its basic subject matter. This preclusion may result from the impossibility of observing or measuring two basic quantities of the domain at the same time.
+
+In modeling social help among higher animals, for example, \cite{Weingartner2004} notes the following incommensurability:
+
+\begin{quote}
+If the proposition $p(I)$ represents (describes) the states of affairs that the measurable rate $I$ [the growth-rate for the propagation of genes] has the value $i$ and the proposition $q(L)$ represents(describes) the states of affairs that the measurable rate $L$ [the loss-rate] has the value $l$ then the proposition $p(I) \wedge q(I)$ does not represent the state of affairs that the measurable rate of both $I$ and $L$ has a certain value; because there is no such measurable rate: $I$ and $L$ cannot be measured simultaneously with a specific (sharp) value (p. 234).
+\end{quote}
+
+\noindent 
+
+\subsection{Bivalence}\label{bivalence}
+
+One should note that, strictly speaking, the theory requires only the failure of bivalence (again, only for atomics). In many systems this brings with it the failure of LEM, and this is certainly true in \GO, at least for $\vee$. One could, however, insist that disjunction is best interpreted as the defined connective $\ExtDisj$, for which LEM holds:
+
+\[ A \ExtDisj B \Defined (A \wedge A) \vee (B \wedge B) \]
+
+Yet treating \ExtDisj\ as disjunction suggests treating conjunction along similar ``external'' lines. At this point, however, one is dealing only with the classical portion of the consequence relation, and absent a suitable interpretation of $\wedge$ or $\vee$, it is unclear what the failure of bivalence amounts to in this context.\footnote{There are non-bivalent systems that preserve LEM, most notable van Fraassen's supervaluational system. See \cite[pp40-47]{vanFraassen1991}.} For our purposes, it is thereby appropriate to focus on the failure of bivalence.
+
+\subsubsection{Theories of truth}\label{theoriesOfTruth}
+
+Bivalence is about truth, and so a reason for rejecting bivalence might naturally come from a philosophical theory of truth. One might have a \emph{metaphysical} theory of what makes a sentence true which allows for the possibility that the `making' relationship is indeterminate for at least one sentence. If truth consists in a relation of correspondence between propositions and facts, for instance, a theory might countenance the possibility of a proposition neither determiniately corresponding nor determinately failing to correspond to a particular fact. The explanation for this kind of indeterminacy will doubtless vary depending on details of the theory of truth. It may, for instance, result from a view about the nature of propositions, specifically, one that holds that some propositions themselves are `incomplete' in a suitable sense. Alternatively, a theory of relations might allow for some sort of `ontic vagueness' which results in indeterminacy with respect to the relata. 
+ 
+In contrast to metaphysical theories of truth, one might hold a \emph{formal} theory of truth where the logical features of the truth predicate, together with basic compositional features of language, require that the predicate `true' neither determinately applies nor determinately does not apply to some sentences. So-called \emph{deflationist} or \emph{minimalist} theories of truth claim that the `nature' of truth consists only in the logical properties of the predicate `true'. The schema [\emph{$\alpha$ iff `$\alpha$' is true}] captures the whole meaning of `true' and thus of truth. 
+
+The formal truth paradoxes that result in \CPL\ are famous. Given certain basic features of a system, the existence of paradoxical sentences, e.g. Liar sentences and Curry sentences, is guaranteed. In \CPL\ this induces triviality $(\proves{B}{A})$. Thus the logical nature of `true' requires a system weaker than \CPL\ in order to remain faithful to it, since \CPL\ does not validate every argument. 
+
+In this case, indeterminacy is accepted as an implication of a general theory that the truth predicate must be indeterminate (this in practice usually comes from minimalist responses to truth paradoxes). We cover more in chapter 5.
+
+\subsubsection{Theories of truths}\label{theoriesOfTruths}
+
+Many reasons for rejecting bivalence, however, come not from a theory of truth in general, but from a theory of what makes some \emph{particular} sentences true. This could be because of a \emph{physical} theory which contains at least one sentence that quantifies over objects to which a (precise) predicate of the theory neither determinately applies nor determinately does not apply. In this case, again this reduces to indeterminacy in the application of a predicate, with the caveats that the predicate is `precise' and that the theory is likely true.
+
+Another possibility is a \emph{linguistic} theory which recognizes that at least one language contains some meaningful declarative sentence that is neither true nor false. In the linguistic case we might consider presupposition failures, certain theories of fictional objects, etc., or even an aggressively empirical approach to the meaning of `true' that countenances uses that are traditionally considered instances of imprecision or incompetence. 
+
+
+\subsection{Logical Atomism}\label{atomism}
+The logic is distinctly \emph{atomistic}. Literals are special in the sense that they exhibit a different \emph{logical} behavior from all other sentences. This sense goes beyond the ordinary fact that, in standard model-theoretic semantics, atomic sentences are given separate truth conditions from moleculars. This by itself will not make the logical consequence relation vary depending on which sentences a class of interpretations assigns as atomic. Any reassignment (or retranslation) that preserves truth conditions for every sentence will result in the same consequence relation. Not so for the current logic: a different choice for atoms yields a different consequence relation. Though this makes atomism of one sort or other a natural friend for the logic, it does not strictly \emph{bind} the logic to atomism. However, without such a commitment, in absence of principled distinction between the \emph{truly} atomic and all other sentences, this logic would seem to point to a rather unique view of logical relativity or conventionalism indexed to an arbitrary \emph{choice} of atoms.
+
+
+
+
+\nocite{Luk1920, Kleene1938, Kleene1952}
+
+%\bibliographystyle{chicago}
+%\bibliography{../Diss}
+%\end{document}

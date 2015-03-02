@@ -1,0 +1,1243 @@
+%\documentclass[12pt]{article}
+
+
+
+%\usepackage{../Diss}
+%\doublespacing
+%
+%		Counters
+%
+%\newcounter{enumi_saved}
+%\setcounter{section}{-1}
+
+
+%\begin{document}
+
+%	\author{}
+%	\title{Chapter 4 \\
+%	\ \\
+%	\GoModal\ Tableaux}
+%	\date{}
+%	\maketitle
+
+
+\section{Background}
+This section briefly covers some basics of Tableaux systems, focusing on the general expansion of classical tableaux to many-valued and modal versions. The presentation here owes much to \cite{Beall:2003}, and also \cite{Priest:2008}.
+
+For our purposes a tableaux system provides a mechanical procedure for determining the validity of arguments. A tableau has something like the following structure:
+
+\Tree[.{$\circ $ } [.{$\circ $} {$\circ $}   
+ ] 
+[.{$\circ $} [.{$\circ $}  ] 
+[.{$\circ $}  ]  ]  ]		
+
+\bigskip
+
+\noindent The $\circ$s are \emph{nodes}, where the top node is the \emph{root} and the bottom ones are the \emph{leaves}. A \emph{branch} consists of all nodes along a path from the root to a leaf.
+
+In the tableaux system for \CPL, each node consists of a single sentence. A tableau for an argument consists of an \emph{initial list}, which is a branch starting with a node for each premises, and ending with a node for the conclusion preceded by the negation symbol. For an argument from $B_1,\dots,B_n$ to $A$, then, the initial list is:
+\vspace*{-12pt}
+\begin{longtable}{c}
+\begin{tabular}{ c c c }
+\\
+& & $ B_1 $ \\
+& & $\vdots$ \\
+& & $ B_n $ \\
+& & $ \neg A  $\\
+\end{tabular}
+\end{longtable}
+
+\noindent The construction of the tableau proceeds by applying a set of rules to its branches. Rules come in two broad types: resolution rules and closure rules. When a closure rule is applied, it `finishes' the branch, halting the application of any further rules. In \CPL, there is exactly one closure rule, and it applies to a branch having both a node with some sentence $A$ and a node with $\neg A$. A resolution rule, for our purposes, is any rule that is not a closure rule.
+
+The rules of a tableaux system are constructed to reflect the semantics of the system for which they are developed. We can give an intuitive reading of how a tableau is so related. In \CPL, the construction of each branch reflects the attempt to find a model where each of the nodes' sentences are true. Since the semantics for $\neg$ rules out any model where $A$ and $\neg A$ are both true, any branch with nodes of those forms does not represent a model, and so the branch closes. Since the initial list is formed by listing all the premises and negating the conclusion, any completed open branch will represent a model where each of the premises are true and the negation of the conclusion is true\textemdash in short, a countermodel to the argument.
+
+For other systems nodes may take various forms, and for different reasons. In tableaux systems for modal logic, for example, since models do not assign sentences values simpliciter, but only relative to a world, nodes must also contain some index that can be mapped to worlds. A simple way is to use natural numbers, and thus a node $A,0$ on a completed open branch reflects a model where $\Valw{w}{A}=1$.
+
+Many-valued tableaux systems may require nodes with an additional element, sometimes called a \emph{designation marker}. In the propositional case, the classical method for constructing the initial list for an argument will not work. Take, for example, an argument from $B$ to $A$ where there is a model that assigns $B$ the value 1, and $A$ value \oneHalf. Given our definition of logical consequence, this model is a counterexample to the argument. However, $\neg A$ might not be designated (depending on the semantics), and so the initial list will not produce a branch that reflects this model. A standard solution is to construct the initial list as follows:
+\vspace*{-12pt}
+\begin{longtable}{c}
+\begin{tabular}{ c c c }
+\\
+& & $ B_1\des $ \\
+& & $\vdots$ \\
+& & $ B_n\des $ \\
+& & $ A\undes  $\\
+\end{tabular}
+\end{longtable}
+\noindent Intuitively, $\des$ means that the sentence gets the value 1, and $\undes$ means that the sentence gets some other value, e.g. 0 or \oneHalf. In this case, the mere `occurrence' of a sentence on a completed open branch does not reflect that the sentence is true, unless it is followed by \des. As a result, the closure rules might need revision, and the resolution rules may increase, since we now have an additional element in our nodes. Here we combine this approach with the modal version above.
+
+\section{Some Definitions and Lemmas}
+	
+
+Note that the function $ c(x) $ behaves accordingly:
+
+\[c(x) = 
+\begin{cases} 
+	1 \text{ if } x = 1 \\
+	0 \text{ if } 0 \leq x < 1
+\end{cases}
+\]
+%
+Given $ \Values = \set{0, \oneHalf, 1}$, this gives us the following lemmas.
+
+\begin{lem}\label{modalLemma}
+	For all \Model\ and all $w \in \Worlds$, and each connective $ \varodot \in \set{ \Box, \Diam } $:
+	\begin{enumerate}[(i)]
+		\item if $\Valw{ w }{ \varodot A } \neq 1 $, then $ \Valw{ w }{ \varodot A } = 0 $, and
+		\item if $\Valw{ w }{ \neg \varodot A } \neq 1 $, then $ \Valw{ w }{ \neg \varodot A } = 0 $.
+	\end{enumerate}
+\end{lem}
+
+\begin{lem}\label{binaryLemma}
+	For all \Model\ and all $w \in \Worlds$, and each $ \varodot_b \in \BinaryConnectives$, and $ \varodot_u \in \UnaryConnectives$:
+	\begin{enumerate}[(i)]
+		\item if $\Valw{ w }{ A \varodot_b B } \neq 1 $, then $ \Valw{ w }{ A \varodot B } = 0 $, and
+		\item if $\Valw{ w }{ \varodot_u (A \varodot_b B) } \neq 1 $, then $ \Valw{ w }{ \varodot_u (A \varodot_b B) } = 0 $.
+	\end{enumerate}
+\end{lem}
+
+\noindent The proofs are trivial, and they are left as trivial exercises.
+
+Logical consequence is defined in the standard way.
+
+\begin{definition}\label{implDefT}
+$ \impl{ X }{ A } $ iff for all models \Model, for every world $ w \in \Worlds $, if $ \Valw{ w }{ B } = 1 $ for each $ B \in X $, then $ \Valw{ w }{ A } = 1 $.
+\end{definition}
+
+\section{\GoModal\ Tableaux}\label{tableaux}
+
+\subsection{Nodes}
+Every node on a \GoModal\ tableau has one of the following forms, where $ A \in \Sentences$, and $ i,j \in \N $:
+\begin{singlespace}
+\begin{itemize}
+\item \dNode{ A }{ i }
+\item \uNode{ A }{ i }
+\item \rNode{ i }{ j }
+\end{itemize}
+\end{singlespace}
+\subsection{Initial List}
+
+\noindent The \emph{initial list} of a \GoModal\ tableau for the argument from $ B_1, \dots ,B_n $ to $ A $ is formed as follows:
+
+\begin{tabular}{ c c c }
+\\
+& & $\dNode{ B_1 }{ 0 } $ \\
+& & $\vdots$ \\
+& & $\dNode{ B_n }{ 0 }$ \\
+& & $\uNode{ A }{ 0 }$\\
+\end{tabular}
+
+\subsection{Closure \& Completion}
+
+\begin{definition}\label{closedBranch}
+A branch $ b $ of a \GoModal\ tableau is \emph{closed} iff either 
+	$ \like{ \dNode{ A }{ i }} $ and $ \like{ \uNode{ A }{ i }} $ appear on $b$, or 
+	$ \like{ \dNode{ A }{ i }} $ and $ \like{ \dNode{\neg{A}}{i}}$ appear on $b$. 
+\end{definition}
+
+We mark the closure of a branch with \close. Witness:
+
+\begin{tabular}{ c c c c c c }
+\\
+& & $ \vdots $ & & $ \vdots $ \\
+& & $ \dNode{ A }{ i } $ & & $ \dNode{ A }{ i } $ \\
+& & $ \uNode{ A }{ i } $ & & $ \dNode{ \neg A }{ i } $ \\
+& & $ \close $ & & $ \close $ \\ \\
+\end{tabular}
+
+\begin{definition}\label{closedTree}
+A \GoModal\ tableau is \emph{closed} iff all branches on the tableau are closed. 
+\end{definition}
+
+\begin{definition}\label{completeTree}
+A \GoModal\ tableau is \emph{complete} iff all \GoModal\ resolution rules that can be applied have been applied.  
+\end{definition}
+
+\begin{definition}\label{provesDef}
+$ \proves{ X }{ A } $ iff there is a closed tableau for the argument from all members $ B_1, ..., B_n $ of $ X $ to $ A $.
+\end{definition}
+
+\subsection{Resolution Rules}
+
+Define the following convenient functions:
+
+\begin{itemize}
+	\item $ \visiblesOnB{x} = \set{y \st \like{ \rNode{ x }{ y } } \text{ is on } b } $
+	\item $ \intsOnB = \set{ n \in \N \st \text{ for some } A \in \Sentences, \like{ \dNode{ A }{ n } } \text{ or } \like{ \uNode{ A }{ n } } \text{ is on } b } $
+\end{itemize}
+
+\subsubsection{$\Box$ rules}
+%   %   %   %   %   %   %  
+%		Box Rules		%
+%   %   %   %   %   %   %  
+
+For rule \dRule{ \Box }, $ \like{ \dNode{ A }{ j }} $ must not already occur on $ b $. For \dRule{ \neg \Box }, $ j = \Max{ \intsOnB } + 1 $.
+
+\begin{singlespace}
+\begin{tabular}{ c c c c c c c }
+\\
+
+\dRule{\Box}					& & \dRule{\neg\Box} 						& & \uRule{\Box}								& &  \uRule{\neg\Box} \\
+
+\cline{1-1} \cline{3-3} \cline{5-5} \cline{7-7} \\
+
+\Tree [.{$\dNode{\Box A}{i}$ \\
+		$\rNode{i}{j}$} 
+		%
+		$\dNode{A}{j}$ ] 		& & \Tree [.\framebox{$\dNode{\neg\Box A}{i}$} 
+											%
+											{$\rNode{i}{j}$ \\
+											$\uNode{A}{j}$} ] 				& & \Tree [.\framebox{$\uNode{\Box A}{i}$} 
+																						%
+																						{$\dNode{\neg\Box A}{i}$} ] 			& & \Tree [.\framebox{$\uNode{\neg\Box A}{i}$} 
+																																		%
+																																		{$\dNode{\Box A}{i}$} ]\\
+
+
+\end{tabular}
+\end{singlespace}
+\subsubsection{$\Diam$ rules}
+%   %   %   %   %   %   %   %  
+%		Diamond Rules		%
+%   %   %   %   %   %   %   %  
+
+For rule \dRule{ \neg \Diam }, $ \like{ \uNode{ A }{ j }} $ must not already occur on $ b $. For \dRule{ \Diam }, $ j = \Max{ \intsOnB } + 1 $.
+\begin{singlespace}
+\begin{tabular}{ c c c c c c c }
+\\
+
+\dRule{\Diam} 					& & \dRule{\neg\Diam}						& & \uRule{\Diam}							& &  \uRule{\neg\Diam} \\
+
+\cline{1-1} \cline{3-3} \cline{5-5} \cline{7-7} \\
+
+\Tree [.\framebox{$\dNode{\Diam A}{i}$} 
+		%
+		{$\rNode{i}{j}$ \\ 
+		$\dNode{A}{j}$} ] 		& & \Tree [.{$\dNode{\neg\Diam A}{i}$ \\ 
+											$\rNode{i}{j}$} 
+											%
+											{$\uNode{A}{j}$} ] 				& & \Tree [.\framebox{$\uNode{\Diam A}{i}$} 
+																						%
+																						{$\dNode{\neg\Diam A}{i}$} ] 		& & \Tree [.\framebox{$\uNode{\neg\Diam A}{i}$} 
+																																		%
+																																		{$\dNode{\Diam A}{i}$} ]\\
+
+
+\end{tabular}
+\end{singlespace}
+
+\subsubsection{\Access\ rules}
+
+For rule \rRuleR, $i$ is any $ n \in \intsOnB \setminus \visiblesOnB{ n } $. For rule \rRuleT, $k \notin \visiblesOnB{i}$
+
+%   %   %   %   %   %   %   %
+%		Access Rules		%
+%   %   %   %   %   %   %   %
+\begin{singlespace}
+\begin{tabular}{ c c c }
+\\
+
+\rRuleR 						& & \rRuleT	  \\
+
+\cline{1-1} \cline{3-3}  \\
+
+\Tree [.{$\vdots$}
+		%
+		{$\rNode{i}{i}$} ] 		& & \Tree [.{$\rNode{i}{j}$ \\ 
+											$\rNode{j}{k}$} 
+											%
+											{$\rNode{i}{k}$} ] 				
+
+
+\end{tabular}
+
+\subsubsection{$\neg$ Rules}
+%   %   %   %   %   %   %   %
+%		Negation Rules		%
+%   %   %   %   %   %   %   %
+
+\begin{tabular}{ c c c c }
+\\
+
+$ \dRule{\neg\neg} $			& & & $ \uRule{\neg\neg} $ \\
+
+\cline{1-1}  \cline{4-4} \\
+
+\Tree [.\framebox{$\dNode{\neg\neg A}{i}$} 
+		%
+		{$\dNode{A}{i}$} ] 		& & & \Tree [.\framebox{$\uNode{\neg\neg A}{i}$} 
+											% 
+											{$\uNode{A}{i}$} ] \\
+\end{tabular}
+
+\subsubsection{$\wedge$ Rules}
+%   %   %   %   %   %   %   %	%
+%		Conjunction Rules		%
+%   %   %   %   %   %   %   %	%
+
+\begin{tabular}{ c c c c c c c }
+\\
+$ \dRule{\wedge} $  			& & $ \dRule{\neg\wedge} $ 						& & $\uRule{\wedge}$ 								& & $\uRule{\neg\wedge}$ \\
+
+\cline{1-1}  \cline{3-3} \cline{5-5} \cline{7-7} \\
+
+\Tree [.\framebox{$\dNode{A\wedge B}{i}$} 
+		%
+		{$\dNode{A}{i}$ \\ 
+		$\dNode{B}{i}$} ] 		& & \Tree [.\framebox{$\dNode{\neg(A\wedge B)}{i}$} 
+											%
+										$\uNode{A}{i}$ 		$\uNode{B}{i}$ ] 	& & \Tree [.\framebox{$\uNode{A\wedge B}{i} $} 
+																							%
+																							{$\dNode{\neg(A\wedge B)}{i}$} ] & &  \Tree [.\framebox{$\uNode{\neg(A\wedge B)}{i}$} 
+																																			%
+																																			$\dNode{A\wedge B}{i}$ ] \\
+\end{tabular}
+
+\subsubsection{$\vee$ Rules}
+%   %   %   %   %   %   %   %	%
+%		Disjunction Rules		%
+%   %   %   %   %   %   %   %	%
+\begin{tabular}{ c c c c c c c }
+\\
+
+$\dRule{\vee}$						& & $\dRule{\neg\vee}$					 		& & $\uRule{\vee}$						 		& &  $\uRule{\neg\vee}$  \\
+
+\cline{1-1} \cline{3-3} \cline{5-5} \cline{7-7} \\
+
+\Tree [.\framebox{$\dNode{A\vee B}{i}$} 
+		%
+	$\dNode{A}{i}$ 	$\dNode{B}{i}$ ] & & \Tree [.\framebox{$\dNode{\neg(A\vee B)}{i}$} 
+												%
+												{$\uNode{A}{i}$ \\ 
+												$\uNode{B}{i}$} ] 					& & \Tree [.\framebox{$\uNode{A\vee B}{i}$} 
+																						%
+																						{$\dNode{\neg(A\vee B)}{i}$} ] 				& & \Tree [.\framebox{$\uNode{\neg(A\vee B)}{i}$}
+																						 														%
+																																				{$\dNode{A\vee B}{i}$} ]\\
+
+\end{tabular}
+
+\subsubsection{$\supset$ Rules}
+%   %   %   %   %   %   %   %	%	%	%
+%		Material Conditional Rules		%
+%   %   %   %   %   %   %   %	%	%	%
+\begin{tabular}{ c c c c c c c }
+\\
+
+$\dRule{\supset}$							& & $\dRule{\neg\supset}$ 				& & $\uRule{\supset}$  							& & $\uRule{\neg\supset}$ \\
+
+\cline{1-1}  \cline{3-3} \cline{5-5} \cline{7-7} \\
+
+\Tree [.\framebox{$\dNode{A\supset B}{i}$} 
+	%
+	$\dNode{\neg A}{i}$  $\dNode{B}{i}$ ] 	& & \Tree [.\framebox{$\dNode{\neg(A\supset B)}{i}$} 
+														%
+														{$\uNode{\neg A}{i}$ \\ 
+														$\uNode{B}{i}$} ] 			& & \Tree [.\framebox{$\uNode{A\supset B}{i}$} 
+																								%
+																								{$\dNode{\neg(A\supset B)}{i}$} ] 	& &  \Tree [.\framebox{$\uNode{\neg(A\supset B)}{i}$}
+																								 												%
+																																				$\dNode{A\supset B}{i}$ ] \\
+
+\end{tabular}
+
+\subsubsection{$\equiv$ Rules}
+%   %   %   %   %   %   %   %	%	%	%
+%		Material Equivalence Rules		%
+%   %   %   %   %   %   %   %	%	%	%
+\begin{tabular}{ c c c c c c c }
+\\
+
+$\dRule{\equiv}$  							& & $\dRule{\neg\equiv}$ 				& & $\uRule{\equiv}$ 							& & $\uRule{\neg\equiv}$ \\
+
+\cline{1-1}  \cline{3-3} \cline{5-5} \cline{7-7} \\
+
+\Tree [.\framebox{$\dNode{A\equiv B}{i}$} 
+		%
+	{$\dNode{\neg A}{i}$ \\ 
+	$\dNode{\neg B}{i}$} 	{$\dNode{B}{i}$ \\ 
+							$\dNode{A}{i}$} ] 
+											& & \Tree [.\framebox{$\dNode{\neg(A\equiv B)}{i}$} 
+														%
+												{$\uNode{\neg A}{i}$ \\ 
+												$\uNode{B}{i}$} 	{$\uNode{\neg B}{i}$ \\ 
+																	$\uNode{A}{i}$} ] & & \Tree [.\framebox{$\uNode{A\equiv B}{i}$} 
+																							%
+																							{$\dNode{\neg(A\equiv B)}{i}$} ] & &	\Tree [.\framebox{$\uNode{\neg(A\equiv B)}{i}$}
+																							 												%
+																																			{$\dNode{A\equiv B}{i}$} ] \\
+\end{tabular}
+
+\subsubsection{$\arrow$ Rules}
+%   %   %   %   %   %  	%
+%		Arrow Rules		%
+%   %   %   %   %   %  	%
+\begin{tabular}{ c c c c c c c }
+\\
+
+$\dRule{\arrow}$						& & $\dRule{\neg\arrow}$ 			& & $\uRule{\arrow}$ 		& & $\uRule{\neg\arrow}$\\
+
+\cline{1-1}  \cline{3-3} \cline{5-5} \cline{7-7} \\ 
+
+\Tree [.\framebox{$\dNode{A\arrow B}{i}$} 
+		%
+	{$\dNode{\neg A\vee B}{i}$} 
+					{$\uNode{A}{i}$ \\ 
+					$\uNode{B}{i}$ \\ 
+					$\uNode{\neg A}{i}$ \\ 
+					$\uNode{\neg B}{i}$} ] 		& & \Tree [.\framebox{$\dNode{\neg(A\arrow B)}{i}$} 
+																%
+											{$\dNode{A}{i}$ \\ 
+											%$\uNode{\neg A}{i}$ \\ 
+											$\uNode{B}{i}$} 	{$\dNode{\neg B}{i}$ \\ 
+																$\uNode{\neg A}{i}$ 
+																%\\ $\uNode{B}{i}$
+																} ] 		& & \Tree [.\framebox{$\uNode{A\arrow B}{i}$} 
+																											%
+																						{$\dNode{\neg(A\arrow B)}{i}$} ] & &  \Tree [.\framebox{$\uNode{\neg(A\arrow B)}{i}$} 
+																																				%
+																																				$\dNode{A\arrow B}{i}$ ] \\
+\end{tabular}
+
+\subsubsection{$\biarrow$ Rules}
+%   %   %   %   %   %   %   %
+%		BiArrow Rules		%
+%   %   %   %   %   %   %   %
+\begin{tabular}{ c c c c c c c }
+\\
+
+$\dRule{\biarrow}$						& & $\dRule{\neg\biarrow}$  				& & $\uRule{\biarrow}$ 						& & $\uRule{\neg\biarrow}$\\
+
+\cline{1-1}  \cline{3-3} \cline{5-5} \cline{7-7} \\
+
+\Tree [.\framebox{$\dNode{A\biarrow B}{i}$} 
+		%
+		{$\dNode{A\arrow B}{i}$ \\ 
+		$\dNode{B\arrow A}{i}$} ] & & \Tree [.\framebox{$\dNode{\neg(A\biarrow B)}{i}$} 
+											%
+									{$\dNode{\neg(A\arrow B)}{i}$} 
+												{$\dNode{\neg(B\arrow A)}{i}$} ] & & \Tree [.\framebox{$\uNode{A\biarrow B}{i}$} 
+																						%
+																			{			$\dNode{\neg(A \biarrow B)}{i}$} ] 	& & \Tree [.\framebox{$\uNode{\neg(A\biarrow B)}{i}$}
+																			 														%
+																																	{$\dNode{A \biarrow B}{i}$} ] \\
+																																	
+																																	
+\end{tabular}
+\end{singlespace}
+\pagebreak
+
+\section{Adequacy}
+
+\noindent We now demonstrate soundness and completeness of the \GoModal\ tableaux system with respect to the semantics of \Lang{\GoModal}. 
+
+\subsection{Soundness}
+
+\subsubsection{Faithful Model}
+
+\begin{definition}\label{faithfulModel}
+A map $ f: \N \into \Worlds $ shows a model $\Model=\tuple{\Worlds,\Access,\val}$ of \Lang{\GoModal}\ to be \emph{faithful} to a tableau branch $b$ iff:
+	\begin{itemize}
+		\item for each $ A \in \Sentences$: 
+		\begin{itemize}
+			\item if $ \like{ \dNode{ A }{ i }} $ is on $ b $, then $ \Valwfi{ A } = 1 $ and 
+			\item if $ \like{ \uNode{ A }{ i }} $ is on $ b $, then $ \Valwfi{ A } \neq 1 $.
+		\end{itemize}
+		\item for each $ n \in \N $,
+			$ \visiblesOnB{n} \subseteq \visibles{ f( n ) } $.
+	\end{itemize}
+\end{definition}
+
+\subsubsection{Soundness Lemma}
+
+\noindent With Definition \ref{faithfulModel} in mind, we formulate the Soundness Lemma to state that the \GoModal\ resolutions rules are ``faithfulness preserving.''
+
+\begin{lem}\label{soundnessLemma}
+For any branch $ b $ of any $ \GoModal $ tableau: If $ f $ shows \Model\ to be faithful to $ b $, and we apply any $ \GoModal $ resolution rule to $ b $, 
+	then there is an $ f' $ that shows \Model\ to be faithful to at least one extension $ b' $ of $ b $.
+\end{lem}
+
+\begin{proof*}
+The proof shows that Lemma \ref{soundnessLemma} holds for each $ \GoModal $ rule.
+
+	\begin{enumerate}
+
+		\item $\dRule{ \Box }$. Suppose $ \like{ \dNode{ \Box A }{ i }} $ is on $ b $.
+						Since $ f $ shows \Model\ to be faithful to $ b $, $ \Valwfi{ \Box A } = 1 $.
+						 Further, $ \visiblesOnB{i} \subseteq \visibles{ f(i) } $ and 
+							hence, by the semantics of $ \Box $, $ \Valw{ w }{ A } = 1 $ for each $ w $ such that $\Sees{ f(i) }{ w }$. 
+						 When we apply the $ \dRule{ \Box } $ rule to $ b $, 
+								it produces an extension $ b' $ with a node of the form $ \like{ \dNode{ A }{ j }} $ where $ j \in \visiblesOnB{i}$.
+						 Since we've shown that $ \Valwfj{ A } = 1 $, there is an $ f' $, namely $ f $, that shows \Model\ to be faithful to $ b' $. 
+						\qed
+
+		\item $\dRule{ \neg \Box }$. Suppose $ \like{ \dNode{ \neg \Box A }{ i }}$ is on $ b $.
+							Since $ f $ shows \Model\ to be faithful to $ b $, $ \Valwfi{ \neg \Box A } = 1 $, 
+							and so $ \Valwfi{ \Box A } = 0 $.
+							By the semantics of $ \Box $, for some $ w \in \visibles{ f(i) } $, $ \Valw{ w }{ A } \neq 1 $. 
+							When we apply the $ \dRule{ \neg \Box } $ rule to $ b $, 
+								it produces an extension $ b' $ with nodes $ \like{ \rNode{ i }{ j }} $ and $ \like{ \uNode{ A }{ j }} $ for some $ j \notin \intsOnB $.
+							Let $ f' $ be the same as $ f $ except $ f'( j ) = w $. 
+							Since $ f' $ differs from $ f $ only wrt $ j $, and $ j \notin \intsOnB $, $ f' $ shows \Model\ to be faithful to $ b $.
+							Therefore, since $ \Valw{ f'( j )}{ A } \neq 1 $, $ f' $ shows \Model\ to be faithful to $ b' $.  
+							\qed
+
+		\item $\uRule{ \Box }$. Suppose $ \like{ \uNode{ \Box A }{ i }} $ is on $ b $.
+							Since $ f $ shows \Model\ to be faithful to $ b $, $ \Valwfi{ \Box A } \neq 1 $, 
+							and thus by Lemma \ref{modalLemma}(i), $ \Valwfi{ \Box A } = 0 $.
+							Hence, by the semantics of negation, $ \Valwfi{ \neg \Box A } = 1 $.
+							When we apply the $ \uRule{ \Box } $ rule, it produces an extension $ b' $ with a node $ \like{ \dNode{ \neg \Box A }{ i }} $.
+							Thus there is an $ f' $, namely $ f $, that shows \Model\ to be faithful to $ b' $.  
+							\qed
+
+		\item $\uRule{ \neg\Box }$. Suppose $ \like{ \uNode{ \neg \Box A }{ i }} $ is on $ b $.
+							Since $ f $ shows \Model\ to be faithful to $ b $, $ \Valwfi{ \neg \Box A } \neq 1 $.
+							Hence, since by Lemma \ref{modalLemma}(ii) $ \Valwfi{ \neg \Box A } = 0 $, it follows that $ \Valwfi{ \Box A } = 1 $.
+							When we apply the $ \uRule{ \neg \Box } $ rule, it produces an extension $ b' $ with a node $ \like{ \dNode{ \Box A }{ i }} $.
+							Thus there is an $ f' $, namely $ f $, that shows \Model\ to be faithful to $ b' $.  
+							\qed
+
+		\item $\dRule{ \Diam }$. Suppose $ \like{ \dNode{ \Diam A }{ i }} $ is on $ b $.
+							Thus $ \Valwfi{ \Diam A } = 1 $.
+							Thus there is some world $ w \in \visibles{ f(i) }$ such that $ \Valw{ w }{ A } = 1 $.
+							When we apply the $ \dRule{ \Diam } $ rule, 
+								it produces an extension $ b' $ with nodes $ \like{ \rNode{ i }{ j }} $ and $ \like{ \dNode{ A }{ j }} $ for some $ j \notin \intsOnB $.
+							Let $ f' $ be the same as $ f $ except $ f'( j ) = w $. 
+							Since $ f' $ differs from $ f $ only wrt $ j $, and $ j \notin \intsOnB $, $ f' $ shows \Model\ to be faithful to $ b $.
+							Therefore, since $ \Valw{ f'( j )}{ A } = 1 $, $ f' $ shows \Model\ to be faithful to $ b' $.  
+							\qed
+
+		\item $\dRule{ \neg\Diam }$. Suppose $ \like{ \dNode{ \neg \Diam A }{ i }} $ is on $ b $.
+							Thus $ \Valwfi{ \neg \Diam A } = 1 $, and hence $ \Valwfi{ \Diam A } = 0 $.
+							When we apply the $ \dRule{ \neg \Diam } $ rule, 
+								it produces as extension $ b' $ with a node $ \like{ \uNode{ A }{ j }} $ where $ j \in \visiblesOnB{i}$.
+							Since by definition $ \visiblesOnB{i} \subseteq \visibles{ f(i) } $, by the semantics of $ \Diam $, 
+							$ \Valwfj{ A } \neq 1 $. So there is an $ f' $, namely $ f $, that shows \Model\ to be faithful to $ b' $.  
+								\qed
+
+		\item $\uRule{ \Diam }$. Suppose $ \like{ \uNode{ \Diam A }{ i }} $ is on $ b $.
+							So $ \Valwfi{ \Diam A } \neq 1 $, 
+							and thus by Lemma \ref{modalLemma}(i), $ \Valwfi{ \Diam A } = 0 $, 
+							and so $ \Valwfi{ \neg \Diam A } = 1 $.
+							When we apply the $ \uRule{ \Diam } $ rule, it produces an extension $ b' $ with a node $ \like{ \dNode{ \neg \Diam A }{ i }} $.
+							Thus there is an $ f' $, namely $ f $, that shows \Model\ to be faithful to $ b' $.  
+							\qed
+
+		\item $\uRule{ \neg\Diam }$. Suppose $ \like{ \uNode{ \neg \Diam A }{ i }} $ is on $ b $.
+							Thus $ \Valwfi{ \neg \Diam A } \neq 1 $.
+							Hence, since by Lemma \ref{modalLemma}(ii) $ \Valwfi{ \neg \Diam A } = 0 $, $ \Valwfi{ \Diam A } = 1 $.
+							When we apply the $ \uRule{ \neg \Diam } $ rule, it produces an extension $ b' $ with a node $ \like{ \dNode{ \Diam A }{ i }} $.
+							Thus there is an $ f' $, namely $ f $, that shows \Model\ to be faithful to $ b' $.  
+							\qed
+							
+		
+		\setcounter{enumi_saved}{\value{enumi}}
+
+	\end{enumerate}
+
+\noindent For each of the remaining proofs, let $w$ stand for the value of $f(i)$. Also, we speak of \Model\ as faithful to $ b $, dropping particular reference to $ f $, since $ f' = f $ throughout.
+
+	\begin{enumerate}
+		\setcounter{enumi}{\value{enumi_saved}}
+
+
+		\item $\dRule{ \wedge }$. 	Suppose $ \like{ \dNode{ A \wedge B }{ i } } $ is on $ b $.
+							Since \Model\ is faithful to $ b $, $ \Valww{ A \wedge B } = 1 $.
+							Thus $ \Valww{ A } = 1 = \Valww{ B } $.
+							When we apply the $ \dRule{ \wedge } $ rule,
+								it produces an extension $ b' $ with nodes $ \like{ \dNode{ A }{ i }} $ and $ \like{ \dNode{ B }{ i }} $.
+							Hence \Model\ is faithful to $ b' $.
+							\qed
+
+		\item $\dRule{ \neg\wedge }$. Suppose $ \like{ \dNode{ \neg (A \wedge B) }{ i } } $ is on $ b $.
+							So $ \Valww{ \neg (A \wedge B) } = 1 $.	
+							When we apply the $ \dRule{ \neg \wedge } $ rule, it produces two extensions, 
+							one with $ \like{\uNode{ A }{ i }} $, and the other with $ \like{ \uNode{ B }{ i } } $.
+							Since $ \Valww{ A \wedge B } = 0 $, either $ \Valww{ A } \neq 1 $ or $ \Valw{ B } \neq 1 $.
+							In the first case, \Model\ is faithful to the first extension, and in the other case, \Model\ is faithful to the second extension.
+							\qed
+
+		\item $\uRule{ \wedge }$. 	Suppose $ \like{ \uNode{ A \wedge B }{ i } } $ is on $ b $.
+							Thus $ \Valww{ A \wedge B } \neq 1 $, and so by Lemma \ref{binaryLemma}(i), $ \Valww{ A \wedge B } = 0$.
+							Hence, $ \Valww{ \neg (A \wedge B) } = 1 $.
+							Since $ \uRule{ \wedge } $ rule extends $ b $ only with $ \dNode{ \neg (A \wedge B ) }{ i }$,
+							\Model\ is faithful to the extension.
+							\qed
+
+		\item $\uRule{ \neg\wedge }$. Suppose $ \like{ \uNode{ \neg (A \wedge B) }{ i } } $ is on $ b $.
+							So $ \Valww{ \neg ( A \wedge B )} \neq 1 $, 
+							and hence by Lemma \ref{binaryLemma}(ii) $ \Valww{ A \wedge B } = 1 $.
+							Since the $ \uRule{\neg\wedge} $ rule extends $ b $ only with $ \dNode{ A \wedge B }{ i } $,
+							\Model\ is faithful to the extension.
+							\qed
+
+		\item $\dRule{ \vee }$. 	Suppose $ \like{ \dNodei{ A \vee B } } $ is on $ b $.
+							Since \Model\ is faithful, $ \Valww{ A \vee B } = 1 $.
+							Applying the \dRule{ \vee }\ rule produces two extensions, one with \like{ \dNodei{ A } } and the other with \like{\dNodei{ B }}.
+							By the semantics of $\vee$, $\Valww{ A } = 1$ or $\Valww{ B } = 1$.
+							In the first case, \Model\ is faithful to one extension, and to the other in the second case.
+							\qed
+
+		\item $\dRule{ \neg\vee }$. Suppose $ \like{ \dNodei{ \neg (A \vee B) } } $ is on $ b $.
+							Hence $ \Valww{ \neg (A \vee B) } = 1 $, 
+							and so $ \Valww{ A \vee B } = 0 $. The \dRule{ \neg\vee } rule extends $ b $ with \like{\uNodei{A}}\ and \like{\uNodei{B}}.
+							By the semantics of $ \vee $, $ \Valww{A} \neq 1 $ and $ \Valww{B} \neq 1 $.
+							Hence \Model\ is faithful to the extension.
+							\qed
+
+		\item $\uRule{ \vee }$. 	Suppose $ \like{\uNodei{ A \vee B }} $ is on $ b $.
+							Since \Model\ is faithful, $ \Valww{ A \vee B } \neq 1$, and by Lemma \ref{binaryLemma}(i), $ \Valww{ A \vee B } = 0 $.
+							Hence, $ \Valww{ \neg (A \vee B) } = 1 $.
+							Applying the \uRule{ \vee }\ rule extends $ b $ only with \like{\dNodei{ \neg (A \vee B )}}.
+							Thus \Model\ is faithful to the extension.
+							\qed
+
+		\item $\uRule{ \neg\vee }$. Suppose $ \like{\uNodei{ \neg (A \vee B) }} $ is on $ b $.
+							So $ \Valww{ \neg (A \vee B ) } \neq 1 $, hence by Lemma \ref{binaryLemma}(ii), $ \Valww{ \neg (A \vee B) } = 0 $.
+							Hence, $ \Valww{ A \vee B } = 1 $.
+							Applying the \uRule{ \neg \vee }\ rule extends $ b $ only with \like{\dNodei{ A \vee B }}, 
+							and so \Model\ is faithful to the extension.
+							\qed
+
+		\item $\dRule{ \arrow }$. 	Suppose $ \like{\dNodei{ A \arrow B }} $ is on $ b $.
+							Hence $ \Valww{ A \arrow B } = 1 $. So,
+							\[ \Valww{ (A \supset B) \vee ( \neg (A \vee \neg A) \wedge \neg (B \vee \neg B )) } = 1 \]
+							Thus either:
+							\begin{enumerate}[(i)]
+								\item $ \Valww{ A \supset B } = 1 $, or
+								\item $ \Valww{ \neg (A \vee \neg A) \wedge \neg (B \vee \neg B ) } = 1 $.
+							\end{enumerate}
+							When we apply the \dRule{ \arrow } rule, it produces two extensions. 
+							The first has $ \like{ \dNodei{ A \supset B }} $, to which \Model\ is faithful in case (i).
+							The second has the following:
+							\begin{eqnarray*}
+							 	\like{\uNodei{A}}\\
+								\like{\uNodei{B}}\\
+								\like{\uNodei{\neg A}}\\
+								\like{\uNodei{\neg B}} 
+							\end{eqnarray*}
+							To which \Model\ is faithful iff
+							
+							\[ \Valww{ A } = \oneHalf = \Valww{ B } \]
+							In case (ii), it follows that
+							\[	\Valww{ \neg( A \vee \neg A ) } = 1 \]
+							and so,
+							\[ \Valww{ A \vee \neg A } = 0 \]
+							This guarantees that $ \Valww{ A } = \oneHalf $. Similar reasoning on the second conjunct shows that $ \Valww{ B } = \oneHalf $. 
+							Hence \Model\ must be faithful to at least one extension of $ b $.
+							\qed
+
+		\item $\dRule{ \neg\arrow }$. Suppose $ \like{ \dNode{ \neg (A \arrow B) }{ i } } $ is on $ b $.
+							Thus $ \Valww{ \neg (A \arrow B ) } = 1 $, and so $ \Valww{ A \arrow B } = 0 $.
+							So,
+							\[ \Valww{ (A \supset B) \vee ( \neg (A \vee \neg A) \wedge \neg (B \vee \neg B )) } = 0 \]
+							Hence by the semantics of $\vee$ and Lemma \ref{binaryLemma}(ii):
+							\[	\Valww{ A \supset B } = 0 \]
+							and
+							\[	\Valww{ \neg (A \vee \neg A) \wedge \neg (B \vee \neg B) } = 0 \]
+							And so by the semantics of $\wedge$ and Lemma \ref{binaryLemma}(ii) either: 
+							\begin{enumerate}[(i)]
+								\item $ \Valww{ \neg (A \vee \neg A ) } = 0 $, or
+								\item $ \Valww{ \neg (B \vee \neg B ) } = 0 $
+							\end{enumerate}
+							The semantics for $\neg$ show the following to hold in their respective cases:
+							\begin{enumerate}[(i)]
+								\item $ \Valww{ A \vee \neg A } = 1 $, or
+								\item $ \Valww{ B \vee \neg B } = 1 $
+							\end{enumerate}
+							and consequently,
+							\begin{enumerate}[(i)]
+								\item $ \Valww{ A } \in \set{0,1}$, or
+								\item $ \Valww{ B } \in \set{0,1}$
+							\end{enumerate}
+							Given that $ \Valww{ A \supset B } = 0 $ we have it that
+							\begin{enumerate}[(i)]
+								\item $ \Valww{ A } = 1 $, or
+								\item $ \Valww{ B } = 0 $
+							\end{enumerate}
+							One extension from the \dRule{ \neg \arrow }\ rule has $ \like{ \dNodei{A}} $ and $\like{\uNodei{B}}$.
+							In case (i), since $ \Valww{ A \supset B } = 0 $, $ \Valww{B} \neq 1 $, and thus \Model\ is faithful to this extension
+							
+							The other extension has $ \like{ \dNodei{ \neg B }} $ and $ \like{\uNodei{ \neg A }} $.
+							In case (ii), $ \Valww{ \neg B } = 1 $, and since $ \Valww{ A \supset B } = 0 $, it follows that $ \Valww{A} \neq 1 $, 
+							and thus \Model\ is faithful to this extension.
+							\qed
+							
+
+		\item $\uRule{ \arrow }$. 	Suppose $ \like{ \uNode{ A \arrow B }{ i } } $ is on $ b $.
+							Thus $ \Valww{ A \arrow B } \neq 1 $, 
+							and hence by Lemma \ref{binaryLemma}(i), $ \Valww{ A \arrow B } = 0 $.
+							So, $ \Valww{ \neg (A \arrow B ) } = 1 $. 
+							The \uRule{ \arrow }\ rule extends $b$ only with $ \like{ \dNodei{ \neg (A \arrow B )}} $.
+							Thus \Model\ is faithful to the extension.
+							\qed
+
+		\item $\uRule{ \neg\arrow }$. Suppose $ \like{ \uNode{ \neg (A \arrow B) }{ i } } $ is on $ b $.
+								So $ \Valww{ \neg (A \arrow B ) } \neq 1 $, and by Lemma \ref{binaryLemma}(ii),
+								$ \Valww{ \neg (A \arrow B ) } = 0 $.
+								Hence $ \Valww{ A \arrow B } = 1 $, and the \uRule{ \neg \arrow }\ extends $b$ only with
+								$ \like{ \dNodei{ A \arrow B } } $.
+								Thus \Model\ is faithful to the extension.\qed
+
+		\item $\dRule{ \biarrow }$. 	Suppose $ \like{ \dNode{ A \biarrow B }{ i } } $ is on $ b $.
+								Hence $ \Valww{ A \biarrow B } = 1 $, and so
+								\[ \Valww{ A \arrow B } = 1 \]
+								and
+								\[ \Valww{ B \arrow A } = 1 \]
+								And since the \dRule{ \biarrow }\ rule extends $b$ only with
+								$ \like{\dNodei{ A \arrow B }} $ and $ \like{ \dNodei{ B \arrow A }} $,
+								\Model\ is faithful to the extension.\qed
+
+		\item $\dRule{ \neg\biarrow }$. Suppose $ \like{ \dNode{ \neg (A \biarrow B) }{ i } } $ is on $ b $.
+								Hence $ \Valww{ \neg (A \biarrow B )} = 1 $, and so
+								\[ \Valww{ \neg ((A \arrow B) \wedge (B \arrow A)) } = 1 \]
+								Thus
+								\[ \Valww{ (A \arrow B) \wedge (B \arrow A ) = 0 } \]
+								and hence either:
+								\begin{enumerate}[(i)]
+									\item $ \Valww{ A \arrow B } \neq 1 $, or
+									\item $ \Valww{ B \arrow A } \neq 1 $
+								\end{enumerate}
+								and so, respectively, either:
+								\begin{enumerate}[(i)]
+									\item $ \Valww{ A \arrow B } = 0 $, or
+									\item $ \Valww{ B \arrow A } = 0 $
+								\end{enumerate}
+								Consequently:
+								\begin{enumerate}[(i)]
+									\item $ \Valww{ \neg (A \arrow B )} = 1 $, or
+									\item $ \Valww{ \neg (B \arrow A )} = 1 $
+								\end{enumerate}
+								The \dRule{ \neg \biarrow }\ rule produces two extensions.
+								The first has $ \like{ \dNodei{\neg (A \arrow B)}} $, to which \Model\ is faithful in case (i).
+								In case (ii) \Model\ is faithful to the second extension, which has $ \like{ \dNodei{ \neg(B \arrow A )}} $.
+								\qed
+								
+		\item $\uRule{ \biarrow }$. 	Suppose $ \like{ \uNode{ A \biarrow B }{ i } } $ is on $ b $.
+								Hence $ \Valww{ A \biarrow B } \neq 1 $, and by Lemma \ref{binaryLemma}(i),
+								$ \Valww{ A \biarrow B } = 0 $, and so $ \Valww{ \neg (A \biarrow B) } $.
+								The \uRule{\biarrow}\ rule gives a unique extension with $ \like{\dNodei{ \neg (A \biarrow B) } } $, 
+								and thus \Model\ is faithful to it.
+								\qed
+
+		\item $\uRule{ \neg\biarrow }$. Suppose $ \like{ \uNode{ \neg (A \biarrow B) }{ i } } $ is on $ b $.
+								So $ \Valww{ \neg (A \biarrow B) } \neq 1 $, and by Lemma \ref{binaryLemma}(ii), $ \Valww{ \neg (A \biarrow B) } = 0 $.
+								Hence $ \Valww{ A \biarrow B } = 1 $. The \uRule{ \neg\biarrow }\ rule extends $b$ with only $ \like{\dNodei{ A \biarrow B }} $,
+								and thus \Model\ is faithful to it.
+								\qed
+
+		\item $\dRule{ \supset }$. 	Suppose $ \like{ \dNode{ A \supset B }{ i } } $ is on $ b $.
+							Hence $ \Valww{ A \supset B } = 1 $, and by definition $ \Valww{ \neg A \vee B } = 1 $.
+							Thus either:
+							\begin{enumerate}[(i)]
+								\item $ \Valww{ \neg A } = 1 $, or
+								\item $ \Valww{ B } = 1 $
+							\end{enumerate}
+							The \dRule{ \supset }\ rule produces two extensions. In case (i), \Model\ is faithful to the extension with $ \like{ \dNodei{ \neg A }} $, 
+							and in case (ii), \Model\ is faithful to the other extension with $ \like{ \dNodei{ B }} $.
+							\qed
+
+		\item $\dRule{ \neg\supset }$. Suppose $ \like{ \dNode{ \neg (A \supset B) }{ i } } $ is on $ b $.
+								Thus $ \Valww{ \neg (A \supset B )} = 1 $, and so $ \Valww{ A \supset B } = 0 $.
+								Hence
+								\[ \Valww{ \neg A \vee B } = 0 \]
+								and so
+								\[ \Valww{ \neg A } \neq 1 \]
+								and
+								\[ \Valww{ B } \neq 1 \]
+								The \dRule{ \neg\supset }\ rule extends $b$ with only $ \like{\uNodei{ \neg A }} $ and $ \like{ \uNodei{ B }} $.
+								Thus \Model\ is faithful to the extension.
+								\qed
+								
+
+		\item $\uRule{ \supset }$. 	Suppose $ \like{ \uNode{ A \supset B }{ i } } $ is on $ b $.
+								Since $ \Valww{ A \supset B } \neq 1 $, by Lemma \ref{binaryLemma}(i), $ \Valww{ A \supset B } = 0 $,
+								and so $ \Valww{ \neg (A \supset B ) } = 1 $.
+								The \uRule{ \supset }\ rule extends $b$ only with $ \like{ \dNodei{ \neg (A \supset B )}} $, 
+								and thus \Model\ is faithful to the extension. 
+								\qed
+
+		\item $\uRule{ \neg\supset }$. Suppose $ \like{ \uNode{ \neg (A \supset B) }{ i } } $ is on $ b $.
+								Since $ \Valww{ \neg (A \supset B ) } \neq 1 $, by Lemma \ref{binaryLemma}(ii), $ \Valww{ \neg (A \supset B ) } = 0 $,
+								and so $ \Valww{ A \supset B } = 1 $.
+								Since the \uRule{ \neg \supset }\ rule extends $b$ only with $ \like{ \dNodei{ A \supset B }} $,
+								\Model\ is faithful to the extension.
+								\qed
+
+		\item $\dRule{ \equiv }$. 	Suppose $ \like{ \dNode{ A \equiv B }{ i } } $ is on $ b $.
+								Hence $ \Valww{ A \equiv B } = 1 $. 
+								Thus
+								\[ \Valww{ A } \neq \oneHalf \]
+								and
+								\[ \Valww{ A } = \Valww{ B } \]
+								Thus either:
+								\begin{enumerate}[(i)]
+									\item $ \Valww{ A } = 1 = \Valww{ B } $, or
+									\item $ \Valww{ \neg A } = 1 = \Valww{ \neg B } $.
+								\end{enumerate}
+								The \dRule{ \equiv }\ rule produces two extensions. The first has $ \like{ \dNodei{ \neg A }} $ and $ \like{ \dNodei{ \neg B }} $,
+								to which, in case (i) \Model\ is faithful. 
+								The second extension has $ \like{ \dNodei{A}} $ and $ \like{ \dNodei{B}} $, to which \Model\ is faithful in case (ii).
+								\qed
+
+		\item $\dRule{ \neg\equiv }$. Suppose $ \like{ \dNode{ \neg (A \equiv B) }{ i } } $ is on $ b $.
+								So $ \Valww{ \neg (A \equiv B) } = 1 $, and thus $ \Valww{ A \equiv B } = 0 $.
+								By the semantics of $\equiv$ and Lemma \ref{binaryLemma}(i), either:
+								\begin{enumerate}[(i)]
+									\item $ \Valww{A \supset B} = 0 $, or
+									\item $ \Valww{B \supset A} = 0 $.
+								\end{enumerate}
+								Consequently, in the respective cases:
+								\begin{enumerate}[(i)]
+									\item $ \Valww{ \neg A \vee B } = 0 $, or
+									\item $ \Valww{ \neg B \vee A } = 0 $.
+								\end{enumerate}
+								And so
+								\begin{enumerate}[(i)]
+									\item $ \Valww{ \neg A } \neq 1 $ and $ \Valww{ B } \neq 1 $, or
+									\item $ \Valww{ \neg B } \neq 1 $ and $ \Valww{ A } \neq 1 $.
+								\end{enumerate}
+								The \dRule{ \neg \equiv }\ produces two extensions. The first has $ \like{ \uNodei{ \neg A } } $ and $ \like{ \uNodei{ B }} $,
+								to which case (i) shows \Model\ to be faithful.
+								The second extension has $ \like{ \uNodei{ \neg B} } $ and $ \like{ \uNodei{ A } } $, to which case (ii) shows \Model\ to be faithful.
+								\qed
+								
+
+		\item $\uRule{ \equiv }$. 	Suppose $ \like{ \uNode{ A \equiv B }{ i } } $ is on $ b $.
+								Hence $ \Valww{ A \equiv B } \neq 1 $, and so by Lemma \ref{binaryLemma}(i) and the semantics of $\neg$, 
+								$ \Valww{ \neg (A \equiv B) } = 1 $. Thus \Model\ is faithful to the extension produced by the \uRule{ \equiv }\ rule,
+								which has $ \like{ \dNodei{ \neg (A \equiv B )}} $.
+								\qed
+
+		\item $\uRule{ \neg\equiv }$. Suppose $ \like{ \uNode{ \neg (A \equiv B) }{ i } } $ is on $ b $.
+								So $ \Valww{ \neg (A \equiv B )} \neq 1 $, and so by Lemma \ref{binaryLemma}(ii) and the semantics of $\neg$,
+								$ \Valww{ A \equiv B } = 1 $. Thus \Model\ is faithful to the extension produced by the \uRule{ \neg \equiv }\ rule,
+								which has $ \like{ \dNodei{ A \equiv B }} $.
+								\qed
+
+		\item $\dRule{ \neg\neg }$. 	Suppose $ \like{ \dNode{ \neg\neg A }{ i } } $ is on $ b $.
+								Since \Model\ is faithful to $b$, $ \Valww{ \neg \neg A } = 1 $, and so $ \Valww{ A } = 1 $. 
+								The \dRule{ \neg\neg }\ extends $b$ only with $\like{\dNodei{A}} $, and hence \Model\ is faithful to the extension.
+								\qed
+
+		\item $\uRule{ \neg\neg }$. Suppose $ \like{ \uNode{ \neg\neg A }{ i } } $ is on $ b $.
+								Since \Model\ is faithful to $b$, $ \Valww{ \neg \neg A } \neq 1 $ and so $ \Valww{ \neg A } \in \set{ 1, \oneHalf } $, 
+								and consequently $ \Valww{ A } \in \set{ 0, \oneHalf } $. 
+								The \uRule{\neg\neg}\ extends $b$ only with $\like{\uNodei{A}} $.
+								Whence $ 1 \notin { 0, \oneHalf } $, \Model\ is faithful to the extension.
+								\qed
+
+	\end{enumerate}
+\end{proof*}
+
+\subsubsection{Soundness Theorem}
+
+\begin{thm}\label{soundnessTheorem}
+If $ \proves{ \Sigma }{ A } $ then $ \impl{ \Sigma }{ A } $.
+\end{thm}
+
+\begin{proof}
+We prove the contrapositive. 
+	Assume for conditional proof that $ \notImpl{ \Sigma }{ A } $. 
+		Thus there is some world $ w $ in some model \Model\ such that 
+		  $ \Valw{ w }{ B } = 1 $ for all $ B \in \Sigma $, and 
+		  $ \Valw{ w }{ A } \neq 1 $. 
+		Suppose for reductio that there is a closed tableau for the argument from $ \Sigma $ to $ A $. 
+			Let $ f $ show \Model\ to be faithful to the initial list and let $ f( 0 ) = w $. 
+			When we apply any resolution rule to our tableau, by Lemma \ref{soundnessLemma}, there is an $ f' $ that shows \Model\ to be faithful to at least one extension $ b' $ of $ b $. 
+			Since $ b' $ is closed, for some $ C \in \Sentences $ and some $ i \in \N $, either 
+			  (a): both $ \like{ \dNode{ C }{ i }} $ and $ \like{ \uNode{ C }{ i }}$ are on $ b' $, or
+			  (b): both $ \like{ \dNode{ C }{ i }} $ and $ \like{ \dNode{ \neg C }{ i }}$ are on $ b' $.
+			  	In case (a), $ \Valw{ f'( i ) }{ C } = 1 $ and $ \Valw{ f'( i ) }{ C } \neq 1 $. Impossible.
+				In case (b), $ \Valw{ f'( i ) }{ C } = 1 $ and $ \Valw{ f'( i ) }{ \neg C } = 1$. Impossible. 
+		Hence, there is no closed tableau for the argument from $ \Sigma $ to $ A $. 
+	Therefore, $ \notProves{ \Sigma }{ A }$.
+\end{proof}
+
+%\pagebreak
+
+\subsection{Completeness}
+
+\subsubsection{Induced Model}
+
+\begin{definition}\label{inducedModel}
+A complete open branch $ b $ of a $ \GoModal $ tableau \emph{induces} a model $ \Model = \tuple{ \Worlds, \Access, \val } $ iff
+ 	\begin{itemize}
+		\item $ \Worlds = \set{ w_i \st i \in \intsOnB } $
+		\item For all $ p \in \Atomics $ on $ b $ and $ i \in \N $ :
+		\begin{enumerate}[(i)]
+			\item $ \visibles{ w_i } = \visiblesOnB{ i } $.
+			\item $ \Valwi{ p } = 1 $ iff $ \like{ \dNodei{ p }} $ is on $ b $.
+			\item $ \Valwi{ p } = \oneHalf $ iff $ \like{ \uNodei{ p }} $ and $ \like{ \uNodei{ \neg p }} $ are on $ b $.
+			\item $ \Valwi{ p } = 0 $ iff either 
+			\begin{enumerate}
+				\item $ \like{ \dNodei{ \neg p }} $ is on $ b $, or
+				\item $ \like{ \uNodei{ p } } $ is on $ b $ and $ \like{ \uNodei{ \neg p } } $ is not on $ b $.
+			\end{enumerate}
+		\end{enumerate}
+		\item For any $ p \in \Atomics $ not on $ b $, and all $ w \in \Worlds $, $ \Valww{ p } = 1 $.
+	\end{itemize}
+\end{definition}
+
+\subsubsection{Completeness Lemma}
+
+\begin{lem}\label{completenessLemma}
+Given a branch $ b $ of a completed open tableau and its induced model \Model:
+	\begin{enumerate}[(a)]
+	\item\label{cl1} If $ \like{ \dNodei{ A }} $ is on $ b $, then $ \Valwi{ A } = 1 $, and
+	\item\label{cl0} If $ \like{ \dNodei{ \neg A }} $ is on $ b $, then $ \Valwi{ A } = 0 $, and
+	\item\label{cl.5} If $ \like{ \uNodei{ A }} $ and $ \like{ \uNodei{ \neg A } } $ are on $ b $, then $ \Valwi{ A } = \oneHalf $, and 
+	\item\label{clneq1} If $ \like{ \uNodei{ A }} $ is on $ b $, then $ \Valwi{ A } \neq 1 $, and
+	\item\label{clneq0} If $ \like{ \uNodei{ \neg A }} $ is on $ b $, then $ \Valwi{ A } \neq 0 $.
+	\end{enumerate}
+\end{lem}
+
+%FACT: If (\ref{cl.5}) and (\ref{cl0}) hold for $A$, then (\ref{clneq1}) holds for $A$.
+\begin{proof*}
+The proof shows that Lemma \ref{completenessLemma} holds for each $ \Lang{\GoModal} $ sentence.
+
+\noindent We start with our base case, and prove that each condition of Lemma \ref{completenessLemma} holds for atomic sentences.
+
+\begin{enumerate}
+
+
+	\item Proof of (\ref{cl1}) for atomics.
+	 
+		Suppose $ \like{ \dNodei{ p } } $ is on $ b $. 
+		By Definition \ref{inducedModel}(ii), $ \Valwi{ p } = 1 $.
+		\qed
+			
+	\item Proof of (\ref{cl0}) for atomics.
+	
+		Suppose $ \like{ \dNodei{ \neg p }} $ is on $ b $.
+		By Definition \ref{inducedModel}(iv), $ \Valwi{ p } = 0 $.
+		\qed
+		
+	\item Proof of (\ref{cl.5}) for atomics.
+	
+		Suppose $ \like{ \uNodei{ p } } $ and $ \like{ \uNodei{\neg p} } $ are on $ b $. 
+		Hence, by Definition \ref{inducedModel}(iii), $ \Valwi{ p } = \oneHalf $.
+		\qed
+
+	\item Proof of (\ref{clneq1}) for atomics.
+	
+		Suppose $ \like{ \uNodei{ p }} $ is on $b$. It is either the case or not the case that $ \like{ \uNodei{ \neg p }} $ is on $b$. 
+		If it is, then by Definition \ref{inducedModel}(iii), $ \Valwi{ p } = \oneHalf$.
+		If it is not, then by Definition \ref{inducedModel}(iv), $ \Valwi{ p } = 0 $.
+		In either case, $ \Valwi{ p } \neq 1 $.
+		\qed
+
+	\item Proof of (\ref{clneq0}) for atomics.
+	
+		Suppose $ \like{ \uNodei{ \neg p }} $ is on $b$.
+		Since $b$ is open, $ \like{ \dNodei{ \neg p }} $ is not on $b$.
+		Thus by Definition \ref{inducedModel}(iv), $ \Valwi{ p } \neq 0 $.
+		\qed
+
+	\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+We proceed by induction for non-atomic cases. We start with the binary connectives. Our induction hypothesis, then, is that each condition of the Lemma holds for sentences $A$ and $B$. Since Lemma \ref{binaryLemma} tells us that no binary sentence is assigned value \oneHalf, condition (\ref{cl.5}) should never apply. Thus we prove (\ref{cl.5}) for all binary connectives in one step. 
+
+\begin{enumerate}
+	\setcounter{enumi}{\value{enumi_saved}}
+	\item Proof of (\ref{cl.5}) for each $ \varodot \in \BinaryConnectives $.
+		
+		The rule for $ \like{ \uNodei{ A \varodot B }} $ for each $ \varodot \in \BinaryConnectives $ produces exactly one node of the form $ \like{ \dNodei{ \neg (A \varodot B)}} $.
+		
+		Suppose $ \like{ \uNodei{ A \varodot B }} $ is on $b$.
+		Since $b$ is complete, $ \like{ \dNodei{ \neg (A \varodot B )}} $ is on $b$.
+		Since $b$ is open, $ \like{ \uNodei{ \neg (A \varodot B )}} $ is not on $b$, and so (\ref{cl.5}) is vacuously true.
+		\qed
+
+	\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+Next we prove conditions (\ref{cl1}) and (\ref{cl0}) hold for each binary connective. Once these are shown, we will prove that the remaining conditions, (\ref{clneq1}) and (\ref{clneq0}), must also hold for all binary connectives.
+
+\begin{enumerate}
+	\setcounter{enumi}{\value{enumi_saved}}
+
+	\item Proof of (\ref{cl1}) for $ \wedge $.
+	
+			Suppose $ \like{ \dNodei{ A \wedge B } } $ is on $ b $.
+			Since $ b $ is complete, $ \like{ \dNodei{ A } } $ and $ \like{ \dNodei{ B } } $ are on $ b $.
+			By the induction hypothesis, then, $ \Valwi{ A } = 1 = \Valwi{ B } $.
+			Hence, $ \Valwi{ A \wedge B } = 1 $.
+			\qed
+
+	\item Proof of (\ref{cl0}) for $ \wedge $.
+	
+			Suppose $ \like{ \dNodei{ \neg (A \wedge B) } } $ is on $b$.
+			Thus either $ \like{ \uNodei{ A }} $ or $ \like{ \uNodei{ B }} $ is on $b$.
+			By the induction hypothesis, then either $ \Valwi{ A } \neq 1 $ or $ \Valwi{ B } \neq 1 $.
+			In either case, $ \Valwi{ A \wedge B } = 0 $.
+			\qed
+
+	\item Proof of (\ref{cl1}) for $ \vee $.
+			
+			Suppose $ \like{ \dNodei{ A \vee B } } $ is on $ b $.
+			Thus either $ \like{ \dNodei{ A }{ i } } $ or $ \like{ \dNodei{ B } } $ is on $ b $. 
+			By the induction hypothesis, either $ \Valwi{ A } = 1 $ or $ \Valwi{ B } = 1 $. 
+			In each case, it follows that $ \Valwi{ A \vee B } = 1 $.
+			\qed
+
+
+	\item Proof of (\ref{cl0}) for $ \vee $.
+	
+			Suppose $ \like{ \dNodei{ \neg (A \vee B ) } } $ is on $b$.
+			Thus both $ \like{ \uNodei{A} } $ and $ \like{ \uNodei{B}} $ are on $b$.
+			By the induction hypothesis, 
+			\[ \Valwi{A} \neq 1 \]
+			\[ \Valwi{B} \neq 1 \]
+			Hence $ \Valwi{ A \vee B } = 0 $.
+			\qed
+			
+\pagebreak	
+
+	\item Proof of (\ref{cl1}) for $ \supset $.
+	
+			Suppose $ \like{ \dNodei{A \supset B } } $ is on $ b $. 
+			Since $b$ is complete, either $\like{ \dNodei{\neg A} }$ or $\like{ \dNodei{B} }$ is on $b$.
+			In the first case, it follows from the induction hypothesis that $ \Valwi{A} = 0 $, and hence $ \Valwi{ A \supset B } = 1 $.
+			Similarly, in the second case, $ \Valwi{B} = 1 $, and so $ \Valwi{ A \supset B } = 1 $.
+			\qed
+
+	\item Proof of (\ref{cl0}) for $ \supset $.
+
+			Suppose $ \like{ \dNodei{ \neg (A \supset B) } } $ is on $b$.
+			Thus $ \like{ \uNodei{ \neg A }} $ and $ \like{ \uNodei{ B }} $ are on $ b $.
+			By the induction hypothesis, $ \Valwi{ B } \neq 1$ and $ \Valwi{ \neg A } \neq 0$.
+			Hence, by the semantics of $ \supset $, $ \Valwi{ A \supset B } = 0 $.
+			\qed
+
+	\item Proof of (\ref{cl1}) for $ \equiv $.
+	
+			Suppose $ \like{ \dNodei{ A \equiv B } } $ is on $ b $.
+			Thus either
+			\begin{enumerate}[(I)]
+				\item $ \like{ \dNodei{ A } } $ and $ \like{ \dNodei{ B } } $ are on $ b $, or
+				\item $ \like{ \dNodei{ \neg A } } $ and $ \like{ \dNodei{ \neg B } } $ are on $ b $.
+			\end{enumerate}
+			In case (I), by the induction hypothesis, 
+			\[ \Valwi{ A } = 1 = \Valwi{ B } \]
+			and similarly in case (II), 
+			\[ \Valwi{ A } = 0 = \Valwi{ B } \]
+			In each case it follows that $ \Valwi{ A \equiv B } = 1 $.
+			\qed
+			
+	\item Proof of (\ref{cl0}) for $ \equiv $.
+	
+			Suppose $ \like{ \dNodei{ \neg (A \equiv B) }} $ is on $ b $.
+			Thus either
+			\begin{enumerate}[(I)]
+				\item $ \like{ \uNodei{ \neg A } } $ and $ \like{ \uNodei{ B } } $ are on $ b $, or
+				\item $ \like{ \uNodei{ A } } $ and $ \like{ \uNodei{ \neg B } } $ are on $ b $.
+			\end{enumerate}
+			In case (I), it follows that 
+			\[ \Valwi{ A } \neq 0 \]
+			\[ \Valwi{ B } \neq 1 \]
+			and thus
+			\[ \Valwi{ A \supset B } = 0 \]
+			In case (II), similarly:
+			\[ \Valwi{ A } \neq 1 \]
+			\[ \Valwi{ B } \neq 0 \]
+			whence
+			\[ \Valwi{ B \supset A } = 0 \]
+			In each case it follows that $ \Valwi{ A \equiv B } = 0 $.
+			\qed
+
+\pagebreak
+		
+	\item\label{cl1Arrow} Proof of (\ref{cl1}) for $ \arrow $.
+		
+			Suppose $ \like{ \dNodei{ A \arrow B } } $ is on $ b $. Thus either:
+			\begin{enumerate}[(I)]
+				\item $ \like{ \dNodei{ \neg A \vee B } } $ is on $ b $, or
+				\item All of these are on $b$ : 
+						\[ \like{ \uNodei{ A } } \]
+						\[ \like{ \uNodei{ B } } \]
+						\[ \like{ \uNodei{ \neg A } } \]
+						\[ \like{ \uNodei{ \neg B } } \]
+			\end{enumerate}
+			
+			Case (I): Since $b$ is complete, either $ \like{ \dNodei{ \neg A }} $ or $ \like{ \dNodei{ B }} $ is on $b$.
+			Thus by the induction hypothesis, either $ \Valwi{ A } = 0 $ or $ \Valwi{ B } = 1 $. 
+			So $\Valwi{ \neg A \vee B } = 1 $, and hence $ \Valwi{ A \arrow B } = 1 $.
+		
+			Case (II): By the induction hypothesis (\ref{cl.5}),
+			\[ \Valwi{ A } = \oneHalf = \Valwi{ B } \]
+			Hence, $ \Valwi{ A \arrow B } = 1 $.
+			\qed
+			 
+	\item\label{cl0Arrow} Proof of (\ref{cl0}) for $ \arrow $.
+		
+			Suppose $ \like{ \dNodei{ \neg (A \arrow B) } } $ is on $b$.
+			Thus either:
+			\begin{enumerate}[(I)]
+				\item $ \like{ \dNodei{ A }} $ and $ \like{ \uNodei{ B }}$ are on $b$, or
+				\item $ \like{ \uNodei{ \neg A }} $ and $ \like{ \dNodei{ \neg B }} $ are on $b$.
+			\end{enumerate}
+
+			Case (I). By the induction hypothesis, 
+			\[ \Valwi{ A } = 1 \]
+			\[ \Valwi{ B } \neq 1 \]
+			Thus $ \Valwi{ A \arrow B } = 0 $.
+		
+			Case (II). By the induction hypothesis,
+			\[ \Valwi{ A } \neq 0 \]
+			\[ \Valwi{ B } = 0 \]
+			Hence $ \Valwi{ A \arrow B } = 0 $.
+			\qed
+
+
+	\item Proof of (\ref{cl1}) for $ \biarrow $.
+	
+			Suppose $ \like{ \dNodei{ A \biarrow B } } $ is on $ b $.
+			Thus $ \like{ \dNodei{ A \arrow B } } $ and $ \like{ \dNodei{ B \arrow A }} $ are on $ b $, and so by the above proof (\ref{cl1Arrow})
+			\[ \Valwi{ A \arrow B } = 1 \]
+			\[ \Valwi{ B \arrow A } = 1 \]
+			Hence $ \Valwi{ A \biarrow B } = 1 $.
+			\qed
+		
+	\item Proof of (\ref{cl0}) for $ \biarrow $.
+	
+			Suppose $ \like{ \dNodei{ A \biarrow B } } $ is on $ b $.
+			Thus either:
+			\begin{enumerate}[(I)]
+				\item $ \like{ \dNode{ \neg ( A \arrow B ) }{ i } } $ is on $ b $, or
+				\item $ \like{ \dNode{ \neg ( B \arrow A ) }{ i } } $ is on $ b $
+			\end{enumerate}
+			In either case, by the above proof (\ref{cl0Arrow}), $ \Valwi{ A \biarrow B } = 0 $.
+			\qed
+	
+	\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+Given that (\ref{cl1}) and (\ref{cl0}) hold for the binary connectives, we show that (\ref{clneq1}) and (\ref{clneq0}) must also hold
+
+\begin{enumerate}
+	\setcounter{enumi}{\value{enumi_saved}}
+	
+	\item Proof of (\ref{clneq1}) for each $ \varodot \in \BinaryConnectives $.
+
+		The rule for $ \like{ \uNodei{ A \varodot B }} $ for each $ \varodot \in \BinaryConnectives $ produces exactly one node of the form $ \like{ \dNodei{ \neg (A \varodot B)}} $.
+		
+		Since (\ref{cl0}) holds for $ \varodot $, $ \Valwi{ A \varodot B } = 0 $.
+		Hence $ \Valwi{ A \varodot B } \neq 1 $.
+		\qed
+
+	\item Proof of (\ref{clneq0}) for each $ \varodot \in \BinaryConnectives $.
+		
+		The rule for $ \like{ \uNodei{ \neg (A \varodot B) }} $ for each $ \varodot \in \BinaryConnectives $ produces exactly one node of the form $ \like{ \dNodei{ A \varodot B }} $.
+		
+		Since (\ref{cl1}) holds for $ \varodot $, $ \Valwi{ A \varodot B } = 1 $.
+		Hence $ \Valwi{ A \varodot B } \neq 0 $.
+		\qed
+	
+	\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+What are left are the unary connectives. For $ \Box $ and $ \Diam $, we proceed in a fashion similar to the binary connectives. Our induction hypothesis is that Lemma \ref{completenessLemma} holds for sentence $A$. First we show that conditions (\ref{cl1}) and (\ref{cl0}) hold for $ \Box $ and $ \Diam $.
+
+\begin{enumerate}
+	\setcounter{enumi}{\value{enumi_saved}}
+	
+	\item Proof of (\ref{cl1}) for $ \Box $.
+	
+			Suppose $ \like{ \dNodei{ \Box A } } $ is on $ b $.
+			Since $ b $ is complete, for each $ j \in \visiblesOnB{i} $, $ \like{ \dNodej{ A } } $ is on $ b $, 
+			and by the induction hypothesis, $ \Valwj{ A } = 1 $. 
+			By Definition \ref{inducedModel}(i), it follows that $ \visiblesOnB{ i } = \visibles{ w_i }$, and thus $ \Valwi{ \Box A } = 1 $.
+			\qed
+
+	\item Proof of (\ref{cl0}) for $ \Box $.
+	
+			Suppose $ \like{ \dNodei{ \neg \Box A }} $ is on $ b $. 
+			Since $ b $ is complete, $ \like{ \rNode{i}{j} } $ and $ \like{ \uNodej{A} } $ are on $b$.
+			Thus by the induction hypothesis, $ \Valwj{A} \neq 1 $, and by the Definition \ref{inducedModel}(i), $ \Sees{ w_i }{ w_j }$.
+			Hence by the semantics of $ \Box $, $ \Valwi{ \Box A } = 0 $.
+			\qed
+			
+
+	\item Proof of (\ref{cl1}) for $ \Diam $.
+	
+			Suppose $ \like{ \dNodei{ \Diam A }} $ is on $ b $.
+			Since $ b $ is complete, $ \like{ \dNodej{ A }} $ and $ \like{ \rNode{ i }{ j } } $ are on $ b $. 
+			By Definition \ref{inducedModel}(i), $ \Sees{ w_i }{ w_j } $, and by the induction hypothesis $ \Valwj{ A } = 1 $,
+			and thus it follows that $ \Valwi{ \Diam A } = 1 $.
+			\qed
+
+	\item Proof of (\ref{cl0}) for $ \Diam $.
+	
+			Suppose $ \like{ \dNodei{ \neg \Diam A }} $ is on $ b $.
+			Thus for each $ j \in \visiblesOnB{i} $, $ \like{ \uNodej{ A }} $ is on $ b $,
+			and by the induction hypothesis, $ \Valwj{ A } \neq 1 $.
+			By Definition \ref{inducedModel}(i), $ \visiblesOnB{ i } = \visibles{ w_i } $, and thus $ \Valwi{ \Diam A } = 0 $.
+			\qed
+
+	\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+The proofs for conditions (\ref{clneq1}) and (\ref{clneq0}) for $ \Box $ and $ \Diam $ are similar to those for the binary connectives, and they are left as an exercise. This leaves $ \neg $. We proceed with each condition individually.
+
+\pagebreak
+
+\begin{enumerate}
+	\setcounter{enumi}{\value{enumi_saved}}
+	\item Proof of (\ref{cl1}) for $ \neg $.
+
+		Suppose $ \like{ \dNode{ \neg A }{ i } } $ is on $ b $.
+		By the induction hypothesis, $ \Valwi{ A } = 0 $, and thus $ \Valwi{ \neg A } = 1 $.
+		\qed
+		
+	\item Proof of (\ref{cl0}) for $ \neg $.
+		
+		Suppose $ \like{ \dNodei{ \neg \neg A }} $ is on $ b $.
+		Hence, $ \like{ \dNodei{ A }} $ is on $b$, and so by the induction hypothesis $ \Valwi{ A } = 1 $.
+		Thus $ \Valwi{ \neg A } = 0 $.
+		\qed
+	
+	\item Proof of (\ref{cl.5}) for $ \neg $.
+	
+		Suppose $ \like{ \uNodei{ \neg A }} $ and $ \like{ \uNodei{ \neg \neg A }} $ are on $b$.
+		Since $b$ is complete, $ \like{ \uNodei{ A }} $ is also on $b$, and so by the induction hypothesis $ \Valwi{ A } = \oneHalf $.
+		Hence, $ \Valwi{ \neg A } = \oneHalf $.
+		\qed
+		
+	\item Proof of (\ref{clneq1}) for $ \neg $.
+	
+		Suppose $ \like{ \uNodei{ \neg A }} $ is on $ b $.
+		By the induction hypothesis, $ \Valwi{ A } \neq 0 $, and so $ \Valwi{ A } \in \set{ \oneHalf, 1 } $.
+		Thus, $ \Valwi{ \neg A } \in \set{0, \oneHalf} $, and hence $ \Valwi{ \neg A } \neq 1 $.
+		\qed
+	
+	\item Proof of (\ref{clneq0}) for $ \neg $.
+	
+		Suppose $ \like{ \uNodei{ \neg \neg A }} $ is on $ b $.
+		Thus, $ \like{ \uNodei{ A }} $ is on $ b $, and so by the induction hypothesis, $ \Valwi{ A } \neq 1$.
+		Whence $ \Valwi{ A } \in \set{0, \oneHalf}$, thence $ \Valwi{ \neg A } \in \set{\oneHalf, 1} $.
+		In either case, $ \Valwi{ \neg A } \neq 0 $.
+		\qed		
+	
+	
+\end{enumerate}
+
+\end{proof*}
+
+\pagebreak
+
+\subsubsection{Completeness Theorem}
+
+\begin{thm}\label{completenessTheorem}
+If $ \impl{ \Sigma }{ A } $ then $ \proves{ \Sigma }{ A } $.
+\end{thm}
+
+\begin{proof}
+We prove the contrapositive. 
+	Assume for conditional proof that $ \notProves{ \Sigma }{ A } $. 
+	Thus there is a completed open tableau with an initial list of $ \like{ \dNode{ B }{ 0 }} $ for all $ B \in \Sigma $ and $ \like{ \uNode{ A }{ 0 }} $. 
+	Let \Model\ be a model induced by $ b $.
+	By Lemma \ref{completenessLemma}, $ \Valw{ w_0 }{ B } = 1 $ for each $ B \in \Sigma $, and 
+	$ \Valw{ w_0 }{ A } \neq 1 $. Therefore, by Definition \ref{implDefT}, $ \notImpl{ \Sigma }{ A } $.
+\end{proof}
+
+%\bibliographystyle{chicago}
+%\bibliography{../Diss}
+
+%\end{document}

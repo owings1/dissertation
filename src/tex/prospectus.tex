@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+\usepackage{enumerate, verbatim, amssymb,chicago}
+\newcommand{\GO}{\ensuremath{\mathcal{L}_{\mathsf{GO}}}}
+\setcounter{section}{-1}
+\begin{document}
+\renewcommand\refname{Selected Bibliography}
+\title{Indeterminacy and Logical Atomism}
+\author{Douglas Owings, Philosophy}
+\date{Dissertation Prospectus}
+\maketitle
+
+
+\section*{Summary}
+The general area of this dissertation is philosophical logic: the use of formal methods in the service of philosophical issues. Specifically, I formulate an original, non-classical propositional logic that provides a framework for making sense of three particular metaphysical theories, concerning supervenience, mereology, and representation, respectively.
+
+The subject of a theory of supervenience is properties; of mereology, parts and wholes; of representation, sensations or sensory experience. The three theories presented share at least two broad features: 
+
+\begin{enumerate}
+\item Each assert in some form that the law of excluded middle ``fails'' for their respective subjects, and 
+\item This failure occurs only at the literal (atomic or negated atomic) level, but at all higher levels the law of excluded middle holds. 
+\end{enumerate}
+\section*{Introduction}
+Each of the two broad features of the presented theories makes philosophical presuppositions, raising important questions one must address before the theories can be clearly formulated. Though most of these questions properly fall not under the area of philosophical logic, but under the philosophy \emph{of} logic, this dissertation would not be complete without addressing them in part. The introduction will focus on these background philosophical issues.
+
+Feature (1), that the law of excluded middle fails for the respective subject matters, makes two presuppositions. The first is that logical laws can rightly be said to apply to subjects like properties, objects, and sensations. What sense can be made of the idea of a ``logic'' for a particular subject matter? Plausibly, a defining feature of logic is topic-neutrality. Leaving this at a mostly intuitive sense, this idea allows us to make sense of having a \emph{logic of} things, whether the things be sets, physical objects, sensations, properties, etc. Speaking this way may require a bit of imagination, but if a logic defines a consequence relation, one might say that a logic of, say, physical objects, is a consequence relation among sentences (or sets of sentences) about physical objects.
+
+The second presupposition of (1) requires us to make sense of the particular claim that  the law of excluded middle fails for a particular subject matter. The easy way to address this is to say that, for at least one of the target objects, a proposition featuring the object is neither true nor false, or to say that a complete true description of the objects contains truth value gaps. The harder question requires specifying what this amounts to. However, it is not incumbent on the philosophical logician to give a complete answer to this question, as it will depend on the particular subject matter. Thus, I try to say what ``gappy objects'' amount to in the context of each of the presented theories.
+
+Feature (2), that the failure of the law of excluded middle is restricted to the atomic level, seems to presuppose that there are genuine atoms. After a brief discussion of Russell's and Wittgenstein's philosophies of logical atomism, I remark that only two features of logical atomism seem presupposed by (2): specifically, that there exist basic constituents of the relevant subject matter, and that there are no necessary connections between distinct existences. In the end, the presupposition that there are genuine atoms turns out to be unneeded. I expand on this discussion in Chapter 3.
+
+Besides these presuppositions, there are other underlying philosophical issues that will surface throughout. Most notably are issues surrounding the nature of logical possibility, and its relation to metaphysical and physical possibility. I remark briefly on this in the introduction, as well as in Chapter 1. I return to it at greater length in Chapter 3.
+\section*{Chapter 1}
+I start with the target theory of representation because it is perhaps the easiest of the three theories to understand, and so it serves as a natural introduction to the general logical picture. I start with a brief discussion of the sense-data theories of Russell, Moore, and early C. D. Broad. I examine two general criticisms of sense-data theories. The first is the later C. D. Broad's argument from dreams and hallucinations that attempts to show that it is logically impossible that sense experience consists in the apprehension of sense data. I respond with an analysis of some of the phenomenological and epistemological principles supporting Broad's argument. I include some preliminary discussion about the issues involved in formulating a criterion for logical possibility. I return to this discussion in a different theoretical context in Chapter 3.
+
+The second argument, proposed by W. H. F. Barnes, purports to show that sense-data, if they do exist, do not obey the law of excluded middle. The argument turns on the phenomenon of an object appearing neither $F$ nor $not$-$F$, for example, neither circular nor non-circular. The conclusion would then seem to be that, since the atoms of sense-experience disobey the law of excluded middle, so does sense-experience as a whole. I discuss several responses available to the sense-data theorist, concluding that, even if Barnes's argument is successful with respect to sense-data, the sense-data theorist need not accept that the whole of sense-experience has this strange sort of indeterminacy. The resulting theory thus serves as the initial motivation of the logic framework.
+\section*{Chapter 2}
+This chapter gives a formal presentation of the logic. I start with the propositional case. There are three semantic values, which can be intuitively thought of as \textsc{true}, \textsc{false}, and \textsc{neither}, with \textsc{true} as our only designated value. Negation is treated similarly to Kleene negation, but conjunction and disjunction receive a unique treatment, which results in limiting the assignment of the \textsc{neither} value to literals.
+
+I note several interesting features of the logic, particularly: the restricted validity of the law of excluded middle (i.e. restricted to non-literals), the validity of all forms of the law of non-contradiction, the failure of some (but not all) DeMorgan inferences, the ability to express gaps with object-language sentences, the existence of a defined suitable (non-primitive) conditional, and the presence of a `just-true' operator.  I develop a tableaux proof system and prove its soundness and completeness with respect to the semantics.
+\section*{Chapter 3}
+Chapter 3 begins by extending the discussion of logical possibility begun in Chapter 1. I sketch a general view of possibility that includes a hierarchy of different types of possibility. I motivate an account of metaphysical possibility as any type of possibility between nomological and logical. I situate an interpretation of D. M. Armstrong's theory of combinatorialism under my conception of metaphysical possibility. 
+
+Combinatorialism and my logical framework are natural companions, as assumptions of logical atomism seem present at the core of each. I present a theory of properties whereby supervenience fails at one level, but holds at every level above that. Thus I extend the logical framework from Chapter 2 to a modal logic, and provide an interpretation based in combinatorialism.
+\section*{Chapter 4}
+The final chapter considers a recent debate in metaphysics regarding mereological atomism. For instance, Jonathan Schaffer agues that there is little support for the thesis that there is a fundamental level of reality, and that it is a serious open question whether the objects in the world admit of infinite decomposition, such that every particle, no matter how small, decomposes into parts, which parts themselves further decompose into smaller parts, and so on ad infinitum. One might take his argument to show that logical atomism, since it presupposes a fundamental \emph{atomic} level, is a naive and inadequate theory. However, I argue that neither does the open question of infinite descent refute logical atomism, nor does a theory like the one I sketch need to presuppose the existence of a fundamental level. In some sense, then, I present an account of atomism without atoms.
+\nocite{*}
+\bibliographystyle{chicago}
+\bibliography{./src/bib/prospectus}
+\end{document}

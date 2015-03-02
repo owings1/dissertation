@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+%\usepackage[left=2cm,top=2cm,right=2cm,bottom=2cm,nohead,nofoot]{geometry}
+\usepackage{./src/sty/Diss}
+%\usepackage[nohead,nofoot]{geometry}
+
+\pagestyle{empty}
+%\setcounter{section}{-1}
+\begin{document}
+\noindent\textbf{Owings - Oral defense, April 29, 2011}
+
+\bigskip
+
+\bigskip
+
+My dissertation develops a new paracomplete logic, starting with a propositional logic, and then an extension to a modal logic. I develop a corresponding tableaux proof system, for which I prove soundness and completeness results. 
+
+\subsection*{`Gappy' objects}
+The system is called \GO, for `gappy objects'. The initial motivation comes from views that attribute some sort of metaphysical indeterminacy, or `gappy behavior', to a class of simple objects, or `atoms'. 
+
+An early incarnation of this is in 1944, with a succinct (if simple) argument by WHF Barnes relating to sense-data. Roughly, sense-data are supposed to have exactly the properties they appear to have. So if a sense-datum appears F, then it is F. Given that there is a case where a sense-datum appears neither F nor non-F, it follows that it \emph{is} neither F nor non-F.
+
+Though intended as a sort of reductio against sense-data, it suggests the philosophical position that the Law of Excluded Middle could be challenged as a result of the peculiar logical behavior of atoms. Perhaps, though, if it were not for these deviant entities, we might not otherwise have reason to accept the failure of LEM.
+
+\subsection*{Background}
+A system is \emph{paracomplete} if the Law of Excluded Middle fails:
+
+\[\notProves{B}{A\vee\neg A}\]
+
+\noindent A review of \emph{Strong Kleene} (\Kthree):
+
+\begin{itemize}
+	\item Adding a middle value $\oneHalf$, the set of values is $\set{0,\oneHalf,1}$.
+	\item A valuation $\MCnu$ assigns each atomic parameter one of these values.
+	\item $\Val{\neg A} = 1 - \Val{A}$
+	\item $\Val{A\wedge B} = \Min{\Val{A},\Val{B}}$
+	\item $\Val{A\vee B} = \Max{\Val{A},\Val{B}}$
+	\item \emph{Logical Consequence}. $\proves{B_1,\dots,B_n}{A}$ iff all valuations that assign each of $B_1,\dots,B_n$ value $1$ assign $A$ value $1$.
+\end{itemize}
+\pagebreak
+
+\noindent Truth tables for $\Kthree$:
+	\begin{longtable}{c c c}
+	 	\begin{tabular}{c | c}
+			$\neg$ 	&  			\\
+			\cline{1-2} 
+			$0$			& 	$1$ 		\\ 
+			$\oneHalf$	& 	$\oneHalf$	\\
+			$1$ 		& 	$0$ 		\\
+		\end{tabular} 
+		& 		
+		\begin{tabular}{c | c c c}
+			$\vee$ 		&	$0$			& 	$\oneHalf$ 	& 	$1$ \\
+			\cline{1-4} 
+			$0$ 		& 	$0$ 		& 	$\oneHalf$ 	& 	$1$ \\
+			$\oneHalf$ 	& 	$\oneHalf$ 	& 	$\oneHalf$ 	& 	$1$ \\
+			$1$ 		& 	$1$ 		& 	$1$ 		& 	$1$ \\
+		\end{tabular}
+ 		& 
+		\begin{tabular}{c | c c c}
+			$\wedge$ 	& 	$0$ 	& 	$\oneHalf$ 	& 	$1$ \\
+			\cline{1-4} 
+			$0$ 		& 	$0$ 	& 	$0$ 		& 	$0$ \\
+			$\oneHalf$ 	& 	$0$ 	& 	$\oneHalf$ 	&	$\oneHalf$ \\
+			$1$ 		& 	$0$ 	& 	$\oneHalf$ 	&	$1$ \\
+		\end{tabular}
+		
+	\end{longtable}
+
+\subsection*{\GO}
+
+	\begin{longtable}{c c c c c}
+ 		& & & & \\
+		\begin{tabular}{c | c}
+			$\neg$ &  \\
+			\cline{1-2} 
+			$0$ & $1$ \\ 
+			$\oneHalf$ & $\oneHalf$ \\
+			$1$ & $0$ \\
+		\end{tabular} 
+		& & 
+		\begin{tabular}{c | c c c}
+			$\wedge$ & $0$ & $\oneHalf$ & $1$ \\
+			\cline{1-4} 
+			$0$ & $0$ & $0$ & $0$ \\
+			$\oneHalf$ & $0$ & $0$ & $0$ \\
+			$1$ & $0$ & $0$ & $1$ \\
+		\end{tabular}
+		 		& & 
+		\begin{tabular}{c | c c c}
+			$\vee$ & $0$ & $\oneHalf$ & $1$ \\
+			\cline{1-4} 
+			$0$ & $0$ & $0$ & $1$ \\
+			$\oneHalf$ & $0$ & $0$ & $1$ \\
+			$1$ & $1$ & $1$ & $1$ \\
+		\end{tabular}
+	\end{longtable}
+	
+\subsubsection*{Some notable features}
+
+\[ \notProves{B}{A \vee \neg A} \]
+\[ \proves{B}{\neg(A \wedge \neg A)} \]
+\[ \notProves{\neg(A\vee\neg A)}{A\wedge\neg A} \]
+\[ \notProves{\neg(A \vee B)}{\neg A \wedge \neg B} \]
+\[ \notProves{\neg(A \wedge B)}{\neg A \vee \neg B} \]
+
+\noindent Gap operator:
+
+\[ \Gap A \Defined \neg (A \vee \neg A) \]
+
+\noindent Conditional:
+
+\[A\arrow B \Defined (A\supset B)\vee(\Gap A \wedge \Gap B)\]
+
+\noindent The result is similar to the \Luk\ $\arrow$:
+
+\begin{longtable}{c c c}
+\begin{tabular}{c | c c c}
+$\arrow$ & $0$ & $\oneHalf$ & $1$ \\
+\cline{1-4} 
+$0$ & $1$ & $1$ & $1$ \\
+$\oneHalf$ & $0$ & $1$ & $1$ \\
+$1$ & $0$ & $0$ & $1$ \\
+\end{tabular}
+\end{longtable}
+
+
+\end{document}
+
+\subsection*{some contrasts with k3}
+
+maintain validities
+
+\subsection*{further remarks on interpretation}
+
+\begin{quote}
+Particulars have this peculiarity, among the sort of objects that you have to take account of in an inventory of the world, that each of them stands alone and is completely self-subsistent. It has the sort of self-subsistence that used to belong to substance.\dots each particular that there is in the world does not depend upon any other particular. (Russell 1918)
+\end{quote}
+
+\noindent Or, roughly: there are no necessary connections between distinct existences.
+
+why would one choose GO
+
+minimal revision
+
+
+other possible application and future research
+- expanding to more values
+
+
+

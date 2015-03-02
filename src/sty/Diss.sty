@@ -1,0 +1,203 @@
+%
+%        Required Packages
+%
+\usepackage[T1]{fontenc}
+\usepackage[left=1.5in,right=1.5in,top=1in,bottom=1in,includehead,includefoot]{geometry}
+\usepackage{    amscd,
+                ./src/sty/proof,
+                amsmath,  
+                amssymb,  
+                bbding,  
+                chicago, 
+                %covington,
+                MnSymbol,
+                enumerate,
+                harmony,  
+                graphicx, 
+                latexsym, 
+                longtable,  
+                qtree,
+                setspace, 
+                stmaryrd, 
+                upgreek,  
+                verbatim}
+
+%
+%        Formatting
+%
+\renewcommand{\labelitemi}{\footnotesize{\guillemotright}}
+
+\newcommand{\smFrac}[2]{\ensuremath{\mathsf{^{#1}\hspace*{-7pt}\medslash\hspace*{-5pt}_{#2}}}}
+%        
+%        Shortcuts
+%
+\newcommand{\MCnu}{\ensuremath{\mathcal{\nu}}}
+
+\newcommand{\Luk}{\L ukasiewicz}
+
+\newcommand{\PRO}{PR\ensuremath{_\textrm{O}}}
+\newcommand{\PRS}{PR\ensuremath{_\textrm{S}}}
+%
+%        GO operators
+%
+\newcommand{\Diam}{\ensuremath{\Diamond}}
+\newcommand{\GDiam}{\ensuremath{\diamonddiamond}}
+\newcommand{\arrow}{\ensuremath{\rightarrow}}
+\newcommand{\biarrow}{\ensuremath{\leftrightarrow}}
+\newcommand{\ExtDisj}{\ensuremath{\veedot}}
+\newcommand{\ExtConj}{\ensuremath{\wedgedot}}
+\newcommand{\Ttrue}{\ensuremath{\mathbb{T}}}
+\newcommand{\Gap}{\ensuremath{\Ganz}}
+
+%
+%        Logical Systems
+%
+\newcommand{\CPL}{\ensuremath{\mathsf{CPL}}}
+
+\newcommand{\LP}{\ensuremath{\mathsf{LP}}}
+
+\newcommand{\Kthree}{\ensuremath{\mathsf{K_3}}}
+
+\newcommand{\Lthree}{\textsf{\L}\ensuremath{\mathsf{_3}}}
+
+\newcommand{\Bthree}{\ensuremath{\mathsf{B_3}}}
+\newcommand{\BthreeE}{\ensuremath{\mathsf{B^E_3}}}
+\newcommand{\Assert}{\ensuremath{\closedsucc}\hspace{-2pt}}
+\newcommand{\BEand}{\ensuremath{\wedgedot}}
+\newcommand{\BEor}{\ensuremath{\veedot}}
+\newcommand{\BEneg}{\ensuremath{\neg\hspace*{-6pt}.\hspace{3pt}}}
+
+\newcommand{\Pthree}{\ensuremath{\mathsf{P_3}}}
+\newcommand{\Pfour}{\ensuremath{\mathsf{P_4}}}
+
+%
+%        Conventions
+%
+\newcommand{\Defined}{\ensuremath{\coloneq}}
+
+\newcommand{\Empty}{\ensuremath{\varnothing}}
+
+\newcommand{\True}[1]{\ensuremath{\mathbb{T}\ulcorner #1\urcorner}}
+
+\newcommand{\Appears}[1]{\ensuremath{\mathbb{A}\ulcorner #1\urcorner}}
+\newcommand{\then}{\ensuremath{\Rightarrow}}
+\renewcommand{\iff}{\ensuremath{\mbox{ iff }}}
+
+%
+%        Set Theory
+%
+\newcommand{\set}[1]    {\ensuremath{\left\{{#1}\right\}}}
+\newcommand{\tuple}[1]  {\ensuremath{\langle {#1}\rangle}}
+\newcommand{\SubSet}    {\ensuremath{\subseteq}}
+\newcommand{\Min}[1]    {\ensuremath{\mathsf{min}\set{#1}}}
+\newcommand{\Max}[1]    {\ensuremath{\mathsf{max}\set{#1}}}
+\newcommand{\N}         {\ensuremath{\mathbb{N}}}
+\newcommand{\into}      {\ensuremath{\longrightarrow}}
+\newcommand{\st}        {\ensuremath{\mid}}
+\newcommand{\union}     {\ensuremath{\cup}}
+\newcommand{\relata}[2] {\ensuremath{r_{#1}\left({#2}\right)}}
+
+%
+%        GO Language
+%
+\newcommand{\Lang}[1]    {\ensuremath{\mathcal{L}_{#1}}}
+\newcommand{\GO}         {\ensuremath{\mathsf{GO}}}
+\newcommand{\GoModal}    {\ensuremath{\GO_{\mathsf{MODAL}}}}
+\newcommand{\GOModal}    {\GoModal}        % alias
+
+\newcommand{\oneHalf}    {\smFrac{1}{2}}
+
+\newcommand{\Complexity} {\ensuremath{\upkappa}}
+\newcommand{\Cpx}[1]     {\ensuremath{\upkappa\left({#1}\right)}}
+%
+%        GO Expansions
+%
+\newcommand{\GOFour}    {\ensuremath{\GO^{\mathsf{4}}}}
+\newcommand{\GoFour}    {\GOFour}    % alias
+\newcommand{\GOfour}    {\GOFour}    % alias
+
+\newcommand{\oneThird}  {\smFrac{1}{3}}
+\newcommand{\twoThirds} {\smFrac{2}{3}}
+
+\newcommand{\GapLo}{\ensuremath{\AcPa}}
+\newcommand{\GapHi}{\ensuremath{\SePa}}
+% 
+%        Syntax
+%
+\newcommand{\Atomics}        {\ensuremath{\mathcal{A}}}
+\newcommand{\Connectives}    {\ensuremath{\mathcal{C}}}
+\newcommand{\UnaryConnectives}{\ensuremath{\Connectives_u}}
+\newcommand{\BinaryConnectives}{\ensuremath{\Connectives_b}}
+\newcommand{\PunctMarks}    {\ensuremath{\mathcal{U}}}
+\newcommand{\Sentences}     {\ensuremath{\mathcal{S}}}
+
+%
+%        Semantics
+%
+
+\newcommand{\Values}    {\ensuremath{\mathcal{V}}}
+
+\newcommand{\Worlds}    {\ensuremath{\mathcal{W}}}
+\newcommand{\Access}    {\ensuremath{\mathcal{R}}}
+\newcommand{\val}       {\ensuremath{\mathcal{\nu}}}
+
+\newcommand{\Val}[1]    {\ensuremath{\val({#1})}}    % non-modal case
+
+\newcommand{\valw}[2]   {\ensuremath{\val(\tuple{{#1},{#2}})}}        % long notation: v(<A,w>)
+\newcommand{\Valw}[2]   {\ensuremath{\val_{#1}({#2})}}                % short notation: v_w(A)    [note different order of args]
+
+\newcommand{\sees}[2]       {\ensuremath{{#2} \in \Access({#1})}}
+\newcommand{\Sees}[2]       {\ensuremath{ {#1} \Access {#2} }}                % short notation: xRy
+\newcommand{\visibles}[1]   {\ensuremath{\Access\left({#1}\right)}}
+
+\newcommand{\Model}     {\ensuremath{\mathfrak{M}}}
+
+\newcommand{\impl}[2]    {\ensuremath{{#1}\Vdash{#2}}}
+\newcommand{\notImpl}[2] {\ensuremath{{#1}\nVdash{#2}}}
+
+\newcommand{\DesValues}  {\ensuremath{\mathcal{D}}}
+%
+%        Tableaux
+%
+\newcommand{\des}         {\ensuremath{\varoplus}}
+\newcommand{\undes}       {\ensuremath{\varominus}}
+
+\newcommand{\dNode}[2]    {\ensuremath{{#1},{#2}\des}}
+\newcommand{\uNode}[2]    {\ensuremath{{#1},{#2}\undes}}
+\newcommand{\rNode}[2]    {\ensuremath{\Sees{#1}{#2}}}
+
+\newcommand{\dRule}[1]    {\ensuremath{{#1}\des}}
+\newcommand{\uRule}[1]    {\ensuremath{{#1}\undes}}
+\newcommand{\rRuleR}      {\ensuremath{\Access_{\textsc{refl}}}}
+\newcommand{\rRuleT}      {\ensuremath{\Access_{\textsc{tran}}}}
+
+\newcommand{\visiblesOn}[2]    {\ensuremath{\text{\ss}_{#1}\left({#2}\right)}}
+\newcommand{\visiblesOnB}[1]   {\ensuremath{\visiblesOn{b}{#1}}}
+
+\newcommand{\intsOn}[1]  {\ensuremath{z\left({#1}\right)}}
+\newcommand{\intsOnB}    {\ensuremath{\intsOn{b}}}
+\newcommand{\close}      {\ensuremath{\varotimes}}
+
+\newcommand{\like}[1]    {\ensuremath{\ {#1}\ }}    
+
+\newcommand{\proves}[2]       {\ensuremath{{#1}\vdash{#2}}}
+\newcommand{\notProves}[2]    {\ensuremath{{#1}\nvdash{#2}}}
+
+%
+%        Proofs
+%
+\newcommand{\qed}        {\ensuremath{\hfill\square}}
+
+\newcommand{\Valwfi}[1]       {\Valw{ f(i) }{#1}}                        % shortcut for \Valw{ ... } (useful in adeq proofs)
+\newcommand{\Valwfj}[1]       {\Valw{ f(j) }{#1}}
+\newcommand{\Valwi}[1]        {\Valw{ w_i }{#1}}
+\newcommand{\Valwj}[1]        {\Valw{ w_j }{#1}}    
+\newcommand{\Valww}[1]        {\Valw{ w }{#1}}
+
+\newcommand{\dNodei}[1]       {\dNode{#1}{ i }}
+\newcommand{\uNodei}[1]       {\uNode{#1}{ i }}
+\newcommand{\dNodej}[1]       {\dNode{#1}{ j }}
+\newcommand{\uNodej}[1]       {\uNode{#1}{ j }}
+
+
+\newcommand{\Tpos}        {\ensuremath{\diamondtimes}}

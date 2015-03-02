@@ -1,0 +1,236 @@
+%\documentclass{article}
+
+%\usepackage[left=2cm,top=2cm,right=2cm]{geometry}
+
+%\usepackage[T1]{fontenc}
+
+%\usepackage{	amscd,
+%				proof,
+%				amsmath,  
+%				amssymb,  bbding,  chicago, 
+%				MnSymbol,
+%				enumerate,  
+%				graphicx, 
+%				latexsym,  longtable,  
+				%mathabx,  
+%				qtree,
+%				setspace,  stmaryrd, upgreek,  verbatim
+%			}
+
+%\begin{document}
+%\section{Proofs of Inferences}
+
+
+%%%%%%%%%%%%%%%%%%%%% TABLEAUX %%%%%%%%%%%%%%%%%%%%%
+
+%\section*{ }
+This appendix provides proofs using the tableaux system developed in Chapter 4. Many of the inferences referenced in Chapters 2 and 3 are included.
+
+%%\begin{quote} 
+(1) $ B\nvdash  A \vee  \neg A $
+%%\end{quote} 
+
+\Tree[.{$B, 0\varoplus $ \\ \framebox{$A \vee  \neg A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (A \vee  \neg A), 0\varoplus $} \\ $A, 0\varominus $ \\ $\neg A, 0\varominus $}  ]
+
+Counter Model: 
+
+\noindent $\mathcal{W} = \{ w_0\} $\\
+$\mathcal{R} = \{ \langle w_0,w_0 \rangle \} $\\
+$ \mathcal{\nu}_{w_0}(B)=1 $ \\
+$ \mathcal{\nu}_{w_0}(A)=.5 $ \\
+
+
+
+
+%%\begin{quote} 
+(2) $ C\vdash  (A \vee  B) \vee  \neg (A \vee  B) $
+%%\end{quote} 
+
+\Tree[.{$C, 0\varoplus $ \\ \framebox{$(A \vee  B) \vee  \neg (A \vee  B), 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg ((A \vee  B) \vee  \neg (A \vee  B)), 0\varoplus $} \\ \framebox{$A \vee  B, 0\varominus $} \\ $\neg (A \vee  B), 0\varominus $ \\ $\neg (A \vee  B), 0\varoplus $ \\ $ \varotimes  $}  ]
+
+\pagebreak
+
+%%\begin{quote} 							3
+(3) $ A \wedge  \neg A\vdash  B $
+%%\end{quote} 
+
+\Tree[.{\framebox{$A \wedge  \neg A, 0\varoplus $} \\ $B, 0\varominus $ \\ $0\mathcal{R} 0$ \\ $A, 0\varoplus $ \\ $\neg A, 0\varoplus $ \\ $ \varotimes  $}  ]
+
+
+%%\begin{quote} 
+(4) $ B\vdash  \neg (A \wedge  \neg A) $
+%%\end{quote} 
+
+\Tree[.{$B, 0\varoplus $ \\ \framebox{$\neg (A \wedge  \neg A), 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$A \wedge  \neg A, 0\varoplus $} \\ $A, 0\varoplus $ \\ $\neg A, 0\varoplus $ \\ $ \varotimes  $}  ]
+
+
+%%\begin{quote} 
+(5) $ \neg (A \vee  \neg A)\nvdash  A \wedge  \neg A $
+%%\end{quote} 
+
+\Tree[.{\framebox{$\neg (A \vee  \neg A), 0\varoplus $} \\ \framebox{$A \wedge  \neg A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (A \wedge  \neg A), 0\varoplus $} \\ $A, 0\varominus $ \\ $\neg A, 0\varominus $} [.{$A, 0\varominus $}  ] 
+[.{$\neg A, 0\varominus $}  ]  ]
+
+
+Counter Model: 
+
+\noindent $\mathcal{W} = \{ w_0\} $\\
+$\mathcal{R} = \{ \langle w_0,w_0 \rangle \} $\\
+$ \mathcal{\nu}_{w_0}(A)=.5 $ \\
+
+\pagebreak
+%%\begin{quote} 
+(15a) $ A \vee  (B \wedge  C)\vdash  (A \vee  B) \wedge  (A \vee  C) $
+%%\end{quote} 
+
+\Tree[.{\framebox{$A \vee  (B \wedge  C), 0\varoplus $} \\ \framebox{$(A \vee  B) \wedge  (A \vee  C), 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg ((A \vee  B) \wedge  (A \vee  C)), 0\varoplus $}} [.{$A, 0\varoplus $} [.{\framebox{$A \vee  B, 0\varominus $} \\ \framebox{$\neg (A \vee  B), 0\varoplus $} \\ $A, 0\varominus $ \\ $B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{\framebox{$A \vee  C, 0\varominus $} \\ \framebox{$\neg (A \vee  C), 0\varoplus $} \\ $A, 0\varominus $ \\ $C, 0\varominus $ \\ $ \varotimes  $}  ]  ] 
+[.{\framebox{$B \wedge  C, 0\varoplus $} \\ $B, 0\varoplus $ \\ $C, 0\varoplus $} [.{\framebox{$A \vee  B, 0\varominus $} \\ \framebox{$\neg (A \vee  B), 0\varoplus $} \\ $A, 0\varominus $ \\ $B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{\framebox{$A \vee  C, 0\varominus $} \\ \framebox{$\neg (A \vee  C), 0\varoplus $} \\ $A, 0\varominus $ \\ $C, 0\varominus $ \\ $ \varotimes  $}  ]  ]  ]
+
+\pagebreak
+%%\begin{quote} 
+(15b) $ (A \vee  B) \wedge  (A \vee  C)\vdash  A \vee  (B \wedge  C) $
+%%\end{quote} 
+
+\Tree[.{\framebox{$(A \vee  B) \wedge  (A \vee  C), 0\varoplus $} \\ \framebox{$A \vee  (B \wedge  C), 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$A \vee  B, 0\varoplus $} \\ \framebox{$A \vee  C, 0\varoplus $} \\ \framebox{$\neg (A \vee  (B \wedge  C)), 0\varoplus $} \\ $A, 0\varominus $ \\ \framebox{$B \wedge  C, 0\varominus $} \\ \framebox{$\neg (B \wedge  C), 0\varoplus $}} [.{$A, 0\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$B, 0\varoplus $} [.{$A, 0\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$C, 0\varoplus $} [.{$B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{$C, 0\varominus $ \\ $ \varotimes  $}  ]  ]  ]  ]
+
+
+
+%%\begin{quote} 
+(30a) $ A \supset  (A \supset  B)\vdash  A \supset  B $
+%%\end{quote} 
+
+\Tree[.{\framebox{$A \supset  (A \supset  B), 0\varoplus $} \\ \framebox{$A \supset  B, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (A \supset  B), 0\varoplus $} \\ $\neg A, 0\varominus $ \\ $B, 0\varominus $} [.{$\neg A, 0\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$A \supset  B, 0\varoplus $ \\ $ \varotimes  $}  ]  ]
+
+\pagebreak
+
+%%\begin{quote} 
+(30b) $ A \supset  B\vdash  A \supset  (A \supset  B) $
+%%\end{quote} 
+
+\Tree[.{$A \supset  B, 0\varoplus $ \\ \framebox{$A \supset  (A \supset  B), 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (A \supset  (A \supset  B)), 0\varoplus $} \\ $\neg A, 0\varominus $ \\ $A \supset  B, 0\varominus $ \\ $ \varotimes  $}  ]
+
+
+%%\begin{quote} 
+(42) $ B\vdash  A \rightarrow  A $
+%%\end{quote} 
+
+\Tree[.{$B, 0\varoplus $ \\ \framebox{$A \rightarrow  A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (A \rightarrow  A), 0\varoplus $}} [.{$A, 0\varoplus $ \\ $A, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{$\neg A, 0\varoplus $ \\ $\neg A, 0\varominus $ \\ $ \varotimes  $}  ]  ]
+
+
+%%\begin{quote} 
+(43) $ B\vdash  (A \wedge  A) \rightarrow  A $
+%%\end{quote} 
+
+\Tree[.{$B, 0\varoplus $ \\ \framebox{$(A \wedge  A) \rightarrow  A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg ((A \wedge  A) \rightarrow  A), 0\varoplus $}} [.{\framebox{$A \wedge  A, 0\varoplus $} \\ $A, 0\varominus $ \\ $A, 0\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$\neg A, 0\varoplus $ \\ \framebox{$\neg (A \wedge  A), 0\varominus $} \\ \framebox{$A \wedge  A, 0\varoplus $} \\ $A, 0\varoplus $ \\ $ \varotimes  $}  ]  ]
+
+\pagebreak
+
+
+%%\begin{quote} 
+(45) $ C\vdash  (A \wedge  (A \rightarrow  B)) \rightarrow  B $
+%%\end{quote} 
+
+\Tree[.{$C, 0\varoplus $ \\ \framebox{$(A \wedge  (A \rightarrow  B)) \rightarrow  B, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg ((A \wedge  (A \rightarrow  B)) \rightarrow  B), 0\varoplus $}} [.{\framebox{$A \wedge  (A \rightarrow  B), 0\varoplus $} \\ $B, 0\varominus $ \\ $A, 0\varoplus $ \\ \framebox{$A \rightarrow  B, 0\varoplus $}} [.{$A, 0\varominus $ \\ $B, 0\varominus $ \\ $\neg A, 0\varominus $ \\ $\neg B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{\framebox{$\neg A \vee  B, 0\varoplus $}} [.{$\neg A, 0\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$B, 0\varoplus $ \\ $ \varotimes  $}  ]  ]  ] 
+[.{$\neg B, 0\varoplus $ \\ \framebox{$\neg (A \wedge  (A \rightarrow  B)), 0\varominus $} \\ \framebox{$A \wedge  (A \rightarrow  B), 0\varoplus $} \\ $A, 0\varoplus $ \\ \framebox{$A \rightarrow  B, 0\varoplus $}} [.{$A, 0\varominus $ \\ $B, 0\varominus $ \\ $\neg A, 0\varominus $ \\ $\neg B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{\framebox{$\neg A \vee  B, 0\varoplus $}} [.{$\neg A, 0\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$B, 0\varoplus $ \\ $ \varotimes  $}  ]  ]  ]  ]
+
+
+%%\begin{quote} 
+(49a) $ A \rightarrow  (A \rightarrow  B)\vdash  A \rightarrow  B $
+%%\end{quote} 
+
+\Tree[.{\framebox{$A \rightarrow  (A \rightarrow  B), 0\varoplus $} \\ \framebox{$A \rightarrow  B, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (A \rightarrow  B), 0\varoplus $}} [.{$A, 0\varominus $ \\ $A \rightarrow  B, 0\varominus $ \\ $\neg A, 0\varominus $ \\ $\neg (A \rightarrow  B), 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{\framebox{$\neg A \vee  (A \rightarrow  B), 0\varoplus $}} [.{$A \rightarrow  B, 0\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$\neg A, 0\varoplus $} [.{$A, 0\varoplus $ \\ $B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{$\neg B, 0\varoplus $ \\ $\neg A, 0\varominus $ \\ $ \varotimes  $}  ]  ]  ]  ]
+
+\pagebreak
+
+%%\begin{quote} 
+(49b) $ A \rightarrow  B\vdash  A \rightarrow  (A \rightarrow  B) $
+%%\end{quote} 
+
+\Tree[.{\framebox{$A \rightarrow  B, 0\varoplus $} \\ \framebox{$A \rightarrow  (A \rightarrow  B), 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (A \rightarrow  (A \rightarrow  B)), 0\varoplus $}} [.{$A, 0\varominus $ \\ $B, 0\varominus $ \\ $\neg A, 0\varominus $ \\ $\neg B, 0\varominus $} [.{$A, 0\varoplus $ \\ $A \rightarrow  B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{$\neg (A \rightarrow  B), 0\varoplus $ \\ $\neg A, 0\varominus $ \\ $ \varotimes  $}  ]  ] 
+[.{\framebox{$\neg A \vee  B, 0\varoplus $}} [.{$\neg A, 0\varoplus $} [.{$A, 0\varoplus $ \\ $A \rightarrow  B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{$\neg (A \rightarrow  B), 0\varoplus $ \\ $\neg A, 0\varominus $ \\ $ \varotimes  $}  ]  ] 
+[.{$B, 0\varoplus $} [.{$A, 0\varoplus $ \\ $A \rightarrow  B, 0\varominus $ \\ $ \varotimes  $}  ] 
+[.{$\neg (A \rightarrow  B), 0\varoplus $ \\ $\neg A, 0\varominus $ \\ $ \varotimes  $}  ]  ]  ]  ]
+
+\pagebreak
+%%\begin{quote} 
+(61) $ \Box A\vdash  \neg \Diamond \neg A $
+%%\end{quote} 
+
+\Tree[.{$\Box A, 0\varoplus $ \\ \framebox{$\neg \Diamond \neg A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ $A, 0\varoplus $ \\ \framebox{$\Diamond \neg A, 0\varoplus $} \\ $\neg A, 1\varoplus $ \\ $0\mathcal{R} 1$ \\ $1\mathcal{R} 1$ \\ $A, 1\varoplus $ \\ $ \varotimes  $}  ]
+
+
+%%\begin{quote} 
+(62) $ \Diamond A\vdash  \neg \Box \neg A $
+%%\end{quote} 
+
+\Tree[.{\framebox{$\Diamond A, 0\varoplus $} \\ \framebox{$\neg \Box \neg A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ $\Box \neg A, 0\varoplus $ \\ $\neg A, 0\varoplus $ \\ $A, 1\varoplus $ \\ $0\mathcal{R} 1$ \\ $1\mathcal{R} 1$ \\ $\neg A, 1\varoplus $ \\ $ \varotimes  $}  ]
+
+
+%%\begin{quote} 
+(63) $ \neg \Diamond \neg A\nvdash  \Box A $
+%%\end{quote} 
+
+\Tree[.{$\neg \Diamond \neg A, 0\varoplus $ \\ \framebox{$\Box A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg \Box A, 0\varoplus $} \\ $A, 1\varominus $ \\ $0\mathcal{R} 1$ \\ $1\mathcal{R} 1$ \\ $\neg A, 1\varominus $ \\ $\neg A, 0\varominus $}  ]
+
+
+Counter Model: 
+
+\noindent $\mathcal{W} = \{ w_0,w_1\} $\\
+$\mathcal{R} = \{ \langle w_0,w_0 \rangle ,\langle w_0,w_1 \rangle ,\langle w_1,w_1 \rangle \} $\\
+$ \mathcal{\nu}_{w_1}(A)=.5 $ \\
+
+
+
+\pagebreak
+
+%%\begin{quote} 
+(74) $ B\vdash  \Box A \rightarrow  \Box \Box A $
+%%\end{quote} 
+
+\Tree[.{$B, 0\varoplus $ \\ \framebox{$\Box A \rightarrow  \Box \Box A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (\Box A \rightarrow  \Box \Box A), 0\varoplus $}} [.{$\Box A, 0\varoplus $ \\ \framebox{$\Box \Box A, 0\varominus $} \\ $A, 0\varoplus $ \\ \framebox{$\neg \Box \Box A, 0\varoplus $} \\ \framebox{$\Box A, 1\varominus $} \\ $0\mathcal{R} 1$ \\ $1\mathcal{R} 1$ \\ $A, 1\varoplus $ \\ \framebox{$\neg \Box A, 1\varoplus $} \\ $A, 2\varominus $ \\ $1\mathcal{R} 2$ \\ $2\mathcal{R} 2$ \\ $0\mathcal{R} 2$ \\ $A, 2\varoplus $ \\ $ \varotimes  $}  ] 
+[.{\framebox{$\neg \Box \Box A, 0\varoplus $} \\ \framebox{$\neg \Box A, 0\varominus $} \\ \framebox{$\Box A, 1\varominus $} \\ $0\mathcal{R} 1$ \\ $1\mathcal{R} 1$ \\ \framebox{$\neg \Box A, 1\varoplus $} \\ $A, 2\varominus $ \\ $1\mathcal{R} 2$ \\ $2\mathcal{R} 2$ \\ $0\mathcal{R} 2$ \\ $\Box A, 0\varoplus $ \\ $A, 2\varoplus $ \\ $ \varotimes  $}  ]  ]
+
+
+%%\begin{quote} 
+(75) $ \Diamond A\nvdash  \Box \Diamond A $
+%%\end{quote} 
+
+\Tree[.{\framebox{$\Diamond A, 0\varoplus $} \\ \framebox{$\Box \Diamond A, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg \Box \Diamond A, 0\varoplus $} \\ \framebox{$\Diamond A, 1\varominus $} \\ $0\mathcal{R} 1$ \\ $1\mathcal{R} 1$ \\ $A, 2\varoplus $ \\ $0\mathcal{R} 2$ \\ $2\mathcal{R} 2$ \\ $\neg \Diamond A, 1\varoplus $ \\ $A, 1\varominus $}  ]
+
+
+Counter Model: 
+
+\noindent $\mathcal{W} = \{ w_0,w_1,w_2\} $\\
+$\mathcal{R} = \{ \langle w_0,w_0 \rangle ,\langle w_0,w_1 \rangle ,\langle w_1,w_1 \rangle ,\langle w_0,w_2 \rangle ,\langle w_2,w_2 \rangle \} $\\
+$ \mathcal{\nu}_{w_2}(A)=1 $ \\
+$ \mathcal{\nu}_{w_1}(A)=0 $ \\
+
+
+
+%%\begin{quote} 
+(78) $ \Diamond (A \rightarrow  B)\vdash  \Box A \rightarrow  \Diamond B $
+%%\end{quote} 
+
+\Tree[.{\framebox{$\Diamond (A \rightarrow  B), 0\varoplus $} \\ \framebox{$\Box A \rightarrow  \Diamond B, 0\varominus $} \\ $0\mathcal{R} 0$ \\ \framebox{$\neg (\Box A \rightarrow  \Diamond B), 0\varoplus $} \\ \framebox{$A \rightarrow  B, 1\varoplus $} \\ $0\mathcal{R} 1$ \\ $1\mathcal{R} 1$} [.{$A, 1\varominus $ \\ $B, 1\varominus $ \\ $\neg A, 1\varominus $ \\ $\neg B, 1\varominus $} [.{$\Box A, 0\varoplus $ \\ $\Diamond B, 0\varominus $ \\ $A, 1\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$\neg \Diamond B, 0\varoplus $ \\ \framebox{$\neg \Box A, 0\varominus $} \\ $\Box A, 0\varoplus $ \\ $A, 1\varoplus $ \\ $ \varotimes  $}  ]  ] 
+[.{\framebox{$\neg A \vee  B, 1\varoplus $}} [.{$\neg A, 1\varoplus $} [.{$\Box A, 0\varoplus $ \\ $\Diamond B, 0\varominus $ \\ $A, 1\varoplus $ \\ $ \varotimes  $}  ] 
+[.{$\neg \Diamond B, 0\varoplus $ \\ \framebox{$\neg \Box A, 0\varominus $} \\ $\Box A, 0\varoplus $ \\ $A, 1\varoplus $ \\ $ \varotimes  $}  ]  ] 
+[.{$B, 1\varoplus $} [.{$\neg \Diamond B, 0\varoplus $ \\ \framebox{$\neg \Box A, 0\varominus $} \\ $\Box A, 0\varoplus $ \\ $A, 1\varoplus $ \\ $A, 0\varoplus $ \\ $B, 1\varominus $ \\ $ \varotimes  $}  ] 
+[.{$\Box A, 0\varoplus $ \\ \framebox{$\Diamond B, 0\varominus $} \\ $A, 1\varoplus $ \\ $A, 0\varoplus $ \\ $\neg \Diamond B, 0\varoplus $ \\ $B, 1\varominus $ \\ $ \varotimes  $}  ]  ]  ]  ]

@@ -1,0 +1,70 @@
+\newsavebox{\proofsavebox}
+
+
+
+
+\newtheorem{thm}{\hspace*{10pt}{\sc Theorem}\rm}
+\renewcommand\thethm{\arabic{section}.\arabic{thm}.}
+
+\newtheorem{example}[thm]{\hspace*{10pt}{\sc Example}\rm}
+\renewcommand\theexample{\arabic{section}.\arabic{thm}.}
+
+\newtheorem{lem}[thm]{\hspace*{10pt}{\sc Lemma}\rm}
+\renewcommand\thelem{\arabic{section}.\arabic{thm}.}
+
+\newtheorem{definition}[thm]{\hspace*{10pt}{\sc Definition}\rm}
+\renewcommand\thedefinition{\arabic{section}.\arabic{thm}.}
+
+\newtheorem{cor}[thm]{\hspace*{10pt}{\sc Corollary}\rm}
+\renewcommand\thecor{\arabic{section}.\arabic{thm}.}
+
+\newtheorem{prop}[thm]{\hspace*{10pt}{\sc Proposition}\rm}
+\renewcommand\theprop{\arabic{section}.\arabic{thm}.}
+
+\newtheorem{remark}[thm]{\hspace*{10pt}{\sc Remark}\rm}
+\renewcommand\theremark{\arabic{section}.\arabic{thm}.}
+
+
+\newenvironment{example*}[2][Example]{{\medskip\sc #1. }\textit{#2\medskip}}
+
+\newenvironment{thm*}[2][Theorem]{{\medskip\sc #1. }\textit{#2\medskip}}
+
+\newenvironment{lem*}[2][Lemma]{{\medskip\sc #1. }\textit{#2\medskip}}
+
+\newenvironment{cor*}[2][Corollary]{{\medskip\sc #1. }\textit{#2\medskip}}
+
+\newenvironment{prop*}[2][Proposition]{{\medskip\sc #1. }\textit{#2\medskip}}
+
+\newenvironment{remark*}[2][Remark]{{\medskip\sc #1. }\textit{#2\medskip}}
+
+\newenvironment{definition*}[2][Definition]{{\medskip\sc #1. }\textit{#2\medskip}}
+
+\newenvironment{proof}[1][Proof]{\noindent\textit{#1. } }{\hfill$\square$\vspace{6pt}}
+
+
+
+%  \sbox{\proofsavebox}
+%    {\unitlength 1pt\begin{picture}(6.5,6.5)%
+%     \put(0,0){\framebox(6.5,6.5){}}\end{picture}}
+  \newcommand\proofbox{\usebox{\proofsavebox}\relax}
+
+\newcommand\mathproofbox{\rlap{\quad\mbox{$\square$}}}
+%
+%\def\@nprf{\normalfont\rmfamily \trivlist
+%  \item[\hskip \labelsep {\normalfont\itshape Proof}]%
+%  \item[]}
+%
+%\def\@oprf[#1]{\normalfont\rmfamily \trivlist
+%  \item[\hskip \labelsep {\normalfont\itshape #1\ }]%
+%  \item[]}
+%
+%\newenvironment{proof}
+%  {\@ifnextchar[{\@oprf}{\@nprf}}
+%  {\hspace*{15pt}\hbox{\proofbox}\endtrivlist}
+%
+\newenvironment{proof*}
+  {\proof}
+  {\endtrivlist}
+
+
+\renewcommand\theequation{\@arabic\c@equation}

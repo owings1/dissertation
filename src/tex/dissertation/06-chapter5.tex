@@ -1,0 +1,438 @@
+%\documentclass[12pt]{article}
+
+
+%\usepackage{../Diss}
+%\doublespacing
+
+%\begin{document}
+
+%\author{}
+%\title{Chapter 5\ \\ \ \\ Further Issues}
+%\date{}
+%\maketitle
+
+This chapter briefly surveys a few further expansions of the \GO\ system, as well as possible further applications. \S\ref{quantification} gives a full first-order semantics. \S\ref{atomless} considers the \GO\ system in light of the rejection of mereological atomism. For this, \S\ref{goFour} develops a 4-valued system. 
+
+\section{Quantification}\label{quantification}
+
+Here we expand our propositional language \GO\ to a full first-order language with quantification. 
+
+We add to the syntax:
+
+\begin{itemize}
+\item A set of predicate symbols of any arity $n \in\mathbb{N}$ where $n>0$, \\ $\mathcal{P}=\{F^n_1,F^n_2,\dots,G^n_1,G^n_2,\dots,H^n_1,H^n_2,\dots\}$
+\item A set of constants $\mathcal{O}=\{a_1,b_2,\dots,b_1,b_2,\dots,c_1,c_2,\dots\}$
+\end{itemize}
+We also add special $k$-constants to $\mathcal{O}$ to ensure each object in the domain has a name.
+\vspace*{-14pt}
+\begin{singlespace}
+\begin{itemize}
+\item $k_d\in\mathcal{O}$, for each $d\in\mathcal{D}$. ($\mathcal{D}$ here is our domain of objects, defined below.)
+\item A set of variables $\mathcal{B}=\{x_1,x_2,\dots,y_1,y_2,\dots,z_1,z_2,\dots\}$
+\item New connectives $\forall,\exists\in\mathcal{C}$
+\item New atomic formulas:
+	\begin{enumerate}[(a)]
+	\item If $t\in\mathcal{O}$ or $t\in\mathcal{B}$, then $t$ is a term.
+	\item If $t_1,\dots,t_n$ are terms and $F^n$ an $n$-ary predicate then $F^nt_1,\dots,t_n\in\mathcal{A}$
+	\item If $A$ is a formula, then $\forall xA$ and $\exists xA\in\mathcal{S}$
+	\end{enumerate}
+\end{itemize}
+\end{singlespace}
+\noindent A model $\mathfrak{M}$ comprises the following:
+\vspace*{-14pt}
+\begin{singlespace}
+\begin{itemize}
+\item A non-empty domain of objects, $\mathcal{D}$
+\item Our interpretation function \MCnu\, which we augment in the following way:
+\begin{enumerate}[(a)]
+\item For each $a\in\mathcal{O}$, for some $d\in\mathcal{D}$, $\MCnu(a)=d$.
+\item The following constraint applies: For each $k$-constant $k_d\in\mathcal{O}$, $\MCnu(k_d)=d$.
+
+\bigskip
+
+For each $n$-place predicate $P^n$:
+\item $\MCnu^+(P^n)\subseteq\mathcal{D}^n$
+\item $\MCnu^-(P^n)\subseteq\mathcal{D}^n$
+\item The following constraint applies: $\MCnu^+(P^n)\cup\MCnu^-(P^n)=\emptyset$.
+\end{enumerate}
+
+\item Truth conditions for closed atomics:
+
+\begin{enumerate}[(a)]
+\item $\MCnu(P^na_1,\dots,a_n)=1$ iff $\langle\MCnu(a_1),\dots,\MCnu(a_n)\rangle\in\MCnu^+(P^n)$
+\item $\MCnu(P^na_1,\dots,a_n)=0$ iff $\langle\MCnu(a_1),\dots,\MCnu(a_n)\rangle\in\MCnu^-(P^n)$
+\item $\MCnu(P^na_1,\dots,a_n)=\oneHalf$ iff $\langle\MCnu(a_1),\dots,\MCnu(a_n)\rangle\notin\MCnu^+(P^n)\cup\MCnu^-(P^n)$
+\end{enumerate}
+
+\item Truth conditions for quantifiers\footnote{$A(c/x)$ is the formula resulting from replacing $c$ for each free occurrence of $x$ in $A$.}:
+
+\begin{enumerate}[(a)]
+\item $\MCnu(\forall xA)=1$ iff for all $d\in\mathcal{D}$, $\MCnu(A(k_d/x))=1$, else $\MCnu(\forall xA)=0$
+\item $\MCnu(\exists xA)=1$ iff for some $d\in\mathcal{D}$, $\MCnu(A(k_d/x))=1$, else $\MCnu(\exists xA)=0$
+\end{enumerate}
+
+\item Our conditions for $\vee, \wedge, \neg$ are the same as before. Satisfaction and semantic consequence are defined similarly.
+
+\end{itemize}
+\end{singlespace}
+\noindent Similar to the treatment of conjunction and disjunction, we have it that no quantified sentence nor its negation gets value $\oneHalf$. This gives us the following lemmas:
+\vspace*{-12pt}
+\begin{singlespace}
+	\begin{lem}\label{ul1}
+	If $\Val{\forall xA}\neq 1$ then $\MCnu(\forall xA)=0$.
+	\end{lem}
+	\begin{lem}\label{ul2}
+	If $\Val{\neg\forall xA}\neq 1$ then $\MCnu(\neg\forall xA)=0$.
+	\end{lem}
+	\begin{lem}\label{el1}
+	If $\Val{\exists xA}\neq 1$ then $\MCnu(\exists xA)=0$.
+	\end{lem}
+	\begin{lem}\label{el2}
+	If $\Val{\neg\exists xA}\neq 1$ then $\MCnu(\neg\exists xA)=0$.
+	\end{lem}
+\end{singlespace}
+
+\noindent Many classical inferences hold, for instance:
+
+\[\forall x(Px\supset Qx), \forall x(Qx\supset Sx)\vdash\forall x(Px\supset Sx)\]
+\[B\vdash\forall xA\supset\exists xA\]
+
+\begin{singlespace}
+\begin{proof}
+By reductio. Suppose $\Val{\forall xA\supset\exists x A}\neq 1$. By Lemma \ref{ul1}, $\MCnu(\forall xA\supset\exists x A)=0$. Thus $\MCnu(\neg\forall xA\vee\exists xA)=0$. Hence $\Val{\neg\forall xA}\neq 1$ and $\Val{\exists xA}\neq 1$. By Lemmas \ref{ul2} and \ref{el1}, $\MCnu(\neg\forall xA)=0=\MCnu(\exists xA)$. Thus $\Val{\forall xA}=1$. So, for all $d\in\mathcal{D}$, $\Val{A(k_d/x)}=1$. But since, $\MCnu(\exists xA)=0$, there is no $d\in\mathcal{D}$ such that $\Val{A(k_d/x)}=1$. Since our domain is non-empty, a contradiction follows. Thus for all $\MCnu$, $\Val{\forall xA\supset\exists x A}=1$. Thus $\proves{B}{\forall xA\supset\exists xA}$.
+\end{proof}
+\end{singlespace}
+\noindent The following hold, where $C$ is any closed formula.
+
+\begin{singlespace}
+\[\forall xC\vdash C\]
+\begin{proof}
+Suppose $\MCnu(\forall xC)=1$. Thus $\MCnu(C(k_d/x))=1$ for any $d\in\mathcal{D}$. Since $C$ is closed, there are no unbound occurrences of $x$. Thus $\MCnu(C(k_d/x))=\MCnu(C)$ for all $d\in\mathcal{D}$. Thus $\MCnu(C)=1=\MCnu(\forall xC)$. A similar proof follows for the others.
+\end{proof}
+\[C\vdash\forall xC\]
+\[\exists xC\vdash C\]
+\[C\vdash\exists xC\]
+\end{singlespace}
+
+\noindent Restricted generality inferences such as the following hold:
+
+\[\proves{Fa, \forall x(Fx\supset Gx)}{Ga}\]
+
+\noindent We do not have the classical bi-entailment of the quantifiers:
+
+\[\neg\exists x\neg A\nvdash\forall xA\]
+
+\noindent We give a countermodel as follows. Take $F^1x$ for $A$. Let:
+
+\begin{singlespace}
+$$\mathcal{D}=\{\alpha,\beta\}$$
+$$\MCnu^+(F^1)=\{\alpha\}$$
+$$\MCnu^-(F^1)=\emptyset$$
+\end{singlespace}
+
+\noindent Thus:
+
+\begin{singlespace}
+\begin{longtable}{c}
+\begin{tabular}{ll}
+$\MCnu(\neg F^1_{k_\alpha})=0$ & $\MCnu(F^1_{k_\alpha})=1$\\
+$\MCnu(\neg F^1_{k_\beta})=\oneHalf$ & $\MCnu(F^1_{k_\beta})=\oneHalf$\\
+$\MCnu(\exists x\neg F^1x)=0$ & $\MCnu(\forall xF^1x)=0 $\\
+$\MCnu(\neg\exists x\neg F^1x)=1$ & 
+\end{tabular}
+\end{longtable}
+\end{singlespace}
+
+\noindent This is to be expected, given our treatment of the quantifiers as generalized conjunction and disjunction, with conjunction and disjunction interpreted analogously to our $\wedge$ and $\vee$. We should expect these to result from features of \GO\ analogous to those features that brought about a failure of some classical DeMorgan transformations. We might also expect to maintain the other direction:
+
+\vspace*{-14pt}
+\[\forall xA\vdash\neg\exists x\neg A\]
+\begin{proof}
+Assume $\MCnu(\forall xA)=1$. Thus for all $d\in\mathcal{D}$, $\MCnu(A(k_d/x))=1$. Hence for all $d\in\mathcal{D}$, $\MCnu(\neg A(k_d/x))=0$. Thus $\MCnu(\exists x\neg A)=0$, and hence, $\MCnu(\neg\exists x\neg A)=1$.
+\end{proof}
+
+It follows by a similar counterexample that we do not have straightforward interdefinability of the quantifiers in the standard way:
+
+\begin{quote}
+It is not that case that for any sentence $A$, $\MCnu(\forall xA)=\MCnu(\neg\exists x\neg A)$.
+\end{quote}
+
+\noindent
+
+\section{What if there are no atoms?}\label{atomless}
+
+Throughout we have assumed that some form of atomism is necessary for the interpretation of \GO; specifically, that there is a fact of the matter as to which sentences or proposition are genuinely atomic. Given the motivation that logical principles can be subject to minimal revision for reasons that are `extra-logical' (metaphysical, or perhaps physical reasons), one wonders what becomes of the system if, for some reason or other, one abandons the commitment to atomism.
+
+It might certainly be the case that the world does consist of mereological atoms; that there is a bottom level at which the tiniest particles that compose everything in world themselves contain no proper parts, and cannot themselves be divided. However, this is a substantive assumption about the true makeup of the physical world, and it is by no means certain. Schaffer \citeyear{Schaffer:03}, for instance, presents a compelling case for thinking that the epistemic possibility of infinite descent is not only an open question, but that there is indeed no evidence for the existence of a `fundamental' level.
+
+Toward the goal of making his account suitable for a broad range of scientific theories, Armstrong considers the doxastic possibility that the world contains no simple individuals, no `genuine atoms'. If this were the case, it appears on the surface that combinatorialism is doomed, since it explicitly assumes that there are genuinely atomic individuals and properties from which the combinatorial principle constructs possible worlds. 
+
+A potential solution that Armstrong considers is that, even if the world contains no genuine atoms, it still might contain \emph{relative} atoms. The idea here is that any mereological level can be taken as `relatively' atomic.
+
+An individual at a mereological level $l$ is an $l$-relative atom if it is `wholly distinct' from every other individual at level $l$. An individual is wholly distinct from another if the two share no individual as a part. A similar notion of distinctness applies for universals, where, as before in Chapter 3, instead of `part' in the mereological sense, a universal is wholly distinct from another if the two have no `constituent' in common. 
+
+If the world does contain genuine atoms, then there is a fundamental level $l_0$ such that no individual at $l_0$ has a proper part. In this case, an $l_0$-relative atom is a genuine atom. If, however, there is no fundamental level, Armstrong's suggestion is that, at any given level $l$, the $l$-relative atoms generates a set of possible worlds, and at each lower level, a new set of worlds is revealed. If the world is infinitely divisible, then this process would continue ad infinitum. 
+
+This proposal raises an immediate question: Why atomism? If there aren't any genuine atoms, then what reason is there to maintain an atomistic framework? One answer is that a combinatorial framework in the context of atomlessness preserves the structure reflected in the principle of Hume Distinctness. Even if two distinct objects are infinitely divisible, they remain logically distinct, and so the mutual compatibility of the `relative' recombinations is guaranteed by the condition that the individuals and universals be wholly distinct. 
+
+Perhaps the most straightforward picture of an infinite descent is one that is stratified into well-organized levels. That is, the properties of entities at each level supervene on properties of entities at the level below it, whose properties are determined by those of the things below it, and so forth. Without speaking of supervenience, we might instead say that, on this picture, the \emph{logic of things} remains the same throughout all levels of descent. 
+
+One notable feature of this picture of infinite descent is that there seems to be no non-arbitrary way to distinguish any level as more or less ``fundamental'' as another. As Schaffer argues, for any supposed ontologically privileged cut-off level $l_n$, since $l_{n-1}$ provides a supervenience base for $l$ and entities at $l$ are composed of those at $l_{n-1}$, $l_{n-1}$ provides a supervenience base for all levels above $l$ \citeyear[p. 507]{Schaffer:03}. This poses a problem for philosophical theses such as physicalism, which seem to presuppose that there is a fundamental level, and upon whose proponents it is incumbent to identify such a privileged base.
+
+In the \GO\ system, determinacy arises as a matter of form.  While an atomic sentence $p$ may be indeterminate, each of its combinations (e.g., $p\wedge q$) is determinate. The result is a strict logical line between literal\footnote{Literals are standardly defined as atomics or negated atomics. Here we mean ``literals'' to include any sentence featuring just an atomic sentence and any number of negation symbols, since if $p$ is indeterminate, so too are $\neg p$, $\neg \neg p$, $\neg \neg\neg p$, and so forth.} and complex sentences. One can think of this general idea of a ``logical line'' as a result of determinacy arising at a particular level of logical complexity, and remaining at all higher levels. For the \GO\ logic, this level is directly above the literal level.
+
+However, one might hold the view that, while determinacy arises as a matter of form, it does so at a higher level of complexity. Given an indeterminate atomic sentence $p$, then, one of its combinations $p \wedge q$ is also indeterminate, but at some level of complexity, say $(p \wedge q) \wedge r$, determinacy arises. For disjunction this might be either value $1$ or $0$, while for conjunction it will inevitably lead to $0$.
+
+What sort of philosophical view might such a logic interpret? A natural focus here is a mereological view according to which the world is stratified into levels. Thus far, the \GO\ logic restricts indeterminacy to the lowest level, but prevents these \emph{gaps} from percolating upward, such that the determinacy of any combination is unaffected. One might, however, hold that, though gaps do not percolate up \emph{all the way}, indeterminacy does continue to some level higher than atomics.
+
+A simplified example of such a view holds that indeterminacy occurs at the quantum level, and this in turn allows indeterminacy to occur all the way up to, say, the chemical level, but at all levels beyond (the biological, sociological, etc.) everything is determinate. There is an intuitive appeal to this idea, reflected in the commonsense view that at the macro level, things behave determinately, even if what goes on at the most microscopic level is indeterminate; that the logic of all but perhaps the tiniest esoteric particles is bivalent and is not held hostage to quantum considerations.
+
+There are several ways one might expand the \GO\ logic to model the continuation of indeterminacy to higher levels. Here we briefly consider an expansion of \GO\ to a 4-valued logic, \GoFour, which allows for indeterminacy at one level higher than literals. 
+
+\section{$\GO^4$}\label{goFour}
+
+Keeping the syntax of \GO, the semantics for \GoFour\ expands our set of values with an additional indeterminate (i.e. undesignated) value. 
+
+\[ \Values = \set{ 0, \oneThird, \twoThirds, 1} \]
+
+\noindent Logical consequence, as before, is defined in the usual way. The truth tables expand to accommodate the additional semantic value.
+
+\begin{singlespace}
+\begin{longtable}{c c c c c}
+		& & & & \\
+	\begin{tabular}{c | c}
+		$\neg$ &  \\
+		\cline{1-2} 
+		$ 0  $ 			& $ 1  $ \\ 
+		$ \oneThird $ 	& $ \oneThird $ \\
+		$ \twoThirds $ 	& $\twoThirds $ \\
+		$ 1  $ 			& $ 0  $ \\
+	\end{tabular} 
+		& & 
+	\begin{tabular}{c | c c c c}
+		$\wedge$ 	& $ 0  $	& $ \oneThird $ & $ \twoThirds $ & $ 1  $ \\
+		\cline{1-5} 
+		$ 0  $ 		& $ 0  $ 	& $ 0  $        & $ 0 $ 	& $ 0 $ \\
+		$ \oneThird $ 	& $ 0  $ 	& $ 0  $ 	& $ 0 $		& $ 0  $ \\
+		$ \twoThirds $	& $ 0  $	& $ 0  $ 	& $ \oneThird $	& $ \oneThird  $ \\
+		$ 1  $ 		& $ 0  $ 	& $ 0  $ 	& $ \oneThird $	& $ 1  $ \\
+	\end{tabular}
+	& & 
+	\begin{tabular}{c | c c c c}
+		$\vee$ 		& $ 0  $		& $ \oneThird $ & $ \twoThirds $ & $ 1  $ \\
+		\cline{1-5} 
+		$ 0  $ 		& $ 0  $ 		& $ 0  $ 	& $ \oneThird $	& $ 1 $ \\
+		$ \oneThird $ 	& $ 0  $ 		& $ 0  $ 	& $ \oneThird $	& $ 1  $ \\
+		$ \twoThirds $	& $ \oneThird  $	& $ \oneThird $ & $ \oneThird $	& $ 1  $ \\
+		$ 1  $ 		& $ 1  $ 		& $ 1  $ 	& $ 1 $		& $ 1  $ \\
+	\end{tabular}
+\end{longtable}
+\end{singlespace}
+\noindent Using our functions $g$ and $c$, we keep our definitions for $ \wedge $ and $ \vee $ the same.
+\vspace*{-12pt}
+\begin{singlespace}
+	\begin{itemize}
+		\item[] $g(x) = \Min{x, 1-x} $
+		\item[] $c(x) = x - g(x) $
+		\item[] $\Val{A \wedge B} = \Min{ c(\Val{A}), c(\Val{B}) }$
+		\item[] $\Val{A \vee B} = \Max{ c(\Val{A}), c(\Val{B}) }$
+	\end{itemize}
+\end{singlespace}
+
+
+\noindent Negation behaves similar to before, toggling classical values while holding indeterminate values fixed.
+
+The binary connectives of \GoFour\ ``push'' toward classical values, though less immediately than the \GO\ connectives. As before, LEM fails, though now with an additional counterexample which counts the disjunction as indeterminate:
+
+    \[\notProves{B}{ A \vee \neg A}\]
+
+
+
+\noindent If $\Val{A} = \oneThird $, then as expected $ \Val{A \vee \neg A} = 0 $. When $\Val{A} = \twoThirds$ however, the disjunction is indeterminate, although less than \Val{A}, as $\Val{A \vee \neg A} = \oneThird$. As a result, at the next level of complexity, LEM still fails, and thus we lose \GO's restricted versions of LEM:
+
+
+    \[\notProves{C}{ (A \vee B) \vee \neg(A \vee B) }\]
+    \[\notProves{B}{ A \vee \neg(A \vee A) }\]
+
+
+\noindent The counterexamples here, however, assign the respective sentences value $0$, and so, as one would expect, determinacy now arises. As a result, this allows yet weaker restricted versions of LEM:
+
+
+
+    \[\proves{C}{ ((A \vee B) \vee \neg(A \vee B )) \vee \neg((A \vee B) \vee \neg(A \vee B)) } \]
+    \[\proves{B}{ ((A \vee A) \vee \neg((A \vee A) \vee (A \vee A))) } \]
+
+
+
+What of DeMorgan transformations? The results for standard DeMorgan inferences remain the same:
+
+
+    \begin{singlespace}
+
+	    \[\proves{ \neg A \wedge \neg B }{ \neg(A \vee B) } \]
+	    \[\proves{ \neg A \vee \neg B }{ \neg(A \wedge B) } \]
+	    \[\notProves{ \neg( A \vee B ) }{ \neg A \wedge \neg B } \]
+	    \[\notProves{ \neg( A \wedge B )}{ \neg A \vee \neg B }\]
+
+
+    \end{singlespace}
+
+
+\noindent As before, the failure of DeMorgan blocks the inference from the negation of an LEM instance to the failure of LNC:
+
+
+    \[\notProves{\neg(A \vee B)}{\neg A \wedge \neg B}\]
+
+
+
+\noindent As one would expect, though, the restricted \GO\ versions of distributive DeMorgan also fail: 
+
+
+\[\notProves{ \neg (( A \vee B) \vee (C \vee D) ) }{ \neg(A \vee B) \wedge \neg(C \vee D) }\]
+\[\notProves{ \neg ( (A \vee B) \wedge (C \vee D ) ) }{ \neg(A \vee B) \vee \neg(C \vee D ) }\]
+
+\noindent Replacing these are weaker versions:
+
+\begin{singlespace}
+
+	\[\neg( (A \vee B) \vee (C \vee D) \vee (E \vee F) \vee (G \vee H) ) \vdash \]
+	\[\neg( (A \vee B) \vee (C \vee D) ) \wedge \neg( (E \vee F) \vee (G \vee H) ) \]
+
+\bigskip
+
+\[\neg( ((A \vee B) \vee (C \vee D)) \wedge ((E \vee F) \vee (G \vee H)) ) \vdash\]
+\[\neg( (A \vee B) \vee (C \vee D) ) \vee \neg( (E \vee F) \vee (G \vee H) ) \]
+\end{singlespace}
+Though LNC still holds, the allowance for gaps in conjunctions brings the failure of \GO's stronger form of LNC:
+
+
+    \[\notProves{B}{\neg (A \wedge \neg A) }\]
+
+
+
+\noindent Counterexamples to this inference arise when $\Val{A} = \twoThirds$. Our replacement in this case is only slightly weaker:
+
+
+    \[\proves{B}{\neg((A \wedge A) \wedge \neg A)}\]
+
+
+
+We have, for every sentence $A$, a sentence that is true iff $A$ is gappy (i.e. iff $\Val{A} \in \set{\oneThird,\twoThirds} $ ):
+
+	\[\Gap A \coloneq \neg((A \vee A) \vee \neg A)\]
+	
+\noindent We also have one that is true iff $\Val{A} = \oneThird$ :
+
+	\[\GapLo A \coloneq \neg(A \vee \neg A)\]
+	
+\noindent Additionally there is a sentence that is true iff $\Val{A} = \twoThirds$ :
+
+	\[\GapHi A \coloneq \neg((A \vee \neg A) \vee \neg(A \vee \neg A))\]
+
+\noindent This expressive power does come at a slight cost, though, as we lose the interdefinability of $\wedge$ and $\vee$, and so take each as primitive. However, the advantages of the ability to isolate each value in the object language are most clear when it comes to conditionals. 
+
+Observe that under the standard definition of the material conditional $A \supset B $ as $\neg A \vee B$, its behavior is slightly atypical:
+
+\begin{singlespace}
+\begin{longtable}{ c }
+	\begin{tabular}{c | c c c c}
+		$\supset$ 		& $ 0  $			& $ \oneThird $ & $ \twoThirds $ & $ 1  $ \\
+		\cline{1-5} 
+		$ 0  $ 			& $ 1  $ 			& $ 1  $ 		& $ 1 $			& $ 1 $ \\
+		$ \oneThird $ 	& $ 0  $ 			& $ 0  $ 		& $ \oneThird $	& $ 1  $ \\
+		$ \twoThirds $	& $ \oneThird  $	& $ \oneThird $ & $ \oneThird $	& $ 1  $ \\
+		$ 1  $ 			& $ 0  $ 			& $ 0  $ 		& $ \oneThird $	& $ 1  $ \\
+	\end{tabular}
+\end{longtable}
+\end{singlespace}
+\noindent As such, it may be unintuitive to consider this as a conditional. Consider the case where $\Val{A} = \oneThird$ and $\Val{B} = 0$, and so $\Val{A \supset B} = 0$. This in itself is no surprise, as the situation is similar with values $.5$ and $0$ in \GO. What is counterintuitive is when the antecedent is strengthened to $\twoThirds$, the value of $A \supset B$ is also strengthened. 
+
+Note that modus ponens, modus tollens and transitivity hold:
+
+\[\proves{A, A\supset B}{B}\]
+\[\proves{\neg B, A\supset B}{\neg A}\]
+\[\proves{A\supset B, B\supset C}{A\supset C}\]
+	
+\noindent Although the anomalous $\supset$ does not seem to affect these important inferences, one might be inclined to look for a solution. From the outset, it is worth noting that, depending on the particular philosophical view with which one interprets this logic, it may be misleading to think of value $\twoThirds$ as \emph{stronger} than $\oneThird$ in any important sense. 
+
+A possible alteration is to return to \GO's original semantic clause for $\neg$, where $\Val{\neg A} = 1 - \Val{A}$. The resulting tables would be:
+
+\begin{singlespace}
+\begin{longtable}{ c c c c }
+	\begin{tabular}{c | c}
+		$\neg$ &  \\
+		\cline{1-2} 
+		$ 0  $ 			& $ 1  $ 		\\ 
+		$ \oneThird $ 	& $ \twoThirds $ \\
+		$ \twoThirds $ 	& $\oneThird $ 	\\
+		$ 1  $ 			& $ 0  $ \\
+	\end{tabular} 
+		& &
+	\begin{tabular}{c | c c c c}
+		$\supset$ 		& $ 0  $			& $ \oneThird $ & $ \twoThirds $ & $ 1  $ \\
+		\cline{1-5} 
+		$ 0  $ 			& $ 1  $ 			& $ 1  $ 		& $ 1 $			& $ 1 $ \\
+		$ \oneThird $ 	& $ \oneThird  $ 	& $ \oneThird  $ & $ \oneThird $	& $ 1  $ \\
+		$ \twoThirds $	& $ 0  $			& $ 0 $ 		& $ \oneThird $	& $ 1  $ \\
+		$ 1  $ 			& $ 0  $ 			& $ 0  $ 		& $ \oneThird $	& $ 1  $ \\
+	\end{tabular}
+\end{longtable}
+\end{singlespace}
+
+\noindent Either way, however, identity ($A \supset A$) and thereby equivalence ($A \equiv A$) fail, and so it remains a stretch to consider $\supset$ a conditional.
+
+Most importantly, however, given the ability to isolate each value, we can define a range of stronger, suitable conditionals, for which identity and equivalence hold, in the following ways:
+
+
+	\[A \arrow B \coloneq (A \supset B) \vee (( \GapLo A \wedge \GapLo B ) \vee (\GapHi A \wedge \GapHi B ))\]
+	\[A \Rightarrow B \coloneq (A \supset B) \vee ( \Gap A \wedge \GapHi B )\]
+	\[A \Rrightarrow B \coloneq (A \supset B) \vee ( \Gap A \wedge \Gap B )\]
+
+
+\noindent The resulting tables are as follows:
+
+\begin{singlespace}
+
+	\begin{longtable}{c c c c c}
+			& & & & \\
+		\begin{tabular}{c | c c c c}
+				$\arrow$ 		& $ 0  $			& $ \oneThird $ & $ \twoThirds $ & $ 1  $ \\
+				\cline{1-5} 
+				$ 0  $ 			& $ 1  $ 			& $ 1  $ 		& $ 1 $			& $ 1 $ \\
+				$ \oneThird $ 	& $ 0  $ 			& $ 1  $ 		& $ 0 $			& $ 1  $ \\
+				$ \twoThirds $	& $ 0  $			& $ 0  $ 		& $ 1 $			& $ 1  $ \\
+				$ 1  $ 			& $ 0  $ 			& $ 0  $ 		& $ 0 $			& $ 1  $ \\
+		\end{tabular}
+			& & 
+		\begin{tabular}{c | c c c c}
+				$\Rightarrow$ 	& $ 0  $			& $ \oneThird $ & $ \twoThirds $ & $ 1  $ \\
+				\cline{1-5} 
+				$ 0  $ 			& $ 1  $ 			& $ 1  $ 		& $ 1 $			& $ 1 $ \\
+				$ \oneThird $ 	& $ 0  $ 			& $ 1  $ 		& $ 1 $			& $ 1  $ \\
+				$ \twoThirds $	& $ 0  $			& $ 0  $ 		& $ 1 $			& $ 1  $ \\
+				$ 1  $ 			& $ 0  $ 			& $ 0  $ 		& $ 0 $			& $ 1  $ \\
+		\end{tabular}
+		& & 
+		\begin{tabular}{c | c c c c}
+				$\Rrightarrow$ 	& $ 0  $			& $ \oneThird $ & $ \twoThirds $ & $ 1  $ \\
+				\cline{1-5} 
+				$ 0  $ 			& $ 1  $ 			& $ 1  $ 		& $ 1 $			& $ 1 $ \\
+				$ \oneThird $ 	& $ 0  $ 			& $ 1  $ 		& $ 1 $			& $ 1  $ \\
+				$ \twoThirds $	& $ 0  $			& $ 1  $ 		& $ 1 $			& $ 1  $ \\
+				$ 1  $ 			& $ 0  $ 			& $ 0  $ 		& $ 0 $			& $ 1  $ \\
+		\end{tabular}
+	\end{longtable}
+
+\end{singlespace}
+
+\noindent In general, we can define any truth table which assigns only values $0$ or $1$.
+
+Schaffer's attack on physicalism relies on the inability of the physicalist to locate a non-arbitrary mereological level to serve as the fundamental base level. The defining thesis of physicalism is that the fundamental physical level is the privileged base whose existence and properties underwrites those of all the higher levels. If the picture of infinite descent is correct, however, then any level that the physicalist might choose will be underwritten by an infinite descent of lower levels. To privilege a higher level over a lower one, or to maintain that no level is privileged, is to abandon the physicalist program.
+
+Schaffer notes that there is one route the fundamentalist could take to block his conclusion. The resulting view holds that the fundamental level, though not mereologically simple, provides a supervenience base for all levels above it. The parts at this `fundamental' level, though they admit of decomposition, decompose is a `boring' sense, in that the properties of their parts supervene on the properties of the whole, and so on down. Schaffer notes that this sort of fundamentality is evidentially in the best shape, and ``metaphysically speaking, more palatable'' \cite[p. 510]{Schaffer:03}. 
+
+Besides a picture of `boring' descent, though, there is another way to take this general route to pick out a non-arbitrary base level. The interpretation for a \GO\ system affords a logical distinction between the fundamental level, which is determinate, and the `sub-fundamental' levels, which allow for indeterminacy. The three-valued \GO\ models an even cutoff at the fundamental level, while \GoFour\ models a stepped cutoff. Infinitely-valued cases are left for future research. Apart from supervenience, in a mereological application, the intermediate value models an indeterminate composition relation; similarly with sense-data and indeterminate representation.
+
+%\bibliographystyle{chicago}
+%\bibliography{../Diss}
+%\end{document}

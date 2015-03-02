@@ -1,0 +1,510 @@
+%\documentclass[12pt]{article}
+
+
+
+%\usepackage{../Diss}
+%\doublespacing
+
+\newcommand{\Base}{\ensuremath{\mathcal{B}}}
+\newcommand{\Inds}{\ensuremath{\mathcal{I}}}
+\newcommand{\Props}{\ensuremath{\mathcal{P}}}
+\newcommand{\Rels}{\ensuremath{\mathcal{R}}}
+\newcommand{\Univs}{\ensuremath{\mathcal{U}}}
+\newcommand{\Facts}{\ensuremath{\mathcal{F}}}
+%
+%		Counters
+%
+\newcounter{enumi_saved}
+%\setcounter{section}{-1}
+
+
+%\begin{document}
+
+%	\author{}
+%	\title{Chapter 3 \\ 
+%				\ \\
+%				\GO\ Modal: A Combinatorial Approach}
+%	\date{}
+%	\maketitle
+
+This chapter presents the modal extension of the \GO\ semantics, by way of Armstrong's combinatorialist analysis of possibility. \S\ref{metaphysicalNecessity} considers a combinatorialist approach to possibility detached from the thesis of naturalism. \S\ref{negativeFacts} discusses an Armstrongian interpretation of \GO, specifically with respect to negative states of affairs. \S\ref{goModal} presents the formal semantics, and  \S\ref{logicalFeaturesM} briefly highlights some significant logical features.
+\section{Introduction}
+
+Given the propositional \GO\ semantics, one naturally wonders what happens in a modal setting. Here we explore the \GoModal\ system in which the modal operators behave classically. This extends from the common quantifier approach to necessity and possibility as generalized conjunction and disjunction, respectively.
+
+As we have seen, \GO\ has a natural interpretation as a system for logical atomism. It is fitting, then, to look at the Combinatorialism of D. M. Armstrong, since it is a thoroughgoing logical atomist theory. Our interpretation of \GoModal\ will center around its philosophical implications on a combinatorialist framework.
+
+It should be emphasized, however that Armstrong's theory is not the only possible interpretation of \GoModal. This holds in two respects. First, one can have a combinatorialist view of possibility\textemdash or a certain type of possibility\textemdash that is divorced from central aspects of Armstrong's metaphysics. We remark on one broad approach to this in \S\ref{metaphysicalNecessity}. Second, one could develop a view where the points over which the modal operators range are not worlds produced from combinatorialist principles, but rather some other sort of thing. In order to develop a system neutral to some of these issues, as well as for the sake of simplicity, we restrict the formal semantics to the propositional case. First-order semantics are given in Chapter 5.
+
+\section{Combinatorialism}\label{combinatorialism}
+
+Taking the standard quantifier approach to possibility, the modal operators range over points, or `worlds'. The essential feature of a combinatorial account, though, is that these worlds are not taken as primitive a la \cite{Lewis1973}, but are ``built up'' from base constituents\textemdash in Armstrong's case, those of the actual world\textemdash according to one or several combinatorial principles. Here we follow Armstrong's \citeyear{Armstrong:89} presentation, not because it is the origin of the idea,\footnote{See \cite{Wittgenstein:61}, \cite{Cresswell:79}, and \cite{Skyrms:81}.} but because it is widely known and straightforward, and its metaphysical interpretation provides an intuitive picture that demonstrates combinatorialism's philosophical significance. As Armstrong himself points out, a combinatorial account of possibility is not essentially tied to his particular version of naturalism, or even to naturalism at all (p. 37). \S\ref{metaphysicalNecessity} will discuss an alternative approach to a combinatorialist account of possibility.  
+
+The stage is set with an ontology consisting of simple individuals, properties and relations. A `simple' individual is one with no proper parts, in the usual mereological sense. What kinds of things these individuals actually are is an empirical matter, one left for a total science. He indicates point-instants as potential candidates (so long as they can bear properties), but this is only to be thought of heuristically. 
+
+A simple property, similarly, is one that has no other property as a constituent. Here, `constituent' is a universal's analogue to a part, but it is some non-mereological relation. We can think of having a constituent in much the same way as having a part, though not identically.\footnote{This issue traces back to \cite{Leonard1930}. For a useful discussion see \cite{Rossberg2009}.} Armstrong's view is that properties and relations are universals, and that universals and simple individuals have no being apart from the states of affairs they enter into. This follows an essentially Tractarian line of thought, where simples are thought of as abstractions from the states of affairs of which they are constituents. The important combinatorial step, however, is from the notion of a state of affairs to that of a \emph{possible} state of affairs. These are introduced via the representation of states of affairs. 
+
+Assuming $a$ is $F$, this state of affairs is represented $Fa$, and so on in the usual way. Supposing $a$ is not $F$, $Fa$ is false, and so it does not represent a state affairs. However, it has the right \emph{form}, and so represents a \emph{possible} state of affairs\textemdash one that does not exist. The generalization of this is Armstrong's basic Combinatorial Principle:
+
+\begin{enumerate}
+\item[(CP)] ``The simple individuals, properties and relations may be combined in \emph{all} ways to yield possible atomic states of affairs, provided only that the form of atomic facts is respected'' \citeyear[p. 579]{Armstrong:89}.
+\end{enumerate}
+
+\noindent The principle (CP) allows us to generate a set of worlds from our base ontology. There are, however, some conditions on this principle which Armstrong adds. 
+
+We can formulate the general picture in the following way. Let an ontology $o=\tuple{\Inds,\Props,\Rels}$ consisting of:
+
+\begin{singlespace}
+\begin{itemize}
+	\item A set of individuals $\Inds=\set{a,b,c,\dots}$
+	\item A set of properties $\Props=\set{F,G,H,\dots}$
+	\item A set of $n$-adic relations $\Rels=\set{R^n,S^n,T^n,\dots}$ for $n>1$
+\end{itemize}
+\end{singlespace}
+\noindent Define a combination function $\Uplambda$ over ontologies:
+\[ \Uplambda\left(o\right) = \set{\Upphi\upalpha\st\Upphi\in\Props \mbox{ and } \upalpha\in\Inds} \cup \set{\Uptheta_n\upalpha_1\dots\upalpha_n\st\Uptheta\in\Rels \mbox{ and } \upalpha_1,\dots,\upalpha_n\in\Inds} \]
+
+\noindent The function $\Uplambda$ generates all atomic states of affairs, or `facts', available to a given ontology. A world $w$ with ontology $o_w$, then, is a non-empty subset \Facts\ of $\Uplambda\left(o_w\right)$ such that:
+
+\begin{singlespace}	
+	\begin{enumerate}
+		\item For each $\upalpha\in\Inds$ there is some $\Upphi\in\Props$ such that $\Upphi\upalpha\in\Facts$
+		\item For each $\Upphi\in\Props$ there is some $\upalpha\in\Inds$ such that $\Upphi\upalpha\in\Facts$
+		\item For each $\Uptheta^n\in\Rels$ there are some $\upalpha_1,\dots,\upalpha_n\in\Inds$ such that \\ $\Uptheta^n\upalpha_1\dots\upalpha_n\in\Facts$
+	\end{enumerate}
+\end{singlespace}
+\noindent Given a base world $\upbeta$, the set of possible worlds \Worlds\ contains all and only worlds in $\Uplambda\left(o_\upbeta\right)$, where to be a \emph{world}, it must meet the three constraints above. 
+
+The first condition requires that each individual have some non-relational property. This rules out so-called `propertyless' individuals. Armstrong considers individuals to be abstractions from the states of affairs they enter into. Thus an individual that does not enter into at least one fact simply does not exist. This view rejects \emph{Haecceitism}, the view that individuals have a unique `inner essence' distinct from their properties.
+
+The second and third conditions respectively ensure that each property and relation is instantiated. This prohibits uninstantiated, or \emph{alien} universals, and it is motivated by Armstrong's naturalist account of universals. The rejection of alien universals poses some difficulty, as some have argued that their conceivability undermines Armstrong's analysis of possibility.\footnote{See, for instance \cite{Schneider:01}.} In any case, there is a logical significance in the rejection of alien universals. Since Armstrong will allow for worlds that contain fewer universals than the actual world, but not more, such a `contracted' world $w_1$ will be `accessible' from the actual world, though there is some universal, say $F$, which it does not contain. The actual world, however, will not be accessible from $w_1$, since from its perspective $F$ is an alien universal. The result is an accessibility relation that is reflexive and transitive, but not symmetric. Thus the logic corresponds to the standard $\mathsf{S4}$. (More on `contracted' worlds below.)
+
+
+\section{Naturalism}\label{metaphysicalNecessity}
+As the principle (CP) is formulated, it yields a somewhat limited collection of worlds, since it requires each individual in the ontology to appear in each world (as well for property and relations). This is the set of so-called \emph{Wittgenstein} worlds. Armstrong proposes additions to the \Worlds\ to include those from \emph{contraction} and \emph{expansion}. Contraction allows worlds that contain a (non-empty) proper subset of the individuals in the base world, and expansion allows worlds that contain `more' individuals. Armstrong, following Skyrms, proposes these principles via a slight departure from strict combinatorialism, by appeal to analogy. \footnote{This appeal also requires the abandonment of \emph{Haecceitism} and the adoption of so-called weak anti-Haecceitism. For discussion, see \cite[pp. 580-4]{Armstrong:86}  .}
+
+We can see combinatorialism's connection to logical atomism in the following way. Suppose we did not require logical atomism for combinatorialism and we allowed any predicate, whether atomic or not, to yield a representation of an acceptable recombination.  Take it for granted that there are at least two objects $a$ and $b$, and one universal $F$, such that $Fa$ and $\neg Fb$. Thus, per the combinatorial principle and our hypothesis both $F$ and $\neg F$ are predicates available for recombination. Thus $Fa \wedge\neg Fa$ represents a possible state of affairs. Hence, only genuinely atomic facts are available for recombination.
+
+The restriction that the items available for recombination are genuinely \emph{atomic} seems to presuppose that there are such things as genuine atoms. Thus, combinatorialism without atomism cannot rule out these unwanted recombinations. This might not be an essential connection, however, and Armstrong does gives an `atomless' interpretation of combinatorialism that allows for so-called \emph{relative} atoms.\footnote{For further discussion, see Chapter 5.}
+
+For Armstrong, naturalism is the thesis that all that exists is the space-time world: there are no transcendent, or `other-worldly' entities. However, we might frame a general argument for combinatorialism irrespective of naturalism in the following way:
+
+\begin{enumerate}[(i)]
+\item\label{scienceNeeds} Science requires an account of possibility with a naturalistically respectable basis.
+\item\label{spaceTimeProvides} The space-time world, logical constructions therefrom, and idealizations thereof are naturalistically respectable.
+\item\label{combinatorialismIs} Combinatorialism provides an adequate account for scientific claims of possibility and necessity and is an idealization of or logical construction from the actual space-time world.
+\end{enumerate}
+
+The demand for an account of possibility is pronounced in a naturalistic theory like Armstrong's, which rejects the existence of transcendent entities like abstract primitive modalities or possible worlds. With respect to (\ref{spaceTimeProvides}), Armstrong is a fictionalist about possible worlds. These useful fictions account for modal truths in science, in much the same way that ideal gases are useful fictions which ground truths about actual gases. Combinatorialism's base, then, is as naturalistic as it gets, and so its constructed fictions must also be naturalistically respectable. 
+
+(\ref{scienceNeeds}), however, is not a naturalist thesis per se. The combinatorial worlds provide a scientifically respectable account of possibility, whether or not naturalism as a philosophical thesis is true. For providing a `respectable account', however, it is not sufficient that the base from which possible worlds are constructed are scientifically respectable. The account should further countenance a broad range of open scientific theories. Armstrong recognizes this when he considers whether there are no atoms, in essence treating the core assumption of logical atomism as an empirical hypothesis. 
+
+Thus a combinatorial theory should comport with future scientific discovery\textemdash not merely the discovery of new objects and properties, but also with broader changes in the theory of the structure of the space-time world. In this spirit it is natural to countenance scientific theories that allow for indeterminacy. But then what happens to our logical constructions from an indeterminate base? Combinatorialism is a hybrid logical-physical theory, and the \GO\ logic attempts to take this at face value. It models indeterminacy from scientific theories as occurring at the atomic level, while the determinacy of logic is reflected at the level of combination. 
+
+Suppose then that recalcitrant evidence comes from science that signals the failure of bivalence. What are the options for responding that do not simply discredit the results? 
+
+At minimum, to accept the evidence is to admit that a bivalent framework is inadequate for a true scientific theory. An extreme option, then, is to accept that science has refuted\textemdash and hence, \emph{can} refute\textemdash the Law of Excluded Middle, the very same law in every respect that was thought to hold for all reasoning in general. One thereby accepts the unequivocal failure of a putative logical truth. Logical `principles', then, are in every important respect no different from scientific hypotheses, and in this case the evidence shows that classical logic simply got it wrong.
+
+Perhaps this position is tenable, but it seems contrary to basic intuitions many hold about the nature and scope of logic. It implies that logic is subject to revision in a much more direct way than the usual Quinean picture suggests. Classical logic's central position in the web of belief is presumably not merely a result of our degree of confidence in its content (if logic has any content). Rather, logic's centrality is due to its totally general role in governing the acceptance and rejection of all propositions whatsoever in the web of belief. Subjecting logical principles to `direct' refutation from science to this extent does more than holism demands, effectively shifting logic's \emph{position} in the web to the edge.
+
+It is doubtful that this extreme position is sincerely adopted by many logicians, even diehard Quinean sympathizers. Logic, after all, should contain only principles that are certain. A tamer position holds that the inadequacy of a bivalent framework for science does not show that bivalence fails in logic. This is close to the view proposed here, but one must be careful how wide the cleavage between logic and science is drawn. There are certainly many applications of formal systems to scientific problems that in no way `threaten' logic. However, this is because a mere \emph{application} of logic only credits interpreting the `semantic' values as something strictly other than \emph{truth} values.\footnote{For further discussion, see Chapter 5.} An electronic `logic' circuit, for example, credits interpreting the values as stable voltage states, and the existence of three such states does not refute LEM. This is just as well, as this is not a scientific theory. 
+
+But this would undermine the original goal, as it is equivalent to rejecting the supposed evidence \emph{as} evidence. To automatically dismiss any putative scientific evidence that challenges bivalence is to discredit the evidence, which fails to meet our initial challenge. Further, to do so on \emph{principled} grounds seems to make logic completely immune to revision. This move would seem to suggest that scientific `truth' is completely separate from what logic studies. 
+
+The middle road suggested here is to countenance the possibility that genuine indeterminacy occurs at the basic empirical level, while maintaining logic's central position in the web of belief. Such an occurrence would doubtless require a revision of `logic proper', but would respect the intuition that logical principles are not wholly empirical principles, and they hold no matter what the domain. 
+
+This is the broader motivation for the \GOModal\ framework for combinatorialism. A more specific advantage is in relation to 'negative facts'.
+\section{Negative Facts}\label{negativeFacts}
+
+For Armstrong, every truth has a truthmaker.\footnote{See \citeyear[p. 150]{Armstrong:2000} and \citeyear[pp. 5, 19]{Armstrong2004}.} An atomic proposition that $a$ is $F$ is made true by the fact $Fa$. But what about the proposition that $a$ is \emph{not} $F$? Supposing it is true, what makes it so? It cannot be the fact $Fa$, since it does not exist. For Armstrong, negative atomic propositions are made true by `totality' facts, or what Russell \citeyear{Russell:18} calls \emph{general} facts. What makes it the case that $a$ is not $F$ is all of the atomic facts together with the total fact that these are \emph{all} the first-order facts.
+
+An alternative to admitting total facts is to admit first-order `negative' facts as truthmakers for negative atomic propositions.\footnote{For recent discussions on some advantages and difficulties of negative facts, see \cite{Molnar:2000}, \cite{Priest:2000}, \cite{Beall:2000}, \cite{Simons:2005}, \cite{Mumford:2005}, \cite{Cheyne:2006}, \cite{Parsons:2006} and Armstrong \citeyear{Armstrong:2000,Armstrong:2005,Armstrong:2006}. } However, Armstrong claims that Combinatorialism cannot admit negative facts. He says:
+
+\begin{quote}
+	Suppose we admit both $a$'s being $F$ and $a$'s not being $F$ as possible states of affairs. Our combinatorial scheme when the allow us to select \emph{both} these states of affairs \citeyear[p. 48]{Armstrong:89}.
+\end{quote}
+
+\noindent To avoid this, one might introduce additional constraints on our combinatorial principle in order to rule out out such `contradictory' combinations. This is problematic for Armstrong, however, given that he wishes to provide an analysis of possibility.
+
+\begin{quote}
+	[T]hen we are using in our statement of constraints that very notion of modality which it was our hope to analyse. For contradictory states of affairs would be the ones for which one state of affairs \emph{must} obtain and the other fail to obtain.
+\end{quote}
+
+\noindent Even apart from the attempt to analyze possibility, it is a common charge of an atomist-combinatorialist framework to eschew logical connections among atomic states of affairs. It may be noted, however, that Armstrong's conditions (1-3) on (CP), as well as his appeals to analogy for contraction and expansion, might already count as departures from strict analysis. One might argue that these principles can only be justified by appealing to a prior notion of possibility. 
+
+Allowing for indeterminacy within Armstrong's metaphysical framework does seem to require admitting negative facts, and along with it a commitment to an additional metaphysical constraint that rules out contradictory combinations. The non-existence of a truthmaker for $p$, together with a total fact, is not sufficient for the truth of $\neg p$. Indeed this is plausibly what the rejection of bivalence on scientific grounds must amount to for the truthmaker theorist. If we allow that science can give us reason to accept genuine indeterminacy, then we do not have a basis for the rejection of negative facts. A realism about scientific theories which countenances the failure of bivalence for scientific reasons presupposes that science is in the business of investigating negative facts.
+
+Indeed, Armstrong later sees totality facts as essentially negative facts \cite[p. 153]{Armstrong:2000}. One wonders, then, why he is so reluctant to admit them as corresponding to each positive fact. His answer is an appeal to parsimony: admitting negative facts for \emph{every} positive fact is just too ontologically indulgent. With the \GO\ logic, however, this worry dissipates to a large degree. As above, once negative facts are admitted for atomic propositions, no further negative facts are required for complexes. 
+
+Suppose an atomic proposition $p$ is true, and $q$ is gappy. Thus it follows:
+
+\begin{singlespace}
+\begin{enumerate}
+\item There is a truthmaker for $p$.
+\item There is no truthmaker for $q$.
+\item There is no truthmaker for $\neg q$.
+\end{enumerate}
+\end{singlespace}
+
+What is the status of $p \wedge q$? If we were to admit of the case where a conjunction is gappy, then we would have to admit of negative facts for their negations, and so on for every complex fact. But since the gappy case is ruled out by \GO, the absence of a truthmaker for either $p$ or $q$ suffices for the falsity of $p\wedge q$ and thus the truth of $\neg(p\wedge q)$. Thus the only domain for which one must posit negative facts is that which is the source of indeterminacy. And so Armstrong's original condition for conjunction remains intact, where $p \wedge q$ has a truthmaker just when each of $p$ and $q$ has a truthmaker. Similarly for disjunction.
+
+Thus, though not the original motivation for the \GO\ logic, the truthmaker theory yields some natural payoffs from the combinatorialist interpretation of the logic. With these in mind, I now turn to model-theoretic semantics of \GoModal. Chapter 4 develops a tableaux proof system with its soundness and completeness results.
+
+\section{\GoModal}\label{goModal}
+
+The formal semantics for \GoModal\ is as follows. The syntax is the standard syntax for \CPL, augmented with our modal connectives $\Box$ and $\Diam$:
+\vspace*{-12pt}
+\begin{singlespace}
+	\begin{itemize}
+		\item A set of atomic formulas $\Atomics = \set{ p_0, \dots, p_n, q_0, \dots, q_n }$
+		\item A set of unary connectives $\UnaryConnectives = \set{ \neg,\Box, \Diam }$
+		\item A set of binary connectives $\BinaryConnectives = \set{ \wedge, \vee, \supset, \equiv, \arrow, \biarrow }$
+		\item Let $ \Connectives = \UnaryConnectives \union \BinaryConnectives $
+		\item A set of punctuation marks $ \PunctMarks = \set{ ( , ) }$
+		\item A set of sentences \Sentences:
+		\begin{enumerate}[(a)]
+			\item $ \Atomics \subset \Sentences $.
+			\item If $ A \in \Sentences $ and $\varodot \in \UnaryConnectives $, then $ \varodot A \in \Sentences $.
+			\item If $ A $ and $ B $ are in $ \Sentences $ and $ \varodot \in \BinaryConnectives $, then $ (A \varodot B) \in \Sentences $.
+							\footnote{For readability, outer parentheses are dropped when no ambiguity results.}
+		\end{enumerate}
+	\end{itemize}
+\end{singlespace}
+\noindent We mark a division between unary and binary connectives solely for convenience for the Tableaux adequacy proofs in the next chapter.
+
+Our semantics includes a constant set of values, and we will make use of two arithmetic functions:
+\begin{singlespace}
+\begin{itemize}
+	\item A set of values $ \Values = \set{ 0, \oneHalf , 1 } $
+	\item Two convenient functions:
+	\begin{enumerate} 
+		\item $ g(x) = \Min{ x, 1 - x } $
+		\item $ c(x) = x - g(x) $
+	\end{enumerate} 
+\end{itemize}
+\end{singlespace}
+%
+\noindent As noted in Chapter 2, we can think of $g$ as the `distance' from a classical value: in this case, $0$ for $1$ and $0$, and $\oneHalf$ for $\oneHalf$. The function $c$ is our `classical cruncher' which subtracts the distance from the value.
+
+The propositional semantics formalize the presentation in Chapter 2. The semantics for the modal machinery resembles for the most part standard Kripke semantics. The difference, of course, comes in the clauses for the modal connectives.
+
+\begin{singlespace}
+A model $ \Model $ is a triple $ \tuple{ \Worlds, \Access, \val } $ where:
+
+\begin{itemize}
+	\item $ \Worlds $ is a non-empty set of worlds $ \set{ w_0, w_1, \dots, w_n } $
+	\item $ \Access : \Worlds \into \powerset(\Worlds) $. We abbreviate $ \sees{ w }{ w' } $ as $ \Sees{ w }{ w' } $. \Access\ is:
+	\begin{enumerate}[(a)]
+		\item \emph{Reflexive}: $ \Sees{ w }{ w } $ for all $ w \in \Worlds $
+		\item \emph{Transitive}: If $ \Sees{ w }{ w' } $ and $ \Sees{ w' }{ w'' }$ then $ \Sees{ w }{ w'' } $
+	\end{enumerate}
+	\item $ \val : \Sentences \times \Worlds \into \Values $. We abbreviate $ \valw{ A }{ w } $ as $ \Valw{ w }{ A } $. Lo:
+	\begin{enumerate}[(i)]
+		\item $ \Valw{ w }{ \neg A } 		= 1 - \Valw{ w }{ A } $
+		\item $ \Valw{ w }{ A \wedge B } 	= \Min{ c( \Valw{ w }{ A } ), c( \Valw{ w }{ B } ) } $
+		\item $ \Valw{ w }{ \Box A } 		= \Min{ c( \Valw{ w' }{ A } ) : \Sees{ w }{ w' } } ) $ 
+	\end{enumerate}
+	\item Defined connectives:
+	\begin{enumerate}
+		\item $ \Valw{ w }{ \Diam A } 		= \Valw{ w }{ \neg \Box \neg ( A \wedge A ) }$ 
+		\item $ \Valw{ w }{ A \vee B } 		= \Valw{ w }{ \neg ( \neg( A \wedge A ) \wedge \neg( B \wedge B ))) } $
+		\item $ \Valw{ w }{ A \supset B } 	= \Valw{ w }{ \neg A \vee B } $
+		\item $ \Valw{ w }{ A \equiv B } 	= \Valw{ w }{ (A \supset B) \wedge (B \supset A)} $
+		\item $ \Valw{ w }{ A \arrow B } = \Valw{ w }{ (A \supset B ) \vee (\neg(A\vee\neg A) \wedge \neg(B\vee\neg B)) } $
+		\item $ \Valw{ w }{ A \biarrow B } 	= \Valw{ w }{ (A \arrow B) \wedge (B \arrow A) } $
+	\end{enumerate}
+\end{itemize}
+\end{singlespace}
+%
+The conditions of reflexivity and transitivity on \Access\ are those of standard $\mathsf{S4}$ logic. Note the following equivalences for some of the defined connectives:
+
+%\begin{single
+\begin{itemize}
+	\item $ \Valw{ w }{ \Diam A }		= \Max{ c( \Valw{ w' }{ A } ): \Sees{ w }{ w' } } $
+	\item $ \Valw{ w }{ A \vee B } 		= \Max{ c( \Valw{ w }{ A } ), c( \Valw{ w }{ B } ) } $
+	\item $ \Valw{ w }{ A \arrow B } = c( \Max{ \Valw{ w }{ \neg A }, \Valw{ w }{ B }, g( \Valw{ w }{ A } ) + g( \Valw{ w }{ B } ) } ) $
+\end{itemize}
+%\end{singlespace}
+\noindent For $\Diam$ the equivalence is as one would expect, given its treatment as generalized disjunction. The equivalence for $\arrow$ reflects its definition in terms of $\supset$ disjoined with the sum of the distance from a classical value of the antecedent and consequent. 
+
+Logical consequence is defined in the standard way.
+
+\begin{definition}\label{implDef}
+$ \impl{ X }{ A } $ iff for all models \Model, for every world $ w \in \Worlds $, if $ \Valw{ w }{ B } = 1 $ for each $ B \in X $, then $ \Valw{ w }{ A } = 1 $.
+\end{definition}
+
+\noindent The semantics have it that the truth-functional connectives are interpreted at each world in accordance with the following tables:
+\begin{singlespace}
+\begin{longtable}{c c c c c}
+		& & & & \\
+	\begin{tabular}{c | c}
+		$\neg$ &  \\
+		\cline{1-2} 
+		$ 0  $ & $ 1  $ \\ 
+		$ \oneHalf $ & $ \oneHalf $ \\
+		$ 1  $ & $ 0  $ \\
+	\end{tabular} 
+		& & 
+	\begin{tabular}{c | c c c}
+		$\vee$ & $ 0  $ & $ \oneHalf $ & $ 1  $ \\
+		\cline{1-4} 
+		$ 0  $ & $ 0  $ & $ 0  $ & $ 1  $ \\
+		$ \oneHalf $ & $ 0  $ & $ 0  $ & $ 1  $ \\
+		$ 1  $ & $ 1  $ & $ 1  $ & $ 1  $ \\
+	\end{tabular}
+	& & 
+	\begin{tabular}{c | c c c}
+		$\wedge$ & $ 0  $ & $ \oneHalf $ & $ 1  $ \\
+		\cline{1-4} 
+		$ 0  $ & $ 0  $ & $ 0  $ & $ 0  $ \\
+		$ \oneHalf $ & $ 0  $ & $ 0  $ & $ 0  $ \\
+		$ 1  $ & $ 0  $ & $ 0  $ & $ 1  $ \\
+	\end{tabular}
+\end{longtable}
+
+\begin{longtable}{c c c}
+	\begin{tabular}{c | c c c}
+		$\supset$ & $ 0  $ & $ \oneHalf $ & $ 1  $ \\
+		\cline{1-4} 
+		$ 0  $ & $ 1  $ & $ 1  $ & $ 1  $ \\
+		$ \oneHalf $ & $ 0  $ & $ 0  $ & $ 1  $ \\
+		$ 1  $ & $ 0  $ & $ 0  $ & $ 1  $ \\
+	\end{tabular}
+	 & & 
+	\begin{tabular}{c | c c c}
+		$\equiv$ & $ 0 $ & $ \oneHalf $ & $ 1 $ \\
+		\cline{1-4} 
+		$ 0 $ & $ 1 $ & $ 0 $ & $ 0 $ \\
+		$ \oneHalf $ & $ 0 $ & $ 0 $ & $ 0 $ \\
+		$ 1 $ & $ 0 $ & $ 0 $ & $ 1 $ \\
+	\end{tabular}
+\end{longtable}
+
+\begin{longtable}{c c c}
+	\begin{tabular}{c | c c c}
+		$\arrow$ & $ 0  $ & $ \oneHalf $ & $ 1  $ \\
+		\cline{1-4} 
+		$ 0  $ & $ 1  $ & $ 1  $ & $ 1  $ \\
+		$ \oneHalf $ & $ 0  $ & $ 1  $ & $ 1  $ \\
+		$ 1  $ & $ 0  $ & $ 0  $ & $ 1  $ \\
+	\end{tabular}
+	 & & 
+	\begin{tabular}{c | c c c}
+		$\biarrow$ & $ 0  $ & $ \oneHalf $ & $ 1  $ \\
+		\cline{1-4} 
+		$ 0  $ & $ 1  $ & $ 0  $ & $ 0  $ \\
+		$ \oneHalf $ & $ 0  $ & $ 1  $ & $ 0  $ \\
+		$ 1  $ & $ 0  $ & $ 0  $ & $ 1  $ \\
+	\end{tabular}
+\end{longtable}
+\end{singlespace}
+\section{Logical Features}\label{logicalFeaturesM}
+
+
+\S\ref{inferencesM} gives many notable inferences, but a few should be mentioned here. As one would anticipate, given that $\Box$ and $\Diam$ are conceived in terms of generalized conjunction and disjunction, respectively, the characteristic rejection of certain DeMorgan inferences discussed in the previous chapter carry over from the propositional to the modal case. This manifests in a failure of the standard interdefinability of the modal connectives:
+
+\[\notProves{\neg\Diam\neg A}{\Box A}\]
+\[\notProves{\neg\Box\neg A}{\Diam A}\]
+
+\noindent Take a model where $A$ is gappy in all worlds. Thus $\neg A$ is gappy everywhere, and so $\Diam A$ is false, though obviously so too is $\Box A$. Similarly for the second case. 
+
+The other directions for the standard interdefinability do hold:
+
+\[\proves{\Diam A}{\neg\Box\neg A}\]
+\[\proves{\Box A}{\neg\Diam\neg A}\]
+As one would expect, with our \Ttrue\ operator (see Chapter 2), we can define a modal connective
+
+\[\GDiam A\Defined \Diam\Ttrue A \]
+
+\noindent For \GDiam, both directions of the standard definability hold:
+
+\[\GDiam A \dashv\vdash\neg\Box\neg A\]
+\[\Box A\dashv\vdash\neg\GDiam\neg A\]
+
+\noindent As with standard $\mathsf{S4}$, the so-called necessitation principle holds: If $\proves{B}{A}$ then $\proves{B}{\Box A}$.
+
+%Necessitation
+
+%Nested Modalities and S4.
+
+
+\subsection{Alternative Modal Semantics}
+
+In passing, one might consider an alternative approach to extended \GO\ to a modal system that defines the modal connectives exactly as in standard many-valued modal systems. 
+
+\begin{enumerate}
+	\item $ \Valw{ w }{ \Box A } 		= \Min{ \Valw{ w' }{ A } ) : \Sees{ w }{ w' } } ) $
+	\item $ \Valw{ w }{ \Diam A } 		= \Max{ \Valw{ w' }{ A } ) : \Sees{ w }{ w' } } ) $
+\end{enumerate}
+
+\noindent This approach countenances gaps for sentences with our modal connectives. Roughly, if $A$ is gappy at all accessible worlds, then so too will $\Diam A$ and $\Box A$. This gives us the standard interdefinability of the modal connectives:
+
+\[ \Diam A \Defined \neg \Box \neg A \]
+\[ \mbox{or} \]
+\[ \Box A \Defined \neg \Diam \neg A\]
+
+\noindent Given the motivation, though, this is unsatisfactory, as it countenances indeterminacy in purely `logical' combinations.
+
+\begin{comment}
+	DISCUSS: WHY S4?
+
+	One of the perennial objections to Armstrong's combinatorialism is that it rules out alien universals. A universal is alien with respect to a world if is not instantiated in that world. Since universals have no transcendent existence apart from their instantiations, an ``uninstantiated'' universal does not strictly exist. 
+
+	However, since the Armstrong worlds contain contracted worlds, there is a world $w_1$ ``accessible'' from the actual world $w_0$ where a universal $F$ is not-instantiated. Thus we speak of $F$ as alien with respect to $w_1$, though it is not alien with respect to $w_0$. Thus, $w_0$ is not accessible from $w_1$. The problem for combinatorialism is supposed to be that, since we can easily conceive of alien universals, they are possible. But Armstrong's account fails since it rules out alien universals. 
+
+	Besides noting the fact that the present account is neutral about the connection between conceivability and possibility, the response here is that there is no problem in taking alien universals as logically possible, or as metaphysically$_i$ possible, for some $i$ less specific than combinatorialism. For the objection to carry weight, however, one must assume that there is only one legitimate type of metaphysical possibility, and that the conceivability of alien universals represents a distinctively a \emph{metaphysical} possibility. 
+	
+	For a naturalist like Armstrong, the conceivability of alien universals is an intuition that must explained away. Remaining neutral toward the truth of naturalism, however, removes the burden of giving an analysis of possibility, and so the conceivability of alien universals is open to being accounted for by a broader notion of possibility. The suggestion here is that a combinatorial notion of possibility is 
+
+	We might say this. Combinatorialism in the spirit of Armstrong seeks to give the an account of nomological possibility by way of giving the constraints of logic on nomological possibility. This is different from logical possibility. All sorts of ``physical'' worlds are possible from the standpoint of logic alone. But once we have an ontology of a world\textemdash an actual world\textemdash there are certain minimal constraints put on by logic that determine what is possible. Given that the world consists of wholly independent entities, as per (L2), the resulting account is combinatorialism.
+	
+\end{comment}
+%\pagebreak
+\begin{singlespace}
+\section{Inferences}\label{inferencesM}
+
+\setcounter{enumi_saved}{1}
+
+\noindent \textbf{Conjunction / Disjunction}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumi_saved}}
+\item $ B\nvdash  A \vee  \neg A $\hfill\emph{ (LEM)}  
+\item $ C\vdash  (A \vee  B) \vee  \neg (A \vee  B) $\hfill\emph{ (LEM - Restricted)}  
+\item $ A \wedge  \neg A\vdash  B $\hfill\emph{ (LNC)}  
+\item $ B\vdash  \neg (A \wedge  \neg A) $\hfill\emph{ (LNC*)}  
+\item $ \neg (A \vee  \neg A)\nvdash  A \wedge  \neg A $\hfill\emph{ }  
+\item $ B\nvdash  (A \wedge  A) \vee  (\neg A \wedge  \neg A) $\hfill\emph{ }  
+\item $ B\nvdash  (A \vee  A) \vee  (\neg A \vee  \neg A) $\hfill\emph{ }  
+\item $ A \wedge  B\leftvdash\rightvdash  B \wedge  A $ \hfill\emph{ (Commutation - Conjunction)}  
+\item $ A \vee  B\leftvdash\rightvdash  B \vee  A $ \hfill\emph{ (Commutation - Disjunction)}  
+\item $ A \wedge  (B \wedge  C)\leftvdash\rightvdash  (A \wedge  B) \wedge  C $ \hfill\emph{ (Association - Conjunction)}  
+\item $ A \vee  (B \vee  C)\leftvdash\rightvdash  (A \vee  B) \vee  C $ \hfill\emph{ (Association - Disjunction)}  
+\item $ A\leftvdash\rightvdash  A \wedge  A $ \hfill\emph{ (Idempotence - Conjunction)}  
+\item $ A\leftvdash\rightvdash  A \vee  A $ \hfill\emph{ (Idempotence - Disjunction)}  
+\item $ A \wedge  (B \vee  C)\leftvdash\rightvdash  (A \wedge  B) \vee  (A \wedge  C) $ \hfill\emph{ (Distribution$_1$)}  
+\item $ A \vee  (B \wedge  C)\leftvdash\rightvdash  (A \vee  B) \wedge  (A \vee  C) $ \hfill\emph{ (Distribution$_2$)}  
+\item $ \{A \vee  B, \neg A \} \vdash  B $\hfill\emph{ (Disjunctive Syllogism)}  
+\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+
+\noindent \textbf{DeMorgan}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumi_saved}}
+\item $ \neg (A \vee  B)\nvdash  \neg A \wedge  \neg B $\hfill\emph{ }  
+\item $ \neg A \wedge  \neg B\vdash  \neg (A \vee  B) $\hfill\emph{ }  
+\item $ \neg (A \wedge  B)\nvdash  \neg A \vee  \neg B $\hfill\emph{ }  
+\item $ \neg A \vee  \neg B\vdash  \neg (A \wedge  B) $\hfill\emph{ }  
+\item $ \neg ((A \vee  B) \vee  (C \vee  D))\leftvdash\rightvdash  \neg (A \vee  B) \wedge  \neg (C \vee  D) $ \hfill\emph{ }  
+\item $ \neg ((A \vee  B) \wedge  (C \vee  D))\leftvdash\rightvdash  \neg (A \vee  B) \vee  \neg (C \vee  D) $ \hfill\emph{ }  
+\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+
+\noindent \textbf{Material Conditional}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumi_saved}}
+\item $ B\nvdash  A \supset  A $\hfill\emph{ (Identity)}  
+\item $ B\vdash  (A \wedge  A) \supset  A $\hfill\emph{ (Identity - Restricted)}  
+\item $ \{A, A \supset  B \} \vdash  B $\hfill\emph{ (Modus Ponens)}  
+\item $ C\vdash  (A \wedge  (A \supset  B)) \supset  B $\hfill\emph{ (Pseudo Modus Ponens)}  
+\item $ \{\neg B, A \supset  B \} \vdash  \neg A $\hfill\emph{ (Modus Tollens)}  
+\item $ C\vdash  (\neg B \wedge  (A \supset  B)) \supset  \neg A $\hfill\emph{ (Pseudo Modus Tollens)}  
+\item $ \{A \supset  B, B \supset  C \} \vdash  A \supset  C $\hfill\emph{ (Hypothetical Syllogism)}  
+\item $ A \supset  (A \supset  B)\leftvdash\rightvdash  A \supset  B $ \hfill\emph{ (Contraction)}  
+\item $ C\vdash  (A \supset  (A \supset  B)) \supset  (A \supset  B) $\hfill\emph{ (Pseudo Contraction)}  
+\item $ A \supset  B\leftvdash\rightvdash  \neg B \supset  \neg A $ \hfill\emph{ (Contraposition)}  
+\item $ C\vdash  (A \supset  B) \supset  (\neg B \supset  \neg A) $\hfill\emph{ (Pseudo Contraposition)}  
+\item $ A \supset  (B \supset  C)\leftvdash\rightvdash  (A \wedge  B) \supset  C $ \hfill\emph{ (Exportation)}  
+\item $ \neg A\vdash  A \supset  B $\hfill\emph{ }  
+\item $ \neg (A \supset  B)\nvdash  \neg B $\hfill\emph{ }  
+\item $ A\vdash  B \supset  A $\hfill\emph{ }  
+\item $ A \supset  B\vdash  (A \wedge  C) \supset  B $\hfill\emph{ }  
+\item $ (A \wedge  B) \supset  C\nvdash  (A \supset  C) \vee  (B \supset  C) $\hfill\emph{ }  
+\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+
+
+\noindent \textbf{Material Equivalence}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumi_saved}}
+\item $ B\nvdash  A \equiv  A $\hfill\emph{ }  
+\item $ D\nvdash  ((A \equiv  B) \vee  (A \equiv  C)) \vee  (B \equiv  C) $\hfill\emph{ }  
+\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+
+%\pagebreak
+
+\noindent \textbf{Conditional}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumi_saved}}
+\item $ B\vdash  A \rightarrow  A $\hfill\emph{ (Identity)}  
+\item $ B\vdash  (A \wedge  A) \rightarrow  A $\hfill\emph{ (Identity - Restricted)}  
+\item $ \{A, A \rightarrow  B \} \vdash  B $\hfill\emph{ (Modus Ponens)}  
+\item $ C\vdash  (A \wedge  (A \rightarrow  B)) \rightarrow  B $\hfill\emph{ (Pseudo Modus Ponens)}  
+\item $ \{\neg B, A \rightarrow  B \} \vdash  \neg A $\hfill\emph{ (Modus Tollens)}  
+\item $ C\vdash  (\neg B \wedge  (A \rightarrow  B)) \rightarrow  \neg A $\hfill\emph{ (Pseudo Modus Tollens)}  
+\item $ \{A \rightarrow  B, B \rightarrow  C \} \vdash  A \rightarrow  C $\hfill\emph{ (Hypothetical Syllogism)}  
+\item $ A \rightarrow  (A \rightarrow  B)\leftvdash\rightvdash  A \rightarrow  B $ \hfill\emph{ (Contraction)}  
+\item $ C\vdash  (A \rightarrow  (A \rightarrow  B)) \rightarrow  (A \rightarrow  B) $\hfill\emph{ (Pseudo Contraction)}  
+\item $ A \rightarrow  B\leftvdash\rightvdash  \neg B \rightarrow  \neg A $ \hfill\emph{ (Contraposition)}  
+\item $ C\vdash  (A \rightarrow  B) \rightarrow  (\neg B \rightarrow  \neg A) $\hfill\emph{ (Pseudo Contraposition)}  
+\item $ A \rightarrow  (B \rightarrow  C)\leftvdash\rightvdash  (A \wedge  B) \rightarrow  C $ \hfill\emph{ (Exportation)}  
+\item $ \neg A\vdash  A \rightarrow  B $\hfill\emph{ }  
+\item $ \neg (A \rightarrow  B)\nvdash  \neg B $\hfill\emph{ }  
+\item $ A\vdash  B \rightarrow  A $\hfill\emph{ }  
+\item $ A \rightarrow  B\vdash  (A \wedge  C) \rightarrow  B $\hfill\emph{ }  
+\item $ (A \wedge  B) \rightarrow  C\nvdash  (A \rightarrow  C) \vee  (B \rightarrow  C) $\hfill\emph{ }  
+\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+
+
+\noindent \textbf{Biconditional}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumi_saved}}
+\item $ B\vdash  A \leftrightarrow  A $\hfill\emph{ }  
+\item $ D\nvdash  ((A \leftrightarrow  B) \vee  (A \leftrightarrow  C)) \vee  (B \leftrightarrow  C) $\hfill\emph{ }  
+\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+
+%\pagebreak
+
+\noindent \textbf{Modal}
+
+\begin{enumerate}
+\setcounter{enumi}{\value{enumi_saved}}
+\item $ \Box A\vdash  \neg \Diamond \neg A $\hfill\emph{ }  
+\item $ \Diamond A\vdash  \neg \Box \neg A $\hfill\emph{ }  
+\item $ \neg \Diamond \neg A\nvdash  \Box A $\hfill\emph{ }  
+\item $ \neg \Box \neg A\nvdash  \Diamond A $\hfill\emph{ }  
+\item $ \Box A\leftvdash\rightvdash  \neg \Diamond \neg (A \wedge  A) $ \hfill\emph{ }  
+\item $ \Diamond A\leftvdash\rightvdash  \neg \Box \neg (A \wedge  A) $ \hfill\emph{ }  
+\item $ \Diamond A\leftvdash\rightvdash  \Diamond (A \wedge  A) $ \hfill\emph{ }  
+\item $ \Box A\leftvdash\rightvdash  \Box (A \wedge  A) $ \hfill\emph{ }  
+\item $ \Box A\vdash  A $\hfill\emph{ }  
+\item $ A\vdash  \Diamond A $\hfill\emph{ }  
+\item $ \Box \Box A\vdash  \Box A $\hfill\emph{ }  
+\item $ \Box A\vdash  \Box \Box A $\hfill\emph{ }  
+\item $ B\vdash  \Box A \rightarrow  \Diamond A $\hfill\emph{ }  
+\item $ B\vdash  \Box A \rightarrow  \Box \Box A $\hfill\emph{ }  
+\item $ \Diamond A\nvdash  \Box \Diamond A $\hfill\emph{ }  
+\item $ B\vdash  \Box A \rightarrow  \Box \Diamond A $\hfill\emph{ }  
+\item $ \Diamond (A \vee  B)\vdash  \Diamond A \vee  \Diamond B $\hfill\emph{ }  
+\item $ \Diamond (A \rightarrow  B)\vdash  \Box A \rightarrow  \Diamond B $\hfill\emph{ }  
+\item $ \Box \neg A\vdash  \Box (A \rightarrow  B) $\hfill\emph{ }  
+\item $ \Diamond A\nvdash  \Box \Diamond A $\hfill\emph{ }  
+\item $ \Box A\vdash  \Diamond \Box A $\hfill\emph{ }  
+\item $ \Diamond A\vdash  \Diamond \Diamond A $\hfill\emph{ }  
+\item $ \Box A\vdash  \Box \Box A $\hfill\emph{ }  
+\setcounter{enumi_saved}{\value{enumi}}
+\end{enumerate}
+\end{singlespace}
+%\pagebreak
+
+%\bibliographystyle{chicago}
+%\bibliography{../Diss}
+%\end{document}
