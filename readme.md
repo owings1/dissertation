@@ -1,6 +1,6 @@
 # Indeterminacy and Logical Atoms
 
-This repository contains the LaTeX source and PDF output of my 2012 dissertation in Philosophical Logic
+This repository contains the LaTeX source and PDF output of my 2011 dissertation in Philosophical Logic
 at the University of Connecticut.
 
 The LaTeX source files are included mainly for posterity's sake.
