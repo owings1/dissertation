@@ -2,8 +2,6 @@
 
 # Build script for Doug Owings' dissertation: Indeterminacy and Logical Atoms
 # 
-# This script has only been tested on mac OS 10.10.3 using texlive.
-#
 # texlive packages:
 #     texlive
 #     texlive-latex-extra
@@ -13,7 +11,12 @@
 #     texlive-bibtex-extra
 #     texlive-pictures
 
-
+if [ -z "$LOG_DIR" ]; then
+    LOG_DIR=log
+fi
+if [ -z "$BUILD_DIR" ]; then
+    BUILD_DIR=output
+fi
 sub_latex_draft() {
     latex -interaction=nonstopmode -halt-on-error -output-directory=log -draftmode "$1" > /dev/null &&
     echo -n '.'
@@ -30,12 +33,12 @@ sub_bibtex() {
 
 do_clean() {
     echo "[CLEAN]:"
-    rm -rfv log output
+    rm -rfv "$LOG_DIR" "$BUILD_DIR"
 }
 
 do_init() {
     echo "[INIT]:"
-    mkdir -pv log output
+    mkdir -pv "$LOG_DIR" "$BUILD_DIR"
 }
 
 do_latex_build_with_bib() {
@@ -54,12 +57,12 @@ do_latex_build_no_bib() {
 }
 
 do_post_build() {
-    mv log/*.pdf output
+    mv "$LOG_DIR"/*.pdf "$BUILD_DIR"
 }
 
 do_print_success() {
     echo -e "\n---------------------------------------" &&
-    echo -e "build succeeded\n\n`ls output/*.pdf`" &&
+    echo -e "build succeeded\n\n`ls $BUILD_DIR/*.pdf`" &&
     echo -e "---------------------------------------"
 }
 
