@@ -22,5 +22,5 @@ reference.
 
 For questions, contact [Doug Owings][2].
 
-[1]: https://bitbucket.org/owings1/dissertation/raw/master/output/dissertation.pdf
+[1]: https://raw.githubusercontent.com/owings1/dissertation/main/output/dissertation.pdf
 [2]: mailto:owings1@gmail.com
